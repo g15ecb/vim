@@ -1,5 +1,5 @@
 cd ~
-cd git clone git@github.com:gbarnett/vim-vundle.git .vim
+git clone git@github.com:gbarnett/vim-vundle.git .vim
 cd ~/.vim
 git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
 vim
