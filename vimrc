@@ -1,3 +1,26 @@
+" the basics
+set nocompatible
+filetype off " vundle requires this
+
+" Vundle
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+
+Bundle 'gmarik/vundle'
+
+" Bundles
+Bundle 'derekwyatt/vim-scala'
+Bundle 'mileszs/ack.vim'
+Bundle 'Rip-Rip/clang_complete'
+Bundle 'tpope/vim-commentary'
+Bundle 'Lokaltog/vim-easymotion'
+Bundle 'LaTeX-Box-Team/LaTeX-Box'
+Bundle 'sjbach/lusty'
+Bundle 'Lokaltog/vim-powerline'
+Bundle 'tsaleh/vim-supertab'
+Bundle 'SirVer/ultisnips'
+Bundle 'Lokaltog/TagHighlight'
+
 " vanilla gvim settings
 if has('gui_running')
     set guifont=Menlo\ for\ Powerline:h24
@@ -11,9 +34,6 @@ else
 endif
 
 " vanilla settings
-set nocompatible
-filetype off " vundle requires this
-
 set ruler "always show current positions along the bottom
 set hlsearch
 set hidden " lusty explorer
