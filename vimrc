@@ -22,6 +22,7 @@ Bundle 'SirVer/ultisnips'
 Bundle 'Lokaltog/TagHighlight'
 Bundle 'vim-ruby/vim-ruby'
 Bundle 'tpope/vim-endwise'
+Bundle 'alexrp/d.vim'
 
 " vanilla gvim settings
 if has('gui_running')
@@ -50,6 +51,8 @@ set incsearch
 set autoindent " just indent on your own!!!!
 set vb " visual bell because audible bell pisses me off
 "set ch=2 " modeline two lines high
+set nobackup
+set noswapfile
 
 " never go over 80 cols. 
 set tw=80
@@ -70,9 +73,9 @@ let mapleader=";" " beacuse it's easier to get to
 
 " some custom mappings
 nmap <leader>n :make<CR>
-nmap <leader>g :Gstatus<CR>
 nmap <leader>d :bd<CR>
 nmap <leader>c :close<CR>
+nmap <leader>w :w<CR>
 
 " spelling
 "set spell
@@ -124,3 +127,5 @@ let g:ackprg = 'ag --nogroup --nocolor --column'
 
 nmap <silent> <c-k> :wincmd k<CR>
 nmap <silent> <c-j> :wincmd j<CR>
+
+au BufWritePost *.d !rdmd % 
