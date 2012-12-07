@@ -20,6 +20,8 @@ Bundle 'Lokaltog/vim-powerline'
 Bundle 'tsaleh/vim-supertab'
 Bundle 'SirVer/ultisnips'
 Bundle 'Lokaltog/TagHighlight'
+Bundle 'vim-ruby/vim-ruby'
+Bundle 'tpope/vim-endwise'
 
 " vanilla gvim settings
 if has('gui_running')
