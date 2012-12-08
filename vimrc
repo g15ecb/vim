@@ -121,6 +121,7 @@ let g:Powerline_symbols = 'fancy'
 set completeopt-=preview
 
 let g:SuperTabDefaultCompletionType = 'context'
+let g:SuperTabContextDefaultCompletionType = "<c-x><c-o>"
 let g:SuperTabLongestHighlight = 1
 
 let g:ackprg = 'ag --nogroup --nocolor --column'
