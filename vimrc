@@ -17,12 +17,14 @@ Bundle 'Lokaltog/vim-easymotion'
 Bundle 'LaTeX-Box-Team/LaTeX-Box'
 Bundle 'sjbach/lusty'
 Bundle 'Lokaltog/vim-powerline'
-Bundle 'tsaleh/vim-supertab'
+" Bundle 'tsaleh/vim-supertab'
 Bundle 'SirVer/ultisnips'
 Bundle 'Lokaltog/TagHighlight'
 Bundle 'vim-ruby/vim-ruby'
 Bundle 'tpope/vim-endwise'
 Bundle 'alexrp/d.vim'
+Bundle 'tpope/vim-fugitive.git'
+Bundle 'Shougo/neocomplcache'
 
 " vanilla gvim settings
 if has('gui_running')
@@ -120,9 +122,9 @@ let g:Powerline_symbols = 'fancy'
 
 set completeopt-=preview
 
-let g:SuperTabDefaultCompletionType = 'context'
-let g:SuperTabContextDefaultCompletionType = "<c-x><c-o>"
-let g:SuperTabLongestHighlight = 1
+" let g:SuperTabDefaultCompletionType = 'context'
+" let g:SuperTabContextDefaultCompletionType = "<c-x><c-o>"
+" let g:SuperTabLongestHighlight = 1
 
 let g:ackprg = 'ag --nogroup --nocolor --column'
 
