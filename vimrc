@@ -23,8 +23,9 @@ Bundle 'Lokaltog/TagHighlight'
 Bundle 'vim-ruby/vim-ruby'
 Bundle 'tpope/vim-endwise'
 Bundle 'alexrp/d.vim'
-Bundle 'tpope/vim-fugitive.git'
+Bundle 'tpope/vim-fugitive'
 Bundle 'Shougo/neocomplcache'
+Bundle 'Shougo/neosnippet'
 
 " vanilla gvim settings
 if has('gui_running')
@@ -34,6 +35,7 @@ if has('gui_running')
     " Complete options (disable preview scratch window)
     set completeopt=menu,menuone,longest
     colorscheme macvim
+    au BufWritePost *.scala !scala % 
 else
     set t_Co=256 " needs a terminal capable of 256 colors
 endif
@@ -126,15 +128,40 @@ set completeopt-=preview
 " let g:SuperTabContextDefaultCompletionType = "<c-x><c-o>"
 " let g:SuperTabLongestHighlight = 1
 
+" make ack use ag
 let g:ackprg = 'ag --nogroup --nocolor --column'
 
 nmap <silent> <c-k> :wincmd k<CR>
 nmap <silent> <c-j> :wincmd j<CR>
 
+" compile and run d program on save
 au BufWritePost *.d !rdmd % 
 
-"ruby
-autocmd FileType ruby,eruby set omnifunc=rubycomplete#Complete
-autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
-autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
-autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
+" neocomplcache settings...
+" Disable AutoComplPop. Comment out this line if AutoComplPop is not installed.
+let g:acp_enableAtStartup = 0
+" Launches neocomplcache automatically on vim startup.
+let g:neocomplcache_enable_at_startup = 1
+" Use smartcase.
+let g:neocomplcache_enable_smart_case = 1
+" Use camel case completion.
+let g:neocomplcache_enable_camel_case_completion = 1
+" Use underscore completion.
+let g:neocomplcache_enable_underbar_completion = 1
+" Sets minimum char length of syntax keyword.
+let g:neocomplcache_min_syntax_length = 3
+" buffer file name pattern that locks neocomplcache. e.g. ku.vim or
+" fuzzyfinder 
+let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
+
+" Plugin key-mappings.
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+" SuperTab like snippets behavior.
+imap <expr><TAB> neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+
+" For snippet_complete marker.
+if has('conceal')
+    set conceallevel=2 concealcursor=i
+endif
