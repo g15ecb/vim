@@ -15,11 +15,11 @@ Bundle 'tpope/vim-commentary'
 Bundle 'Lokaltog/vim-easymotion'
 Bundle 'sjbach/lusty'
 Bundle 'Lokaltog/vim-powerline'
-Bundle 'tpope/vim-endwise'
 Bundle 'alexrp/d.vim'
 Bundle 'tpope/vim-fugitive'
 Bundle 'Shougo/neocomplcache'
 Bundle 'Shougo/neosnippet'
+Bundle 'jiangmiao/auto-pairs'
 
 " gvim settings
 if has('gui_running')
