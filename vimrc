@@ -20,6 +20,8 @@ Bundle 'tpope/vim-fugitive'
 Bundle 'Shougo/neocomplcache'
 Bundle 'Shougo/neosnippet'
 Bundle 'jiangmiao/auto-pairs'
+Bundle 'vim-ruby/vim-ruby.git'
+Bundle 'tpope/vim-endwise.git'
 
 " gvim settings
 if has('gui_running')
@@ -30,7 +32,7 @@ if has('gui_running')
     set completeopt=menu,menuone,longest
     colorscheme macvim
     " use scalac in gvim
-    au BufWritePost *.scala !scalac -verbose % 
+    au BufWritePost *.scala !scalac % 
 else
     set t_Co=256 " needs a terminal capable of 256 colors
 endif
@@ -107,11 +109,17 @@ if has("autocmd")
     \ endif 
 
     " compile and run d program on save
-    au BufWritePost *.d !rdmd % 
+    au BufWritePost *.d !rdmd -unittest % 
 endif
 
 " 3rd Party plugins -----------------------------------------------------------
 let g:Powerline_symbols = 'fancy'
+
+" ruby
+autocmd FileType ruby,eruby set omnifunc=rubycomplete#Complete
+autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
+autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
+autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1"
 
 " make ack use ag
 let g:ackprg = 'ag --nogroup --nocolor --column'
@@ -143,6 +151,12 @@ smap <expr><TAB> neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" 
 if has('conceal')
     set conceallevel=2 concealcursor=i
 endif
+
+if !exists('g:neocomplcache_omni_patterns')
+    let g:neocomplcache_omni_patterns = {}
+endif
+
+let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
 
 " END neocomplcache settings **************************************************
 
