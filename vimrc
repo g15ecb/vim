@@ -12,7 +12,6 @@ Bundle 'gmarik/vundle'
 Bundle 'derekwyatt/vim-scala'
 Bundle 'mileszs/ack.vim'
 Bundle 'tpope/vim-commentary'
-Bundle 'Lokaltog/vim-easymotion'
 Bundle 'sjbach/lusty'
 Bundle 'Lokaltog/vim-powerline'
 Bundle 'alexrp/d.vim'
@@ -20,8 +19,7 @@ Bundle 'tpope/vim-fugitive'
 Bundle 'Shougo/neocomplcache'
 Bundle 'Shougo/neosnippet'
 Bundle 'jiangmiao/auto-pairs'
-Bundle 'vim-ruby/vim-ruby.git'
-Bundle 'tpope/vim-endwise.git'
+Bundle 'scrooloose/syntastic'
 
 " gvim settings
 if has('gui_running')
@@ -152,9 +150,10 @@ if has('conceal')
     set conceallevel=2 concealcursor=i
 endif
 
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+
 if !exists('g:neocomplcache_omni_patterns')
     let g:neocomplcache_omni_patterns = {}
 endif
 
 " END neocomplcache settings **************************************************
-
