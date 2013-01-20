@@ -14,12 +14,13 @@ Bundle 'mileszs/ack.vim'
 Bundle 'tpope/vim-commentary'
 Bundle 'sjbach/lusty'
 Bundle 'Lokaltog/vim-powerline'
-Bundle 'alexrp/d.vim'
 Bundle 'tpope/vim-fugitive'
+Bundle 'scrooloose/syntastic'
+Bundle 'kien/rainbow_parentheses.vim'
+Bundle 'tpope/vim-surround'
 Bundle 'Shougo/neocomplcache'
 Bundle 'Shougo/neosnippet'
-Bundle 'jiangmiao/auto-pairs'
-Bundle 'scrooloose/syntastic'
+Bundle 'Rip-Rip/clang_complete'
 
 " gvim settings
 if has('gui_running')
@@ -113,12 +114,6 @@ endif
 " 3rd Party plugins -----------------------------------------------------------
 let g:Powerline_symbols = 'fancy'
 
-" ruby
-autocmd FileType ruby,eruby set omnifunc=rubycomplete#Complete
-autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
-autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
-autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1"
-
 " make ack use ag
 let g:ackprg = 'ag --nogroup --nocolor --column'
 
@@ -138,6 +133,8 @@ let g:neocomplcache_min_syntax_length = 3
 " buffer file name pattern that locks neocomplcache. e.g. ku.vim or
 " fuzzyfinder 
 let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
+
+" neosnippet
 " Plugin key-mappings.
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
 smap <C-k>     <Plug>(neosnippet_expand_or_jump)
@@ -150,10 +147,21 @@ if has('conceal')
     set conceallevel=2 concealcursor=i
 endif
 
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-
-if !exists('g:neocomplcache_omni_patterns')
-    let g:neocomplcache_omni_patterns = {}
+if !exists('g:neocomplcache_force_omni_patterns')
+    let g:neocomplcache_force_omni_patterns = {}
 endif
+let g:neocomplcache_force_overwrite_completefunc = 1
+let g:neocomplcache_force_omni_patterns.c =
+    \ '[^.[:digit:] *\t]\%(\.\|->\)'
+let g:neocomplcache_force_omni_patterns.cpp =
+    \ '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+let g:neocomplcache_force_omni_patterns.objc =
+    \ '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+let g:neocomplcache_force_omni_patterns.objcpp =
+    \ '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+let g:clang_complete_auto = 0
+let g:clang_auto_select = 0
+let g:clang_use_library = 1
 
 " END neocomplcache settings **************************************************
+
