@@ -21,6 +21,7 @@ Bundle 'tpope/vim-surround'
 Bundle 'Shougo/neocomplcache'
 Bundle 'Shougo/neosnippet'
 Bundle 'Rip-Rip/clang_complete'
+Bundle 'fsouza/go.vim'
 
 " gvim settings
 if has('gui_running')
@@ -147,6 +148,8 @@ if has('conceal')
     set conceallevel=2 concealcursor=i
 endif
 
+" the below config for clang_complete I got from:
+" http://stackoverflow.com/questions/12975098/using-neocomplcache-and-clang-complete
 if !exists('g:neocomplcache_force_omni_patterns')
     let g:neocomplcache_force_omni_patterns = {}
 endif
@@ -162,6 +165,11 @@ let g:neocomplcache_force_omni_patterns.objcpp =
 let g:clang_complete_auto = 0
 let g:clang_auto_select = 0
 let g:clang_use_library = 1
+
+" gocode
+autocmd FileType go setlocal omnifunc=gocomplete#Complete
+" the following is a guess!
+let g:neocomplcache_force_omni_patterns.go = '\h\w*.'
 
 " END neocomplcache settings **************************************************
 
