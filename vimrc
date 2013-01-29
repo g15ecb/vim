@@ -22,6 +22,7 @@ Bundle 'Shougo/neocomplcache'
 Bundle 'Shougo/neosnippet'
 Bundle 'Rip-Rip/clang_complete'
 Bundle 'fsouza/go.vim'
+Bundle 'johnsyweb/vim-makeshift'
 
 " gvim settings
 if has('gui_running')
@@ -46,7 +47,7 @@ set expandtab
 set shiftwidth=4
 set softtabstop=4
 set nu "show line numbers
-set so=8 " some vertical buffering of current buffer 
+set so=20 " some vertical buffering of current buffer 
 set ignorecase
 set incsearch
 set autoindent " just indent on your own!!!!
