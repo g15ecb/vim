@@ -119,6 +119,10 @@ let g:Powerline_symbols = 'fancy'
 " make ack use ag
 let g:ackprg = 'ag --nogroup --nocolor --column'
 
+" scons and python
+autocmd BufReadPre SConstruct set filetype=python
+autocmd BufReadPre SConscript set filetype=python
+
 " START neocomplcache settings ************************************************
 " Disable AutoComplPop. Comment out this line if AutoComplPop is not installed.
 let g:acp_enableAtStartup = 0
@@ -166,6 +170,8 @@ let g:neocomplcache_force_omni_patterns.objcpp =
 let g:clang_complete_auto = 0
 let g:clang_auto_select = 0
 let g:clang_use_library = 1
+
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 
 " gocode
 autocmd FileType go setlocal omnifunc=gocomplete#Complete
