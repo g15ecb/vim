@@ -23,6 +23,7 @@ Bundle 'Shougo/neosnippet'
 Bundle 'Rip-Rip/clang_complete'
 Bundle 'fsouza/go.vim'
 Bundle 'johnsyweb/vim-makeshift'
+Bundle 'vim-easymotion'
 
 " gvim settings
 if has('gui_running')
