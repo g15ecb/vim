@@ -16,14 +16,17 @@ Bundle 'sjbach/lusty'
 Bundle 'Lokaltog/vim-powerline'
 Bundle 'tpope/vim-fugitive'
 Bundle 'scrooloose/syntastic'
-Bundle 'kien/rainbow_parentheses.vim'
+" Bundle 'kien/rainbow_parentheses.vim'
 Bundle 'tpope/vim-surround'
 Bundle 'Shougo/neocomplcache'
 Bundle 'Shougo/neosnippet'
 Bundle 'Rip-Rip/clang_complete'
-Bundle 'fsouza/go.vim'
 Bundle 'johnsyweb/vim-makeshift'
-Bundle 'vim-easymotion'
+" Bundle 'vim-easymotion'
+Bundle 'elixir-lang/vim-elixir'
+Bundle 'oscarh/vimerl'
+Bundle 'JesseKPhillips/d.vim'
+"Bundle 'wincent/Command-T'
 
 " gvim settings
 if has('gui_running')
@@ -77,6 +80,8 @@ set completeopt-=preview " don't like it
 
 let mapleader=";" 
 " some custom mappings
+nmap <leader>a :Ack<CR>
+nmap <leader>s :Ack<SPACE>
 nmap <leader>n :make<CR>
 nmap <leader>d :bd<CR>
 nmap <leader>c :close<CR>
@@ -84,6 +89,11 @@ nmap <leader>w :w<CR>
 nmap <leader>q :q<CR>
 nmap <silent> <c-k> :wincmd k<CR>
 nmap <silent> <c-j> :wincmd j<CR>
+" k and j are movement for logical rather than hard lines, i.e.
+" they consider soft lines a line as well
+nmap k gk 
+nmap j gj 
+
 
 " jj as alias for esc in insert mode and jj for alias of c-c in command mode
 ino jj <esc> 
@@ -173,11 +183,6 @@ let g:clang_auto_select = 0
 let g:clang_use_library = 1
 
 autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-
-" gocode
-autocmd FileType go setlocal omnifunc=gocomplete#Complete
-" the following is a guess!
-let g:neocomplcache_force_omni_patterns.go = '\h\w*.'
 
 " END neocomplcache settings **************************************************
 
