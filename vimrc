@@ -89,15 +89,10 @@ nmap <leader>w :w<CR>
 nmap <leader>q :q<CR>
 nmap <silent> <c-k> :wincmd k<CR>
 nmap <silent> <c-j> :wincmd j<CR>
-" k and j are movement for logical rather than hard lines, i.e.
-" they consider soft lines a line as well
-nmap k gk 
-nmap j gj 
-
 
 " jj as alias for esc in insert mode and jj for alias of c-c in command mode
-ino jj <esc> 
-cno jj <c-c>
+"ino jj <esc> 
+"cno jj <c-c>
 
 
 " Clang (NB. need Vim with python support for libclang)
@@ -183,6 +178,8 @@ let g:clang_auto_select = 0
 let g:clang_use_library = 1
 
 autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+
+autocmd FileType csh setlocal autoindent
 
 " END neocomplcache settings **************************************************
 
