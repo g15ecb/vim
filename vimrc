@@ -10,7 +10,8 @@ Bundle 'gmarik/vundle'
 
 " Bundles
 Bundle 'mileszs/ack.vim'
-Bundle 'tpope/vim-commentary'
+"Bundle 'tpope/vim-commentary'
+Bundle 'scrooloose/nerdcommenter'
 Bundle 'Lokaltog/vim-powerline'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-surround'
@@ -19,20 +20,8 @@ Bundle 'Shougo/neosnippet'
 Bundle 'Rip-Rip/clang_complete'
 Bundle 'johnsyweb/vim-makeshift'
 Bundle 'kien/ctrlp.vim'
-
-" gvim settings
-if has('gui_running')
-    set guifont=Menlo\ for\ Powerline:h24
-    set guioptions-=T
-    set guioptions-=r
-    " Complete options (disable preview scratch window)
-    set completeopt=menu,menuone,longest
-    colorscheme macvim
-    " use scalac in gvim
-    au BufWritePost *.scala !scalac % 
-else
-    set t_Co=256 " needs a terminal capable of 256 colors
-endif
+Bundle 'kongo2002/fsharp-vim'
+Bundle 'benmills/vimux'
 
 " vanilla settings
 set ruler "always show current positions along the bottom
@@ -64,11 +53,13 @@ set ls=2
 set showcmd
 "set spell
 set spelllang=en_gb
-" plugins, etc.
-syntax on filetype plugin indent on filetype indent on
+syntax on 
+filetype plugin on 
+filetype indent on
 " Limit popup menu height
 set pumheight=15
-set completeopt-=preview " don't like it
+"set completeopt-=preview " don't like it
+
 
 let mapleader=";" 
 " some custom mappings
@@ -79,6 +70,9 @@ nmap <leader>d :bd<CR>
 nmap <leader>c :close<CR>
 nmap <leader>w :w<CR>
 nmap <leader>q :q<CR>
+nmap <leader>f :CtrlP<CR>
+nmap <leader>b :CtrlPBuffer<CR>
+nmap <leader>m :CtrlPMixed<CR>
 nmap <silent> <c-k> :wincmd k<CR>
 nmap <silent> <c-j> :wincmd j<CR>
 
@@ -110,6 +104,12 @@ if has("autocmd")
     au FileType python setlocal omnifunc=pythoncomplete#Complete
 
     au FileType cs setlocal autoindent
+
+    " got this from
+    " http://vim.wikia.com/wiki/Omnicomplete_-_Remove_Python_Pydoc_Preview_Window
+    " dimisses preview window automatically
+    " au CursorMovedI * if pumvisible() == 0|pclose|endif
+    " au InsertLeave * if pumvisible() == 0|pclose|endif
 endif
 
 " 3rd Party plugins -----------------------------------------------------------
