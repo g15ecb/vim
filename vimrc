@@ -9,24 +9,16 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 
 " Bundles
-Bundle 'derekwyatt/vim-scala'
 Bundle 'mileszs/ack.vim'
 Bundle 'tpope/vim-commentary'
-Bundle 'sjbach/lusty'
 Bundle 'Lokaltog/vim-powerline'
 Bundle 'tpope/vim-fugitive'
-Bundle 'scrooloose/syntastic'
-" Bundle 'kien/rainbow_parentheses.vim'
 Bundle 'tpope/vim-surround'
 Bundle 'Shougo/neocomplcache'
 Bundle 'Shougo/neosnippet'
 Bundle 'Rip-Rip/clang_complete'
 Bundle 'johnsyweb/vim-makeshift'
-" Bundle 'vim-easymotion'
-Bundle 'elixir-lang/vim-elixir'
-Bundle 'oscarh/vimerl'
-Bundle 'JesseKPhillips/d.vim'
-"Bundle 'wincent/Command-T'
+Bundle 'kien/ctrlp.vim'
 
 " gvim settings
 if has('gui_running')
@@ -115,8 +107,9 @@ if has("autocmd")
     \   exe "normal! g`\"" |
     \ endif 
 
-    " compile and run d program on save
-    au BufWritePost *.d !rdmd -unittest % 
+    au FileType python setlocal omnifunc=pythoncomplete#Complete
+
+    au FileType cs setlocal autoindent
 endif
 
 " 3rd Party plugins -----------------------------------------------------------
@@ -124,10 +117,6 @@ let g:Powerline_symbols = 'fancy'
 
 " make ack use ag
 let g:ackprg = 'ag --nogroup --nocolor --column'
-
-" scons and python
-autocmd BufReadPre SConstruct set filetype=python
-autocmd BufReadPre SConscript set filetype=python
 
 " START neocomplcache settings ************************************************
 " Disable AutoComplPop. Comment out this line if AutoComplPop is not installed.
@@ -177,9 +166,4 @@ let g:clang_complete_auto = 0
 let g:clang_auto_select = 0
 let g:clang_use_library = 1
 
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-
-autocmd FileType csh setlocal autoindent
-
 " END neocomplcache settings **************************************************
-
