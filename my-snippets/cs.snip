@@ -1,12 +1,11 @@
 
 snippet cw
-        System.Console.WriteLine(${0:TARGET})
+        System.Console.WriteLine(${1:#:name}); ${2:TARGET}
 
 snippet c-
         private class ${1:#:name} {
                 ${3:TARGET}
         }
-
 
 snippet c+
         public class ${1:#:name} {
@@ -101,3 +100,16 @@ snippet var
 
 snippet new
         var ${1:#:name} = new ${2:#:name}; ${3:TARGET}
+
+snippet assert
+        System.Diagnostics.Debug.Assert(#{1:#:name}); ${2:TARGET}
+
+snippet i+ 
+        public interface ${1:#:name} { 
+                ${2:TARGET}
+        }
+
+snippet i+t
+        public interface ${1:#:name}<${2:#:type}> { 
+                ${3:TARGET}
+        }
