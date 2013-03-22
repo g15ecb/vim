@@ -22,6 +22,13 @@ Bundle 'johnsyweb/vim-makeshift'
 Bundle 'kien/ctrlp.vim'
 Bundle 'kongo2002/fsharp-vim'
 Bundle 'benmills/vimux'
+Bundle 'scrooloose/syntastic'
+Bundle 'jimenezrick/vimerl'
+Bundle 'benmills/vimux'
+Bundle 'elixir-lang/vim-elixir'
+Bundle 'wlangstroth/vim-racket'
+Bundle 'NSinopoli/paredit.vim'
+Bundle 'vim-scripts/Rainbow-Parenthsis-Bundle'
 
 " vanilla settings
 set ruler "always show current positions along the bottom
@@ -58,14 +65,14 @@ filetype plugin on
 filetype indent on
 " Limit popup menu height
 set pumheight=15
-"set completeopt-=preview " don't like it
+set completeopt-=preview " don't like it
 
 
 let mapleader=";" 
 " some custom mappings
 nmap <leader>a :Ack<CR>
 nmap <leader>s :Ack<SPACE>
-nmap <leader>n :make<CR>
+nmap <leader>n :call RunVimTmuxCommand("rake")<CR>
 nmap <leader>d :bd<CR>
 nmap <leader>c :close<CR>
 nmap <leader>w :w<CR>
@@ -73,8 +80,14 @@ nmap <leader>q :q<CR>
 nmap <leader>f :CtrlP<CR>
 nmap <leader>b :CtrlPBuffer<CR>
 nmap <leader>m :CtrlPMixed<CR>
+nmap <leader>t :!python3.3 -m doctest %<CR>
 nmap <silent> <c-k> :wincmd k<CR>
 nmap <silent> <c-j> :wincmd j<CR>
+
+" Vimux bits...
+map <leader>vp :VimuxPromptCommand<CR>
+vmap <leader>e "vy :call VimuxRunCommand(@v . "\n", 0)<CR>
+nmap <leader>e vip<LocalLeader>vs<CR>
 
 " jj as alias for esc in insert mode and jj for alias of c-c in command mode
 "ino jj <esc> 
@@ -101,6 +114,7 @@ if has("autocmd")
     \   exe "normal! g`\"" |
     \ endif 
 
+    " omni funcs
     au FileType python setlocal omnifunc=pythoncomplete#Complete
 
     au FileType cs setlocal autoindent
@@ -113,7 +127,7 @@ if has("autocmd")
 endif
 
 " 3rd Party plugins -----------------------------------------------------------
-let g:Powerline_symbols = 'fancy'
+"let g:Powerline_symbols = 'fancy'
 
 " make ack use ag
 let g:ackprg = 'ag --nogroup --nocolor --column'
@@ -167,3 +181,15 @@ let g:clang_auto_select = 0
 let g:clang_use_library = 1
 
 " END neocomplcache settings **************************************************
+
+ " Prompt for a command to run
+   map <LocalLeader>vp :VimuxPromptCommand<CR>
+ "
+ "   " If text is selected, save it in the v buffer and send that buffer it to
+ "   tmux
+     vmap <LocalLeader>vs "vy :call VimuxRunCommand(@v . "\n", 0)<CR>
+ "
+ "     " Select current paragraph and send it to tmux
+       nmap <LocalLeader>vs vip<LocalLeader>vs<CR>
+
+let g:neosnippet#snippets_directory='~/.vim/my-snippets'
