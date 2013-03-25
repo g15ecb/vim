@@ -29,6 +29,9 @@ Bundle 'elixir-lang/vim-elixir'
 Bundle 'wlangstroth/vim-racket'
 Bundle 'NSinopoli/paredit.vim'
 Bundle 'vim-scripts/Rainbow-Parenthsis-Bundle'
+Bundle 'Shougo/vimproc'
+Bundle 'eagletmt/ghcmod-vim'
+Bundle 'ujihisa/neco-ghc'
 
 " vanilla settings
 set ruler "always show current positions along the bottom
@@ -115,6 +118,8 @@ if has("autocmd")
     \ endif 
 
     " omni funcs
+    au FileType racket setlocal sw=2 sts=2 et
+    au FileType haskell setlocal sw=2 sts=2 et
     au FileType python setlocal omnifunc=pythoncomplete#Complete
 
     au FileType cs setlocal autoindent
