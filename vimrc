@@ -83,7 +83,8 @@ nmap <leader>q :q<CR>
 nmap <leader>f :CtrlP<CR>
 nmap <leader>b :CtrlPBuffer<CR>
 nmap <leader>m :CtrlPMixed<CR>
-nmap <leader>t :!python3.3 -m doctest %<CR>
+nmap <leader>t :GhcModType<CR>
+"nmap <leader>t :!python3.3 -m doctest %<CR>
 nmap <silent> <c-k> :wincmd k<CR>
 nmap <silent> <c-j> :wincmd j<CR>
 
