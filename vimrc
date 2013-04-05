@@ -24,7 +24,6 @@ Bundle 'kongo2002/fsharp-vim'
 Bundle 'benmills/vimux'
 Bundle 'scrooloose/syntastic'
 Bundle 'jimenezrick/vimerl'
-Bundle 'benmills/vimux'
 Bundle 'elixir-lang/vim-elixir'
 Bundle 'wlangstroth/vim-racket'
 Bundle 'NSinopoli/paredit.vim'
@@ -32,6 +31,10 @@ Bundle 'vim-scripts/Rainbow-Parenthsis-Bundle'
 Bundle 'Shougo/vimproc'
 Bundle 'eagletmt/ghcmod-vim'
 Bundle 'ujihisa/neco-ghc'
+Bundle 'tpope/vim-fireplace'
+Bundle 'tpope/vim-classpath'
+Bundle 'guns/vim-clojure-static'
+Bundle 'wting/rust.vim'  
 
 " vanilla settings
 set ruler "always show current positions along the bottom
@@ -75,6 +78,8 @@ let mapleader=";"
 " some custom mappings
 nmap <leader>a :Ack<CR>
 nmap <leader>s :Ack<SPACE>
+nmap <leader>v :call RunVimTmuxCommand("
+nmap <leader>d :bd<CR>
 nmap <leader>n :call RunVimTmuxCommand("rake")<CR>
 nmap <leader>d :bd<CR>
 nmap <leader>c :close<CR>
@@ -84,6 +89,7 @@ nmap <leader>f :CtrlP<CR>
 nmap <leader>b :CtrlPBuffer<CR>
 nmap <leader>m :CtrlPMixed<CR>
 nmap <leader>t :GhcModType<CR>
+nmap <leader>i :GhcModInfo<CR>
 "nmap <leader>t :!python3.3 -m doctest %<CR>
 nmap <silent> <c-k> :wincmd k<CR>
 nmap <silent> <c-j> :wincmd j<CR>
@@ -199,3 +205,5 @@ let g:clang_use_library = 1
        nmap <LocalLeader>vs vip<LocalLeader>vs<CR>
 
 let g:neosnippet#snippets_directory='~/.vim/my-snippets'
+
+let g:necoghc_enable_detailed_browse = 1
