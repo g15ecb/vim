@@ -10,7 +10,6 @@ Bundle 'gmarik/vundle'
 
 " Bundles
 Bundle 'mileszs/ack.vim'
-"Bundle 'tpope/vim-commentary'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'Lokaltog/vim-powerline'
 Bundle 'tpope/vim-fugitive'
@@ -18,23 +17,14 @@ Bundle 'tpope/vim-surround'
 Bundle 'Shougo/neocomplcache'
 Bundle 'Shougo/neosnippet'
 Bundle 'Rip-Rip/clang_complete'
-Bundle 'johnsyweb/vim-makeshift'
 Bundle 'kien/ctrlp.vim'
-Bundle 'kongo2002/fsharp-vim'
 Bundle 'benmills/vimux'
 Bundle 'scrooloose/syntastic'
-Bundle 'jimenezrick/vimerl'
-Bundle 'elixir-lang/vim-elixir'
-Bundle 'wlangstroth/vim-racket'
-Bundle 'NSinopoli/paredit.vim'
-Bundle 'vim-scripts/Rainbow-Parenthsis-Bundle'
 Bundle 'Shougo/vimproc'
 Bundle 'eagletmt/ghcmod-vim'
 Bundle 'ujihisa/neco-ghc'
-Bundle 'tpope/vim-fireplace'
-Bundle 'tpope/vim-classpath'
-Bundle 'guns/vim-clojure-static'
 Bundle 'wting/rust.vim'  
+Bundle 'mileszs/ack.vim'
 
 " vanilla settings
 set ruler "always show current positions along the bottom
@@ -73,7 +63,6 @@ filetype indent on
 set pumheight=15
 set completeopt-=preview " don't like it
 
-
 let mapleader=";" 
 " some custom mappings
 nmap <leader>a :Ack<CR>
@@ -94,26 +83,22 @@ nmap <leader>i :GhcModInfo<CR>
 nmap <silent> <c-k> :wincmd k<CR>
 nmap <silent> <c-j> :wincmd j<CR>
 
+function! OCamlType()
+    let col  = col('.')
+    let line = line('.')
+    let file = expand("%:p:r")
+    echo system("annot -n -type ".line." ".col." ".file.".annot")
+endfunction    
+
+nmap <leader>, :call OCamlType()<CR>
+nmap <leader>= :OCPIndent<CR>
+
 " Vimux bits...
 map <leader>vp :VimuxPromptCommand<CR>
 vmap <leader>e "vy :call VimuxRunCommand(@v . "\n", 0)<CR>
 nmap <leader>e vip<LocalLeader>vs<CR>
 
-" jj as alias for esc in insert mode and jj for alias of c-c in command mode
-"ino jj <esc> 
-"cno jj <c-c>
 
-
-" Clang (NB. need Vim with python support for libclang)
-" let g:clang_snippets=1 */
-" if clang_complete_auto is 0 then it will supress completion after ., :: and ->
-" let g:clang_complete_auto = 0 Show clang errors in the quickfix window (set to
-" 0 to switch off)
-" let g:clang_complete_copen = 1 let g:clang_close_preview = 1 let
-" g:clang_use_library = 1
-
-" I should really but all au's in here, but gvim is safe
-" auto commands
 if has("autocmd")
     " reload vimrc when tweaked
     au bufwritepost .vimrc source $MYVIMRC
@@ -131,6 +116,11 @@ if has("autocmd")
 
     au FileType cs setlocal autoindent
 
+    " NB: the following requires you install ocp-indent
+    " https://github.com/OCamlPro/ocp-indent
+    au FileType ocaml source /Users/gbarnett/.opam/system/share/typerex/ocp-indent/ocp-indent.vim
+    "au BufWritePost *.ml :OCPIndent 
+
     " got this from
     " http://vim.wikia.com/wiki/Omnicomplete_-_Remove_Python_Pydoc_Preview_Window
     " dimisses preview window automatically
@@ -139,10 +129,18 @@ if has("autocmd")
 endif
 
 " 3rd Party plugins -----------------------------------------------------------
-"let g:Powerline_symbols = 'fancy'
+let g:Powerline_symbols = 'fancy'
 
 " make ack use ag
 let g:ackprg = 'ag --nogroup --nocolor --column'
+
+" clang
+let g:clang_complete_auto = 0
+let g:clang_auto_select = 0
+let g:clang_use_library = 1
+
+" necoghc
+let g:necoghc_enable_detailed_browse = 1
 
 " START neocomplcache settings ************************************************
 " Disable AutoComplPop. Comment out this line if AutoComplPop is not installed.
@@ -184,26 +182,7 @@ let g:neocomplcache_force_omni_patterns.c =
     \ '[^.[:digit:] *\t]\%(\.\|->\)'
 let g:neocomplcache_force_omni_patterns.cpp =
     \ '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
-let g:neocomplcache_force_omni_patterns.objc =
-    \ '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
-let g:neocomplcache_force_omni_patterns.objcpp =
-    \ '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
-let g:clang_complete_auto = 0
-let g:clang_auto_select = 0
-let g:clang_use_library = 1
-
-" END neocomplcache settings **************************************************
-
- " Prompt for a command to run
-   map <LocalLeader>vp :VimuxPromptCommand<CR>
- "
- "   " If text is selected, save it in the v buffer and send that buffer it to
- "   tmux
-     vmap <LocalLeader>vs "vy :call VimuxRunCommand(@v . "\n", 0)<CR>
- "
- "     " Select current paragraph and send it to tmux
-       nmap <LocalLeader>vs vip<LocalLeader>vs<CR>
 
 let g:neosnippet#snippets_directory='~/.vim/my-snippets'
 
-let g:necoghc_enable_detailed_browse = 1
+" END neocomplcache settings **************************************************
