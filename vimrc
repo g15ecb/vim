@@ -25,6 +25,7 @@ Bundle 'eagletmt/ghcmod-vim'
 Bundle 'ujihisa/neco-ghc'
 Bundle 'wting/rust.vim'  
 Bundle 'mileszs/ack.vim'
+Bundle 'def-lkb/merlin', {'rtp' : 'vim/'}
 
 " vanilla settings
 set ruler "always show current positions along the bottom
@@ -79,7 +80,6 @@ nmap <leader>b :CtrlPBuffer<CR>
 nmap <leader>m :CtrlPMixed<CR>
 nmap <leader>t :GhcModType<CR>
 nmap <leader>i :GhcModInfo<CR>
-"nmap <leader>t :!python3.3 -m doctest %<CR>
 nmap <silent> <c-k> :wincmd k<CR>
 nmap <silent> <c-j> :wincmd j<CR>
 
@@ -109,11 +109,7 @@ if has("autocmd")
     \   exe "normal! g`\"" |
     \ endif 
 
-    " omni funcs
-    au FileType racket setlocal sw=2 sts=2 et
     au FileType haskell setlocal sw=2 sts=2 et
-    au FileType python setlocal omnifunc=pythoncomplete#Complete
-
     au FileType cs setlocal autoindent
 
     " NB: the following requires you install ocp-indent
@@ -177,11 +173,13 @@ endif
 if !exists('g:neocomplcache_force_omni_patterns')
     let g:neocomplcache_force_omni_patterns = {}
 endif
+
 let g:neocomplcache_force_overwrite_completefunc = 1
 let g:neocomplcache_force_omni_patterns.c =
     \ '[^.[:digit:] *\t]\%(\.\|->\)'
 let g:neocomplcache_force_omni_patterns.cpp =
     \ '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+"let g:neocomplcache_force_omni_patterns.ocaml = '[^. *\t]\.\w*\|\h\w*|#'
 
 let g:neosnippet#snippets_directory='~/.vim/my-snippets'
 
