@@ -1,3 +1,12 @@
+if has('gui_running')
+    set guifont=Menlo\ for\ Powerline:h24
+    set guioptions-=T
+    set guioptions-=r
+    " Complete options (disable preview scratch window)
+    set completeopt=menu,menuone,longest
+    colorscheme macvim
+endif
+
 " the basics
 set nocompatible
 filetype off " vundle requires this
@@ -19,13 +28,13 @@ Bundle 'Shougo/neosnippet'
 Bundle 'Rip-Rip/clang_complete'
 Bundle 'kien/ctrlp.vim'
 Bundle 'benmills/vimux'
-Bundle 'scrooloose/syntastic'
+"Bundle 'scrooloose/syntastic'
 Bundle 'Shougo/vimproc'
-Bundle 'eagletmt/ghcmod-vim'
-Bundle 'ujihisa/neco-ghc'
+"Bundle 'eagletmt/ghcmod-vim'
+"Bundle 'ujihisa/neco-ghc'
 Bundle 'wting/rust.vim'  
 Bundle 'mileszs/ack.vim'
-Bundle 'def-lkb/merlin', {'rtp' : 'vim/'}
+"Bundle 'def-lkb/merlin', {'rtp' : 'vim/'}
 
 " vanilla settings
 set ruler "always show current positions along the bottom
@@ -179,8 +188,8 @@ let g:neocomplcache_force_omni_patterns.c =
     \ '[^.[:digit:] *\t]\%(\.\|->\)'
 let g:neocomplcache_force_omni_patterns.cpp =
     \ '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
-"let g:neocomplcache_force_omni_patterns.ocaml = '[^. *\t]\.\w*\|\h\w*|#'
 
 let g:neosnippet#snippets_directory='~/.vim/my-snippets'
+let g:neocomplcache_enable_underbar_completion=1
 
 " END neocomplcache settings **************************************************
