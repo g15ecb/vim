@@ -193,3 +193,5 @@ let g:neosnippet#snippets_directory='~/.vim/my-snippets'
 let g:neocomplcache_enable_underbar_completion=1
 
 " END neocomplcache settings **************************************************
+
+set cole=0 " get rid of annoying conceal unicode symbs in TeX!
