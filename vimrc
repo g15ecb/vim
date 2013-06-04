@@ -70,6 +70,7 @@ filetype indent on
 " Limit popup menu height
 set pumheight=15
 set completeopt-=preview " don't like it
+set cole=0 " get rid of annoying conceal unicode symbs in TeX!
 
 let mapleader=";" 
 " some custom mappings
@@ -84,27 +85,16 @@ nmap <leader>w :w<CR>
 nmap <leader>q :q<CR>
 nmap <leader>f :CtrlP<CR>
 nmap <leader>b :CtrlPBuffer<CR>
-nmap <leader>m :CtrlPMixed<CR>
-nmap <leader>t :GhcModType<CR>
-nmap <leader>i :GhcModInfo<CR>
+"nmap <leader>m :CtrlPMixed<CR>
+"nmap <leader>t :GhcModType<CR>
+"nmap <leader>i :GhcModInfo<CR>
 nmap <silent> <c-k> :wincmd k<CR>
 nmap <silent> <c-j> :wincmd j<CR>
-
-function! OCamlType()
-    let col  = col('.')
-    let line = line('.')
-    let file = expand("%:p:r")
-    echo system("annot -n -type ".line." ".col." ".file.".annot")
-endfunction    
-
-nmap <leader>, :call OCamlType()<CR>
-nmap <leader>= :OCPIndent<CR>
 
 " Vimux bits...
 map <leader>vp :VimuxPromptCommand<CR>
 vmap <leader>e "vy :call VimuxRunCommand(@v . "\n", 0)<CR>
 nmap <leader>e vip<LocalLeader>vs<CR>
-
 
 if has("autocmd")
     " reload vimrc when tweaked
@@ -116,19 +106,8 @@ if has("autocmd")
     \   exe "normal! g`\"" |
     \ endif 
 
-    au FileType haskell setlocal sw=2 sts=2 et
+    "au FileType haskell setlocal sw=2 sts=2 et
     au FileType cs setlocal autoindent
-
-    " NB: the following requires you install ocp-indent
-    " https://github.com/OCamlPro/ocp-indent
-    au FileType ocaml source /Users/gbarnett/.opam/system/share/typerex/ocp-indent/ocp-indent.vim
-    "au BufWritePost *.ml :OCPIndent 
-
-    " got this from
-    " http://vim.wikia.com/wiki/Omnicomplete_-_Remove_Python_Pydoc_Preview_Window
-    " dimisses preview window automatically
-    " au CursorMovedI * if pumvisible() == 0|pclose|endif
-    " au InsertLeave * if pumvisible() == 0|pclose|endif
 endif
 
 " 3rd Party plugins -----------------------------------------------------------
@@ -143,7 +122,7 @@ let g:clang_auto_select = 0
 let g:clang_use_library = 1
 
 " necoghc
-let g:necoghc_enable_detailed_browse = 1
+"let g:necoghc_enable_detailed_browse = 1
 
 " START neocomplcache settings ************************************************
 " Disable AutoComplPop. Comment out this line if AutoComplPop is not installed.
@@ -192,4 +171,3 @@ let g:neocomplcache_enable_underbar_completion=1
 
 " END neocomplcache settings **************************************************
 
-set cole=0 " get rid of annoying conceal unicode symbs in TeX!
