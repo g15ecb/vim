@@ -28,13 +28,11 @@ Bundle 'Shougo/neosnippet'
 Bundle 'Rip-Rip/clang_complete'
 Bundle 'kien/ctrlp.vim'
 Bundle 'benmills/vimux'
-"Bundle 'scrooloose/syntastic'
+Bundle 'scrooloose/syntastic'
 Bundle 'Shougo/vimproc'
 "Bundle 'eagletmt/ghcmod-vim'
 "Bundle 'ujihisa/neco-ghc'
 Bundle 'wting/rust.vim'  
-Bundle 'mileszs/ack.vim'
-"Bundle 'def-lkb/merlin', {'rtp' : 'vim/'}
 
 " vanilla settings
 set ruler "always show current positions along the bottom
