@@ -1,12 +1,3 @@
-if has('gui_running')
-    set guifont=Menlo\ for\ Powerline:h24
-    set guioptions-=T
-    set guioptions-=r
-    " Complete options (disable preview scratch window)
-    set completeopt=menu,menuone,longest
-    colorscheme macvim
-endif
-
 " the basics
 set nocompatible
 filetype off " vundle requires this
@@ -80,7 +71,8 @@ nmap <leader>v :call RunVimTmuxCommand("
 nmap <leader>d :bd<CR>
 nmap <leader>n :call RunVimTmuxCommand("rake")<CR>
 nmap <leader>d :bd<CR>
-nmap <leader>c :close<CR>
+"nmap <leader>c :close<CR>
+nmap <leader>c :!clang++ -Wall -std=c++11 -stdlib=libc++ %<CR>
 nmap <leader>w :w<CR>
 nmap <leader>q :q<CR>
 nmap <leader>f :CtrlP<CR>
