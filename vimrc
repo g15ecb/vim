@@ -16,14 +16,14 @@ Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-surround'
 Bundle 'Shougo/neocomplcache'
 Bundle 'Shougo/neosnippet'
-Bundle 'Rip-Rip/clang_complete'
+"Bundle 'Rip-Rip/clang_complete'
 Bundle 'kien/ctrlp.vim'
-Bundle 'benmills/vimux'
-Bundle 'scrooloose/syntastic'
-Bundle 'Shougo/vimproc'
+"Bundle 'benmills/vimux'
+"Bundle 'scrooloose/syntastic'
+"Bundle 'Shougo/vimproc'
 "Bundle 'eagletmt/ghcmod-vim'
 "Bundle 'ujihisa/neco-ghc'
-Bundle 'wting/rust.vim'  
+"Bundle 'wting/rust.vim'  
 
 " vanilla settings
 set ruler "always show current positions along the bottom
@@ -67,12 +67,12 @@ let mapleader=";"
 " some custom mappings
 nmap <leader>a :Ack<CR>
 nmap <leader>s :Ack<SPACE>
-nmap <leader>v :call RunVimTmuxCommand("
-nmap <leader>d :bd<CR>
-nmap <leader>n :call RunVimTmuxCommand("rake")<CR>
+"nmap <leader>v :call RunVimTmuxCommand("
+map <leader>d :bd<CR>
+"nmap <leader>n :call RunVimTmuxCommand("rake")<CR>
 nmap <leader>d :bd<CR>
 "nmap <leader>c :close<CR>
-nmap <leader>c :!clang++ -Wall -std=c++11 -stdlib=libc++ %<CR>
+"nmap <leader>c :!clang++ -Wall -std=c++11 -stdlib=libc++ %<CR>
 nmap <leader>w :w<CR>
 nmap <leader>q :q<CR>
 nmap <leader>f :CtrlP<CR>
@@ -84,9 +84,9 @@ nmap <silent> <c-k> :wincmd k<CR>
 nmap <silent> <c-j> :wincmd j<CR>
 
 " Vimux bits...
-map <leader>vp :VimuxPromptCommand<CR>
-vmap <leader>e "vy :call VimuxRunCommand(@v . "\n", 0)<CR>
-nmap <leader>e vip<LocalLeader>vs<CR>
+"map <leader>vp :VimuxPromptCommand<CR>
+"vmap <leader>e "vy :call VimuxRunCommand(@v . "\n", 0)<CR>
+"nmap <leader>e vip<LocalLeader>vs<CR>
 
 if has("autocmd")
     " reload vimrc when tweaked
@@ -109,9 +109,9 @@ let g:Powerline_symbols = 'fancy'
 let g:ackprg = 'ag --nogroup --nocolor --column'
 
 " clang
-let g:clang_complete_auto = 0
-let g:clang_auto_select = 0
-let g:clang_use_library = 1
+"let g:clang_complete_auto = 0
+"let g:clang_auto_select = 0
+"let g:clang_use_library = 1
 
 " necoghc
 "let g:necoghc_enable_detailed_browse = 1
@@ -148,18 +148,18 @@ endif
 
 " the below config for clang_complete I got from:
 " http://stackoverflow.com/questions/12975098/using-neocomplcache-and-clang-complete
-if !exists('g:neocomplcache_force_omni_patterns')
-    let g:neocomplcache_force_omni_patterns = {}
-endif
-
-let g:neocomplcache_force_overwrite_completefunc = 1
-let g:neocomplcache_force_omni_patterns.c =
-    \ '[^.[:digit:] *\t]\%(\.\|->\)'
-let g:neocomplcache_force_omni_patterns.cpp =
-    \ '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
-
-let g:neosnippet#snippets_directory='~/.vim/my-snippets'
-let g:neocomplcache_enable_underbar_completion=1
+"if !exists('g:neocomplcache_force_omni_patterns')
+"    let g:neocomplcache_force_omni_patterns = {}
+"endif
+"
+"let g:neocomplcache_force_overwrite_completefunc = 1
+"let g:neocomplcache_force_omni_patterns.c =
+"    \ '[^.[:digit:] *\t]\%(\.\|->\)'
+"let g:neocomplcache_force_omni_patterns.cpp =
+"    \ '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+"
+"let g:neosnippet#snippets_directory='~/.vim/my-snippets'
+"let g:neocomplcache_enable_underbar_completion=1
 
 " END neocomplcache settings **************************************************
 
