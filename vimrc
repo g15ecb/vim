@@ -61,7 +61,7 @@ filetype indent on
 " Limit popup menu height
 set pumheight=15
 set completeopt-=preview " don't like it
-set cole=0 " get rid of annoying conceal unicode symbs in TeX!
+"set conceallevel=0 " get rid of annoying conceal unicode symbs in TeX!
 
 let mapleader=";" 
 " some custom mappings
@@ -100,6 +100,8 @@ if has("autocmd")
 
     "au FileType haskell setlocal sw=2 sts=2 et
     au FileType cs setlocal autoindent
+
+    au FileType tex setlocal conceallevel=0
 endif
 
 " 3rd Party plugins -----------------------------------------------------------
