@@ -1,3 +1,12 @@
+if has('gui_running')
+    set guifont=Menlo\ for\ Powerline:h24
+    set guioptions-=T
+    set guioptions-=r
+    " Complete options (disable preview scratch window)
+    set completeopt=menu,menuone,longest
+    colorscheme macvim
+endif
+
 " the basics
 set nocompatible
 filetype off " vundle requires this
@@ -18,7 +27,9 @@ Bundle 'Shougo/neocomplcache'
 Bundle 'Shougo/neosnippet'
 "Bundle 'Rip-Rip/clang_complete'
 Bundle 'kien/ctrlp.vim'
-"Bundle 'benmills/vimux'
+Bundle 'skroll/vim-taghighlight'
+Bundle 'vim-ruby/vim-ruby'
+Bundle 'benmills/vimux'
 "Bundle 'scrooloose/syntastic'
 "Bundle 'Shougo/vimproc'
 "Bundle 'eagletmt/ghcmod-vim'
@@ -69,7 +80,7 @@ nmap <leader>a :Ack<CR>
 nmap <leader>s :Ack<SPACE>
 "nmap <leader>v :call RunVimTmuxCommand("
 map <leader>d :bd<CR>
-"nmap <leader>n :call RunVimTmuxCommand("rake")<CR>
+nmap <leader>n :call VimuxRunCommand("rake")<CR>
 nmap <leader>d :bd<CR>
 "nmap <leader>c :close<CR>
 "nmap <leader>c :!clang++ -Wall -std=c++11 -stdlib=libc++ %<CR>
