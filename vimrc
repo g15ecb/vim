@@ -27,14 +27,6 @@ Bundle 'Shougo/neocomplcache'
 Bundle 'Shougo/neosnippet'
 "Bundle 'Rip-Rip/clang_complete'
 Bundle 'kien/ctrlp.vim'
-Bundle 'skroll/vim-taghighlight'
-Bundle 'vim-ruby/vim-ruby'
-Bundle 'benmills/vimux'
-"Bundle 'scrooloose/syntastic'
-"Bundle 'Shougo/vimproc'
-"Bundle 'eagletmt/ghcmod-vim'
-"Bundle 'ujihisa/neco-ghc'
-"Bundle 'wting/rust.vim'  
 
 " vanilla settings
 set ruler "always show current positions along the bottom
@@ -74,30 +66,20 @@ set pumheight=15
 set completeopt-=preview " don't like it
 "set conceallevel=0 " get rid of annoying conceal unicode symbs in TeX!
 
+imap jk <Esc>
+
 let mapleader=";" 
 " some custom mappings
 nmap <leader>a :Ack<CR>
 nmap <leader>s :Ack<SPACE>
-"nmap <leader>v :call RunVimTmuxCommand("
 map <leader>d :bd<CR>
-nmap <leader>n :call VimuxRunCommand("rake")<CR>
 nmap <leader>d :bd<CR>
-"nmap <leader>c :close<CR>
-"nmap <leader>c :!clang++ -Wall -std=c++11 -stdlib=libc++ %<CR>
 nmap <leader>w :w<CR>
 nmap <leader>q :q<CR>
 nmap <leader>f :CtrlP<CR>
 nmap <leader>b :CtrlPBuffer<CR>
-"nmap <leader>m :CtrlPMixed<CR>
-"nmap <leader>t :GhcModType<CR>
-"nmap <leader>i :GhcModInfo<CR>
 nmap <silent> <c-k> :wincmd k<CR>
 nmap <silent> <c-j> :wincmd j<CR>
-
-" Vimux bits...
-"map <leader>vp :VimuxPromptCommand<CR>
-"vmap <leader>e "vy :call VimuxRunCommand(@v . "\n", 0)<CR>
-"nmap <leader>e vip<LocalLeader>vs<CR>
 
 if has("autocmd")
     " reload vimrc when tweaked
