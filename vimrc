@@ -95,6 +95,12 @@ if has("autocmd")
     au FileType cs setlocal autoindent
 
     au FileType tex setlocal conceallevel=0
+
+    au BufRead *.py set smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
+    au BufRead *.py set nocindent
+    au BufWritePre *.py normal m`:%s/\s\+$//e ``
+
+    au BufNewFile,BufRead SConstruct,SConscript set filetype=python
 endif
 
 " 3rd Party plugins -----------------------------------------------------------
