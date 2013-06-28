@@ -1,11 +1,3 @@
-if has('gui_running')
-    set guifont=Menlo\ for\ Powerline:h24
-    set guioptions-=T
-    set guioptions-=r
-    " Complete options (disable preview scratch window)
-    set completeopt=menu,menuone,longest
-    colorscheme macvim
-endif
 
 " the basics
 set nocompatible
@@ -25,8 +17,10 @@ Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-surround'
 Bundle 'Shougo/neocomplcache'
 Bundle 'Shougo/neosnippet'
-"Bundle 'Rip-Rip/clang_complete'
+Bundle 'Rip-Rip/clang_complete'
 Bundle 'kien/ctrlp.vim'
+Bundle 'altercation/vim-colors-solarized'
+Bundle 'stephenmckinney/vim-solarized-powerline'
 
 " vanilla settings
 set ruler "always show current positions along the bottom
@@ -91,16 +85,7 @@ if has("autocmd")
     \   exe "normal! g`\"" |
     \ endif 
 
-    "au FileType haskell setlocal sw=2 sts=2 et
-    au FileType cs setlocal autoindent
-
     au FileType tex setlocal conceallevel=0
-
-    au BufRead *.py set smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
-    au BufRead *.py set nocindent
-    au BufWritePre *.py normal m`:%s/\s\+$//e ``
-
-    au BufNewFile,BufRead SConstruct,SConscript set filetype=python
 endif
 
 " 3rd Party plugins -----------------------------------------------------------
@@ -110,9 +95,9 @@ let g:Powerline_symbols = 'fancy'
 let g:ackprg = 'ag --nogroup --nocolor --column'
 
 " clang
-"let g:clang_complete_auto = 0
-"let g:clang_auto_select = 0
-"let g:clang_use_library = 1
+let g:clang_complete_auto = 0
+let g:clang_auto_select = 0
+let g:clang_use_library = 1
 
 " necoghc
 "let g:necoghc_enable_detailed_browse = 1
@@ -149,18 +134,34 @@ endif
 
 " the below config for clang_complete I got from:
 " http://stackoverflow.com/questions/12975098/using-neocomplcache-and-clang-complete
-"if !exists('g:neocomplcache_force_omni_patterns')
-"    let g:neocomplcache_force_omni_patterns = {}
-"endif
+if !exists('g:neocomplcache_force_omni_patterns')
+    let g:neocomplcache_force_omni_patterns = {}
+endif
 "
-"let g:neocomplcache_force_overwrite_completefunc = 1
-"let g:neocomplcache_force_omni_patterns.c =
-"    \ '[^.[:digit:] *\t]\%(\.\|->\)'
-"let g:neocomplcache_force_omni_patterns.cpp =
-"    \ '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+let g:neocomplcache_force_overwrite_completefunc = 1
+let g:neocomplcache_force_omni_patterns.c =
+    \ '[^.[:digit:] *\t]\%(\.\|->\)'
+let g:neocomplcache_force_omni_patterns.cpp =
+    \ '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
 "
 "let g:neosnippet#snippets_directory='~/.vim/my-snippets'
 "let g:neocomplcache_enable_underbar_completion=1
 
 " END neocomplcache settings **************************************************
+
+if has('gui_running')
+    set guifont=Menlo\ for\ Powerline:h24
+    set guioptions-=T
+    set guioptions-=r
+    " Complete options (disable preview scratch window)
+    set completeopt=menu,menuone,longest
+
+    set background=dark
+    colorscheme solarized
+
+    let g:Powerline_theme='short'
+    let g:Powerline_colorscheme='solarized256_dark'
+
+    set cursorline
+endif
 
