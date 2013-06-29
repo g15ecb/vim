@@ -21,6 +21,7 @@ Bundle 'Rip-Rip/clang_complete'
 Bundle 'kien/ctrlp.vim'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'stephenmckinney/vim-solarized-powerline'
+Bundle 'scrooloose/syntastic'
 
 " vanilla settings
 set ruler "always show current positions along the bottom
@@ -156,12 +157,12 @@ if has('gui_running')
     " Complete options (disable preview scratch window)
     set completeopt=menu,menuone,longest
 
-    set background=dark
-    colorscheme solarized
-
-    let g:Powerline_theme='short'
-    let g:Powerline_colorscheme='solarized256_dark'
-
-    set cursorline
 endif
 
+set background=dark
+colorscheme solarized
+
+let g:Powerline_theme='short'
+let g:Powerline_colorscheme='solarized256_dark'
+
+set cursorline
