@@ -21,7 +21,7 @@ Bundle 'Rip-Rip/clang_complete'
 Bundle 'kien/ctrlp.vim'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'stephenmckinney/vim-solarized-powerline'
-Bundle 'scrooloose/syntastic'
+Bundle 'vim-ruby/vim-ruby'
 
 " vanilla settings
 set ruler "always show current positions along the bottom
