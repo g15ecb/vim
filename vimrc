@@ -133,17 +133,18 @@ if has('conceal')
     set conceallevel=2 concealcursor=i
 endif
 
+autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
+
 " the below config for clang_complete I got from:
 " http://stackoverflow.com/questions/12975098/using-neocomplcache-and-clang-complete
 if !exists('g:neocomplcache_force_omni_patterns')
     let g:neocomplcache_force_omni_patterns = {}
 endif
-"
+
 let g:neocomplcache_force_overwrite_completefunc = 1
-let g:neocomplcache_force_omni_patterns.c =
-    \ '[^.[:digit:] *\t]\%(\.\|->\)'
-let g:neocomplcache_force_omni_patterns.cpp =
-    \ '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+let g:neocomplcache_force_omni_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
+let g:neocomplcache_force_omni_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+let g:neocomplcache_force_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
 "
 "let g:neosnippet#snippets_directory='~/.vim/my-snippets'
 "let g:neocomplcache_enable_underbar_completion=1
