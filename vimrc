@@ -22,7 +22,9 @@ Bundle 'kien/ctrlp.vim'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'stephenmckinney/vim-solarized-powerline'
 Bundle 'vim-ruby/vim-ruby'
-
+Bundle 'wting/rust.vim'
+Bundle 'vim-scripts/cmake.vim-syntax'
+ 
 " vanilla settings
 set ruler "always show current positions along the bottom
 set hlsearch
