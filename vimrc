@@ -22,8 +22,8 @@ Bundle 'kien/ctrlp.vim'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'stephenmckinney/vim-solarized-powerline'
 Bundle 'vim-ruby/vim-ruby'
-Bundle 'wting/rust.vim'
-Bundle 'vim-scripts/cmake.vim-syntax'
+Bundle "jiangmiao/auto-pairs"
+Bundle "myusuf3/numbers.vim"
  
 " vanilla settings
 set ruler "always show current positions along the bottom
@@ -88,7 +88,9 @@ if has("autocmd")
     \   exe "normal! g`\"" |
     \ endif 
 
+    " the following due to annoying LaTeX unicode symbols
     au FileType tex setlocal conceallevel=0
+
 endif
 
 " 3rd Party plugins -----------------------------------------------------------
@@ -136,6 +138,7 @@ if has('conceal')
 endif
 
 autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
+"autocmd FileType go setlocal omnifunc=gocomplete#Complete
 
 " the below config for clang_complete I got from:
 " http://stackoverflow.com/questions/12975098/using-neocomplcache-and-clang-complete
@@ -143,13 +146,17 @@ if !exists('g:neocomplcache_force_omni_patterns')
     let g:neocomplcache_force_omni_patterns = {}
 endif
 
+" https://github.com/davidhalter/jedi-vim/issues/26
+let g:jedi#auto_initialization = 1
+let g:jedi#popup_on_dot = 0
+let g:jedi#show_function_definition = "0"
+autocmd  FileType python let b:did_ftplugin = 1
+
 let g:neocomplcache_force_overwrite_completefunc = 1
 let g:neocomplcache_force_omni_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
 let g:neocomplcache_force_omni_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
 let g:neocomplcache_force_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
-"
-"let g:neosnippet#snippets_directory='~/.vim/my-snippets'
-"let g:neocomplcache_enable_underbar_completion=1
+"let g:neocomplcache_force_omni_patterns.go = '\h\w*\%.'
 
 " END neocomplcache settings **************************************************
 
