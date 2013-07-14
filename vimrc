@@ -20,8 +20,9 @@ Bundle 'Shougo/neosnippet'
 Bundle 'Rip-Rip/clang_complete'
 Bundle 'kien/ctrlp.vim'
 Bundle 'vim-ruby/vim-ruby'
-Bundle "jiangmiao/auto-pairs"
-Bundle "myusuf3/numbers.vim"
+Bundle 'jiangmiao/auto-pairs'
+Bundle 'myusuf3/numbers.vim'
+Bundle 'nsf/gocode', {'rtp': 'vim/'}
 
 " UI
 Bundle 'altercation/vim-colors-solarized'
