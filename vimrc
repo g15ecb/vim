@@ -19,11 +19,13 @@ Bundle 'Shougo/neocomplcache'
 Bundle 'Shougo/neosnippet'
 Bundle 'Rip-Rip/clang_complete'
 Bundle 'kien/ctrlp.vim'
-Bundle 'altercation/vim-colors-solarized'
-Bundle 'stephenmckinney/vim-solarized-powerline'
 Bundle 'vim-ruby/vim-ruby'
 Bundle "jiangmiao/auto-pairs"
 Bundle "myusuf3/numbers.vim"
+
+" UI
+Bundle 'altercation/vim-colors-solarized'
+Bundle 'stephenmckinney/vim-solarized-powerline'
  
 " vanilla settings
 set ruler "always show current positions along the bottom
