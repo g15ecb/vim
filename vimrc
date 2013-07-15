@@ -92,7 +92,7 @@ if has("autocmd")
 
     " the following due to annoying LaTeX unicode symbols
     au FileType tex setlocal conceallevel=0
-
+    au FileType ruby setlocal omnifunc=rubycomplete#Complete
 endif
 
 " 3rd Party plugins -----------------------------------------------------------
@@ -139,7 +139,6 @@ if has('conceal')
     set conceallevel=2 concealcursor=i
 endif
 
-autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
 
 " the below config for clang_complete I got from:
 " http://stackoverflow.com/questions/12975098/using-neocomplcache-and-clang-complete
@@ -147,17 +146,10 @@ if !exists('g:neocomplcache_force_omni_patterns')
     let g:neocomplcache_force_omni_patterns = {}
 endif
 
-" https://github.com/davidhalter/jedi-vim/issues/26
-let g:jedi#auto_initialization = 1
-let g:jedi#popup_on_dot = 0
-let g:jedi#show_function_definition = "0"
-autocmd  FileType python let b:did_ftplugin = 1
-
 let g:neocomplcache_force_overwrite_completefunc = 1
 let g:neocomplcache_force_omni_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
 let g:neocomplcache_force_omni_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
 let g:neocomplcache_force_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
-"let g:neocomplcache_force_omni_patterns.go = '\h\w*\%.'
 
 " END neocomplcache settings **************************************************
 
