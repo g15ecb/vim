@@ -22,7 +22,6 @@ Bundle 'kien/ctrlp.vim'
 Bundle 'vim-ruby/vim-ruby'
 Bundle 'jiangmiao/auto-pairs'
 Bundle 'myusuf3/numbers.vim'
-Bundle 'nsf/gocode', {'rtp': 'vim/'}
 
 " UI
 Bundle 'altercation/vim-colors-solarized'
@@ -141,7 +140,6 @@ if has('conceal')
 endif
 
 autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
-"autocmd FileType go setlocal omnifunc=gocomplete#Complete
 
 " the below config for clang_complete I got from:
 " http://stackoverflow.com/questions/12975098/using-neocomplcache-and-clang-complete
