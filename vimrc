@@ -19,9 +19,8 @@ Bundle 'Shougo/neocomplcache'
 Bundle 'Shougo/neosnippet'
 Bundle 'Rip-Rip/clang_complete'
 Bundle 'kien/ctrlp.vim'
-Bundle 'vim-ruby/vim-ruby'
 Bundle 'jiangmiao/auto-pairs'
-Bundle 'myusuf3/numbers.vim'
+Bundle 'JesseKPhillips/d.vim'
 
 " UI
 Bundle 'altercation/vim-colors-solarized'
@@ -92,7 +91,6 @@ if has("autocmd")
 
     " the following due to annoying LaTeX unicode symbols
     au FileType tex setlocal conceallevel=0
-    au FileType ruby setlocal omnifunc=rubycomplete#Complete
 endif
 
 " 3rd Party plugins -----------------------------------------------------------
@@ -140,6 +138,11 @@ if has('conceal')
 endif
 
 
+" https://github.com/davidhalter/jedi-vim/issues/26
+let g:jedi#auto_initialization = 1
+let g:jedi#popup_on_dot = 0
+let g:jedi#show_function_definition = "0"
+
 " the below config for clang_complete I got from:
 " http://stackoverflow.com/questions/12975098/using-neocomplcache-and-clang-complete
 if !exists('g:neocomplcache_force_omni_patterns')
@@ -149,7 +152,6 @@ endif
 let g:neocomplcache_force_overwrite_completefunc = 1
 let g:neocomplcache_force_omni_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
 let g:neocomplcache_force_omni_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
-let g:neocomplcache_force_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
 
 " END neocomplcache settings **************************************************
 
@@ -169,3 +171,4 @@ let g:Powerline_theme='short'
 let g:Powerline_colorscheme='solarized256_dark'
 
 set cursorline
+highlight CursorLineNR ctermfg=100
