@@ -91,6 +91,9 @@ if has("autocmd")
 
     " the following due to annoying LaTeX unicode symbols
     au FileType tex setlocal conceallevel=0
+    " opam install ocp-indent
+    au FileType ocaml source /Users/gbarnett/.opam/system/share/typerex/ocp-indent/ocp-indent.vim
+    au BufWrite *.ml call OcpIndentBuffer()
 endif
 
 " 3rd Party plugins -----------------------------------------------------------
@@ -103,9 +106,6 @@ let g:ackprg = 'ag --nogroup --nocolor --column'
 let g:clang_complete_auto = 0
 let g:clang_auto_select = 0
 let g:clang_use_library = 1
-
-" necoghc
-"let g:necoghc_enable_detailed_browse = 1
 
 " START neocomplcache settings ************************************************
 " Disable AutoComplPop. Comment out this line if AutoComplPop is not installed.
@@ -136,12 +136,6 @@ smap <expr><TAB> neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" 
 if has('conceal')
     set conceallevel=2 concealcursor=i
 endif
-
-
-" https://github.com/davidhalter/jedi-vim/issues/26
-let g:jedi#auto_initialization = 1
-let g:jedi#popup_on_dot = 0
-let g:jedi#show_function_definition = "0"
 
 " the below config for clang_complete I got from:
 " http://stackoverflow.com/questions/12975098/using-neocomplcache-and-clang-complete
