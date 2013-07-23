@@ -93,6 +93,7 @@ if has("autocmd")
     au FileType tex setlocal conceallevel=0
     " opam install ocp-indent
     au FileType ocaml source /Users/gbarnett/.opam/system/share/typerex/ocp-indent/ocp-indent.vim
+    au FileType ocaml setl sw=2 sts=2 et
     au BufWrite *.ml call OcpIndentBuffer()
 endif
 
