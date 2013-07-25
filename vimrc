@@ -20,7 +20,6 @@ Bundle 'Shougo/neosnippet'
 Bundle 'Rip-Rip/clang_complete'
 Bundle 'kien/ctrlp.vim'
 Bundle 'jiangmiao/auto-pairs'
-Bundle 'JesseKPhillips/d.vim'
 
 " UI
 Bundle 'altercation/vim-colors-solarized'
@@ -92,9 +91,9 @@ if has("autocmd")
     " the following due to annoying LaTeX unicode symbols
     au FileType tex setlocal conceallevel=0
     " opam install ocp-indent
-    au FileType ocaml source /Users/gbarnett/.opam/system/share/typerex/ocp-indent/ocp-indent.vim
-    au FileType ocaml setl sw=2 sts=2 et
-    au BufWrite *.ml call OcpIndentBuffer()
+    "au FileType ocaml source /Users/gbarnett/.opam/system/share/typerex/ocp-indent/ocp-indent.vim
+    "au FileType ocaml setl sw=2 sts=2 et
+    "au BufWrite *.ml call OcpIndentBuffer()
 endif
 
 " 3rd Party plugins -----------------------------------------------------------
@@ -147,6 +146,7 @@ endif
 let g:neocomplcache_force_overwrite_completefunc = 1
 let g:neocomplcache_force_omni_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
 let g:neocomplcache_force_omni_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+"let g:neocomplcache_force_omni_patterns.go = '[^. \t]\.\w*'
 
 " END neocomplcache settings **************************************************
 
