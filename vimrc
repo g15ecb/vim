@@ -20,6 +20,7 @@ Bundle 'Shougo/neosnippet'
 Bundle 'Rip-Rip/clang_complete'
 Bundle 'kien/ctrlp.vim'
 Bundle 'jiangmiao/auto-pairs'
+Bundle 'vim-scripts/DoxygenToolkit.vim'
 
 " UI
 Bundle 'altercation/vim-colors-solarized'
@@ -61,7 +62,6 @@ filetype indent on
 " Limit popup menu height
 set pumheight=15
 set completeopt-=preview " don't like it
-"set conceallevel=0 " get rid of annoying conceal unicode symbs in TeX!
 
 imap jk <Esc>
 
@@ -90,10 +90,6 @@ if has("autocmd")
 
     " the following due to annoying LaTeX unicode symbols
     au FileType tex setlocal conceallevel=0
-    " opam install ocp-indent
-    "au FileType ocaml source /Users/gbarnett/.opam/system/share/typerex/ocp-indent/ocp-indent.vim
-    "au FileType ocaml setl sw=2 sts=2 et
-    "au BufWrite *.ml call OcpIndentBuffer()
 endif
 
 " 3rd Party plugins -----------------------------------------------------------
@@ -123,6 +119,7 @@ let g:neocomplcache_min_syntax_length = 3
 " buffer file name pattern that locks neocomplcache. e.g. ku.vim or
 " fuzzyfinder 
 let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
+let g:neocomplcache_enable_fuzzy_completion=1
 
 " neosnippet
 " Plugin key-mappings.
@@ -167,3 +164,9 @@ let g:Powerline_colorscheme='solarized256_dark'
 
 set cursorline
 highlight CursorLineNR ctermfg=100
+let g:DoxygenToolkit_briefTag_pre="@Synopsis  " 
+let g:DoxygenToolkit_paramTag_pre="@Param " 
+let g:DoxygenToolkit_returnTag="@Returns   " 
+let g:DoxygenToolkit_blockHeader="--------------------------------------------------------------------------" 
+let g:DoxygenToolkit_blockFooter="----------------------------------------------------------------------------" 
+let g:DoxygenToolkit_authorName="Granville Barnett" 
