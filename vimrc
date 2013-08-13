@@ -21,11 +21,13 @@ Bundle 'Rip-Rip/clang_complete'
 Bundle 'kien/ctrlp.vim'
 Bundle 'jiangmiao/auto-pairs'
 Bundle 'vim-scripts/DoxygenToolkit.vim'
+Bundle 'eagletmt/ghcmod-vim'
+Bundle 'ujihisa/neco-ghc'
+Bundle 'Shougo/vimproc.vim'
+Bundle 'jimenezrick/vimerl'
+Bundle 'def-lkb/merlin', {'rtp': 'vim/merlin/'}
+Bundle 'def-lkb/vimbufsync'
 
-" UI
-Bundle 'altercation/vim-colors-solarized'
-Bundle 'stephenmckinney/vim-solarized-powerline'
- 
 " vanilla settings
 set ruler "always show current positions along the bottom
 set hlsearch
@@ -87,9 +89,10 @@ if has("autocmd")
     \ if line("'\"") > 1 && line("'\"") <= line("$") |
     \   exe "normal! g`\"" |
     \ endif 
-
+    au FileType haskell setlocal sw=2 sts=2 et
     " the following due to annoying LaTeX unicode symbols
     au FileType tex setlocal conceallevel=0
+    "au BufWrite *.hs :GhcModCheckAndLintAsync
 endif
 
 " 3rd Party plugins -----------------------------------------------------------
@@ -143,8 +146,7 @@ endif
 let g:neocomplcache_force_overwrite_completefunc = 1
 let g:neocomplcache_force_omni_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
 let g:neocomplcache_force_omni_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
-"let g:neocomplcache_force_omni_patterns.go = '[^. \t]\.\w*'
-
+let g:neocomplcache_force_omni_patterns.ocaml = '[^. *\t]\.\w*\|\h\w*|#'
 " END neocomplcache settings **************************************************
 
 if has('gui_running')
@@ -156,17 +158,17 @@ if has('gui_running')
 
 endif
 
-set background=dark
-colorscheme solarized
+"set background=dark
+"colorscheme solarized
 
-let g:Powerline_theme='short'
-let g:Powerline_colorscheme='solarized256_dark'
+"let g:Powerline_theme='short'
+"let g:Powerline_colorscheme='solarized256_dark'
 
-set cursorline
-highlight CursorLineNR ctermfg=100
 let g:DoxygenToolkit_briefTag_pre="@Synopsis  " 
 let g:DoxygenToolkit_paramTag_pre="@Param " 
 let g:DoxygenToolkit_returnTag="@Returns   " 
 let g:DoxygenToolkit_blockHeader="--------------------------------------------------------------------------" 
 let g:DoxygenToolkit_blockFooter="----------------------------------------------------------------------------" 
 let g:DoxygenToolkit_authorName="Granville Barnett" 
+
+let g:necoghc_enable_detailed_browse=1
