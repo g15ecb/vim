@@ -89,10 +89,12 @@ if has("autocmd")
     \ if line("'\"") > 1 && line("'\"") <= line("$") |
     \   exe "normal! g`\"" |
     \ endif 
+
     au FileType haskell setlocal sw=2 sts=2 et
+    au FileType ocaml setlocal sw=2 sts=2 et
+
     " the following due to annoying LaTeX unicode symbols
     au FileType tex setlocal conceallevel=0
-    "au BufWrite *.hs :GhcModCheckAndLintAsync
 endif
 
 " 3rd Party plugins -----------------------------------------------------------
@@ -106,7 +108,6 @@ let g:clang_complete_auto = 0
 let g:clang_auto_select = 0
 let g:clang_use_library = 1
 
-" START neocomplcache settings ************************************************
 " Disable AutoComplPop. Comment out this line if AutoComplPop is not installed.
 let g:acp_enableAtStartup = 0
 " Launches neocomplcache automatically on vim startup.
@@ -147,7 +148,6 @@ let g:neocomplcache_force_overwrite_completefunc = 1
 let g:neocomplcache_force_omni_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
 let g:neocomplcache_force_omni_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
 let g:neocomplcache_force_omni_patterns.ocaml = '[^. *\t]\.\w*\|\h\w*|#'
-" END neocomplcache settings **************************************************
 
 if has('gui_running')
     set guifont=Menlo\ for\ Powerline:h24
@@ -157,12 +157,6 @@ if has('gui_running')
     set completeopt=menu,menuone,longest
 
 endif
-
-"set background=dark
-"colorscheme solarized
-
-"let g:Powerline_theme='short'
-"let g:Powerline_colorscheme='solarized256_dark'
 
 let g:DoxygenToolkit_briefTag_pre="@Synopsis  " 
 let g:DoxygenToolkit_paramTag_pre="@Param " 
