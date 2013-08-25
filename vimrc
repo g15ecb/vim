@@ -95,6 +95,8 @@ if has("autocmd")
 
     " the following due to annoying LaTeX unicode symbols
     au FileType tex setlocal conceallevel=0
+    au FileType ocaml source /Users/gb/.opam/4.00.1/share/typerex/ocp-indent/ocp-indent.vim
+    au BufWrite *.ml call OcpIndentBuffer()
 endif
 
 " 3rd Party plugins -----------------------------------------------------------
@@ -148,6 +150,9 @@ let g:neocomplcache_force_overwrite_completefunc = 1
 let g:neocomplcache_force_omni_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
 let g:neocomplcache_force_omni_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
 let g:neocomplcache_force_omni_patterns.ocaml = '[^. *\t]\.\w*\|\h\w*|#'
+
+let g:neocomplcache_fuzzy_completion_start_length=1
+let g:neocomplcache_enable_fuzzy_completion=1
 
 if has('gui_running')
     set guifont=Menlo\ for\ Powerline:h24
