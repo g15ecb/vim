@@ -19,14 +19,13 @@ Bundle 'Shougo/neocomplcache'
 Bundle 'Shougo/neosnippet'
 Bundle 'Rip-Rip/clang_complete'
 Bundle 'kien/ctrlp.vim'
-Bundle 'jiangmiao/auto-pairs'
-Bundle 'vim-scripts/DoxygenToolkit.vim'
+"Bundle 'jiangmiao/auto-pairs'
 Bundle 'eagletmt/ghcmod-vim'
 Bundle 'ujihisa/neco-ghc'
 Bundle 'Shougo/vimproc.vim'
-Bundle 'jimenezrick/vimerl'
-Bundle 'def-lkb/merlin', {'rtp': 'vim/merlin/'}
-Bundle 'def-lkb/vimbufsync'
+Bundle 'wting/rust.vim'
+Bundle 'scrooloose/syntastic'
+Bundle 'derekwyatt/vim-scala'
 
 " vanilla settings
 set ruler "always show current positions along the bottom
@@ -77,6 +76,9 @@ nmap <leader>w :w<CR>
 nmap <leader>q :q<CR>
 nmap <leader>f :CtrlP<CR>
 nmap <leader>b :CtrlPBuffer<CR>
+nmap <leader>r :!rust run %<CR>
+nmap <leader>t :!rust test %<CR>
+nmap <leader>m :make<CR>
 nmap <silent> <c-k> :wincmd k<CR>
 nmap <silent> <c-j> :wincmd j<CR>
 
@@ -91,12 +93,15 @@ if has("autocmd")
     \ endif 
 
     au FileType haskell setlocal sw=2 sts=2 et
+    au FileType rust setlocal sw=2 sts=2 et
+    au FileType scala setlocal sw=2 sts=2 et
+
     au FileType ocaml setlocal sw=2 sts=2 et
+    au FileType ocaml source /Users/gb/.opam/4.00.1/share/typerex/ocp-indent/ocp-indent.vim
+    au BufWrite *.ml call OcpIndentBuffer()
 
     " the following due to annoying LaTeX unicode symbols
     au FileType tex setlocal conceallevel=0
-    au FileType ocaml source /Users/gb/.opam/4.00.1/share/typerex/ocp-indent/ocp-indent.vim
-    au BufWrite *.ml call OcpIndentBuffer()
 endif
 
 " 3rd Party plugins -----------------------------------------------------------
@@ -149,7 +154,6 @@ endif
 let g:neocomplcache_force_overwrite_completefunc = 1
 let g:neocomplcache_force_omni_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
 let g:neocomplcache_force_omni_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
-let g:neocomplcache_force_omni_patterns.ocaml = '[^. *\t]\.\w*\|\h\w*|#'
 
 let g:neocomplcache_fuzzy_completion_start_length=1
 let g:neocomplcache_enable_fuzzy_completion=1
@@ -160,14 +164,5 @@ if has('gui_running')
     set guioptions-=r
     " Complete options (disable preview scratch window)
     set completeopt=menu,menuone,longest
-
 endif
 
-let g:DoxygenToolkit_briefTag_pre="@Synopsis  " 
-let g:DoxygenToolkit_paramTag_pre="@Param " 
-let g:DoxygenToolkit_returnTag="@Returns   " 
-let g:DoxygenToolkit_blockHeader="--------------------------------------------------------------------------" 
-let g:DoxygenToolkit_blockFooter="----------------------------------------------------------------------------" 
-let g:DoxygenToolkit_authorName="Granville Barnett" 
-
-let g:necoghc_enable_detailed_browse=1
