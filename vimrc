@@ -99,7 +99,7 @@ if has("autocmd")
     au FileType scala setlocal sw=2 sts=2 et
 
     au FileType ocaml setlocal sw=2 sts=2 et
-    au FileType ocaml source /Users/gb/.opam/4.00.1/share/typerex/ocp-indent/ocp-indent.vim
+    au FileType ocaml source /home/gbarnett/.opam/4.00.1/share/typerex/ocp-indent/ocp-indent.vim
     au BufWrite *.ml call OcpIndentBuffer()
 
     " the following due to annoying LaTeX unicode symbols
@@ -159,12 +159,3 @@ let g:neocomplcache_force_omni_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\
 
 let g:neocomplcache_fuzzy_completion_start_length=1
 let g:neocomplcache_enable_fuzzy_completion=1
-
-if has('gui_running')
-    set guifont=Menlo\ for\ Powerline:h24
-    set guioptions-=T
-    set guioptions-=r
-    " Complete options (disable preview scratch window)
-    set completeopt=menu,menuone,longest
-endif
-

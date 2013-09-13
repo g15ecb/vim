@@ -1,10 +1,4 @@
 cd ~
 git clone git@github.com:gbarnett/vim-vundle.git .vim
 cd ~/.vim
-git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
-vim
-:BundleInstall
-
-Don't forget to add symbolic link:
-
-ln -s ~/.vim/vimrc ~/.vimrc
+rake
