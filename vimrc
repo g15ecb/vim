@@ -27,6 +27,7 @@ Bundle 'derekwyatt/vim-scala'
 Bundle 'moll/vim-node'
 Bundle 'pangloss/vim-javascript'
 Bundle 'leafgarland/typescript-vim'
+Bundle 'vim-pandoc/vim-pandoc'
 
 " vanilla settings
 set ruler "always show current positions along the bottom
