@@ -12,7 +12,7 @@ Bundle 'gmarik/vundle'
 " Bundles
 Bundle 'mileszs/ack.vim'
 Bundle 'scrooloose/nerdcommenter'
-Bundle 'Lokaltog/vim-powerline'
+"Bundle 'Lokaltog/vim-powerline'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-surround'
 Bundle 'Shougo/neocomplcache'
@@ -26,6 +26,8 @@ Bundle 'Shougo/vimproc.vim'
 Bundle 'wting/rust.vim'
 Bundle 'scrooloose/syntastic'
 Bundle 'derekwyatt/vim-scala'
+Bundle 'moll/vim-node'
+Bundle 'pangloss/vim-javascript'
 
 " vanilla settings
 set ruler "always show current positions along the bottom
@@ -105,7 +107,7 @@ if has("autocmd")
 endif
 
 " 3rd Party plugins -----------------------------------------------------------
-let g:Powerline_symbols = 'fancy'
+"let g:Powerline_symbols = 'fancy'
 
 " make ack use ag
 let g:ackprg = 'ag --nogroup --nocolor --column'
