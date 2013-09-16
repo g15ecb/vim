@@ -28,6 +28,7 @@ Bundle 'moll/vim-node'
 Bundle 'pangloss/vim-javascript'
 Bundle 'leafgarland/typescript-vim'
 Bundle 'vim-pandoc/vim-pandoc'
+Bundle 'zah/nimrod.vim'
 
 " vanilla settings
 set ruler "always show current positions along the bottom
