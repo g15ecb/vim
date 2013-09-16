@@ -65,6 +65,7 @@ filetype indent on
 " Limit popup menu height
 set pumheight=15
 set completeopt-=preview " don't like it
+set background=dark
 
 imap jk <Esc>
 
