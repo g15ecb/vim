@@ -29,6 +29,10 @@ Bundle 'pangloss/vim-javascript'
 Bundle 'leafgarland/typescript-vim'
 Bundle 'vim-pandoc/vim-pandoc'
 Bundle 'zah/nimrod.vim'
+"Bundle 'def-lkb/merlin', {'rtp': 'vim/merlin/'}
+Bundle 'def-lkb/vimbufsync'
+Bundle 'benmills/vimux'
+Bundle 'themoritz/vimux-ocaml'
 
 " vanilla settings
 set ruler "always show current positions along the bottom
