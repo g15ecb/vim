@@ -18,21 +18,10 @@ Bundle 'Shougo/neocomplcache'
 Bundle 'Shougo/neosnippet'
 Bundle 'Rip-Rip/clang_complete'
 Bundle 'kien/ctrlp.vim'
-Bundle 'eagletmt/ghcmod-vim'
-Bundle 'ujihisa/neco-ghc'
-Bundle 'Shougo/vimproc.vim'
 Bundle 'wting/rust.vim'
 Bundle 'scrooloose/syntastic'
-Bundle 'derekwyatt/vim-scala'
-Bundle 'moll/vim-node'
-Bundle 'pangloss/vim-javascript'
-Bundle 'leafgarland/typescript-vim'
-Bundle 'vim-pandoc/vim-pandoc'
-Bundle 'zah/nimrod.vim'
-"Bundle 'def-lkb/merlin', {'rtp': 'vim/merlin/'}
-Bundle 'def-lkb/vimbufsync'
 Bundle 'benmills/vimux'
-Bundle 'themoritz/vimux-ocaml'
+Bundle 'JesseKPhillips/d.vim'
 
 " vanilla settings
 set ruler "always show current positions along the bottom
