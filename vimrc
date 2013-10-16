@@ -22,8 +22,11 @@ Bundle 'wting/rust.vim'
 Bundle 'scrooloose/syntastic'
 Bundle 'benmills/vimux'
 Bundle 'JesseKPhillips/d.vim'
+Bundle 'Lokaltog/vim-distinguished'
+
 
 " vanilla settings
+set t_Co=256
 set ruler "always show current positions along the bottom
 set hlsearch
 set hidden " lusty explorer
@@ -151,3 +154,5 @@ let g:neocomplcache_force_omni_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\
 
 let g:neocomplcache_fuzzy_completion_start_length=1
 let g:neocomplcache_enable_fuzzy_completion=1
+
+colorscheme distinguished
