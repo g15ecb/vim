@@ -32,8 +32,8 @@ set hlsearch
 set hidden " lusty explorer
 " following three variables make use of spaces instead of tabs
 set expandtab
-set shiftwidth=4
-set softtabstop=4
+set shiftwidth=2
+set softtabstop=2
 set nu "show line numbers
 set so=20 " some vertical buffering of current buffer 
 set ignorecase
