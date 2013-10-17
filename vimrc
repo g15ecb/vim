@@ -10,10 +10,8 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 
 " Bundles
-Bundle 'wlangstroth/vim-racket'
 Bundle 'vim-scripts/cscope.vim'
 Bundle 'mileszs/ack.vim'
-Bundle 'JesseKPhilips/d.vim'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-surround'
@@ -21,30 +19,20 @@ Bundle 'Shougo/neocomplcache'
 Bundle 'Shougo/neosnippet'
 Bundle 'Rip-Rip/clang_complete'
 Bundle 'kien/ctrlp.vim'
-Bundle 'eagletmt/ghcmod-vim'
-Bundle 'ujihisa/neco-ghc'
-Bundle 'Shougo/vimproc.vim'
 Bundle 'wting/rust.vim'
-Bundle 'scrooloose/syntastic'
-Bundle 'derekwyatt/vim-scala'
-Bundle 'moll/vim-node'
-Bundle 'pangloss/vim-javascript'
-Bundle 'leafgarland/typescript-vim'
-Bundle 'vim-pandoc/vim-pandoc'
-Bundle 'zah/nimrod.vim'
-"Bundle 'def-lkb/merlin', {'rtp': 'vim/merlin/'}
-Bundle 'def-lkb/vimbufsync'
 Bundle 'benmills/vimux'
-Bundle 'themoritz/vimux-ocaml'
+Bundle 'JesseKPhillips/d.vim'
+Bundle 'Lokaltog/vim-distinguished'
 
 " vanilla settings
+set t_Co=256
 set ruler "always show current positions along the bottom
 set hlsearch
 set hidden " lusty explorer
 " following three variables make use of spaces instead of tabs
 set expandtab
-set shiftwidth=4
-set softtabstop=4
+set shiftwidth=2
+set softtabstop=2
 set nu "show line numbers
 set so=20 " some vertical buffering of current buffer 
 set ignorecase
@@ -166,10 +154,4 @@ let g:neocomplcache_force_omni_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\
 let g:neocomplcache_fuzzy_completion_start_length=1
 let g:neocomplcache_enable_fuzzy_completion=1
 
-Bundle 'desert-warm-256'
-
-if has("gui_running")
-    set guifont=Monospace\ 18
-colorscheme desert-warm
-endif
-
+colorscheme distinguished
