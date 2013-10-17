@@ -10,7 +10,10 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 
 " Bundles
+Bundle 'wlangstroth/vim-racket'
+Bundle 'vim-scripts/cscope.vim'
 Bundle 'mileszs/ack.vim'
+Bundle 'JesseKPhilips/d.vim'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-surround'
@@ -162,3 +165,11 @@ let g:neocomplcache_force_omni_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\
 
 let g:neocomplcache_fuzzy_completion_start_length=1
 let g:neocomplcache_enable_fuzzy_completion=1
+
+Bundle 'desert-warm-256'
+
+if has("gui_running")
+    set guifont=Monospace\ 18
+colorscheme desert-warm
+endif
+
