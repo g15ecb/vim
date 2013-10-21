@@ -24,6 +24,7 @@ Bundle 'benmills/vimux'
 Bundle 'JesseKPhillips/d.vim'
 "Bundle 'Lokaltog/vim-distinguished'
 Bundle 'nanotech/jellybeans.vim'
+Bundle 'plasticboy/vim-markdown'
 
 " vanilla settings
 set t_Co=256
@@ -162,5 +163,6 @@ let g:jellybeans_overrides = {
       \              'attr': 'bold' },
       \}
 
+let g:vim_markdown_folding_disabled=1
 
 colorscheme jellybeans
