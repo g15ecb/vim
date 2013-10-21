@@ -17,12 +17,13 @@ Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-surround'
 Bundle 'Shougo/neocomplcache'
 Bundle 'Shougo/neosnippet'
-Bundle 'Rip-Rip/clang_complete'
+"Bundle 'Rip-Rip/clang_complete'
 Bundle 'kien/ctrlp.vim'
 Bundle 'wting/rust.vim'
 Bundle 'benmills/vimux'
 Bundle 'JesseKPhillips/d.vim'
-Bundle 'Lokaltog/vim-distinguished'
+"Bundle 'Lokaltog/vim-distinguished'
+Bundle 'nanotech/jellybeans.vim'
 
 " vanilla settings
 set t_Co=256
@@ -70,20 +71,21 @@ let mapleader=";"
 nmap <leader>a :Ack<CR>
 nmap <leader>s :Ack<SPACE>
 map <leader>d :bd<CR>
-nmap <leader>d :bd<CR>
 nmap <leader>w :w<CR>
 nmap <leader>q :q<CR>
 nmap <leader>f :CtrlP<CR>
 nmap <leader>b :CtrlPBuffer<CR>
 nmap <leader>r :!rust run %<CR>
 nmap <leader>t :!rust test %<CR>
-nmap <leader>m :make<CR>
+nmap <leader>m :call VimuxRunCommand("clang+++ -std=c++11 " + %)<CR>
+nmap <leader>c :VimuxCloseRunner<CR>
 nmap <silent> <c-k> :wincmd k<CR>
 nmap <silent> <c-j> :wincmd j<CR>
 
 if has("autocmd")
     " reload vimrc when tweaked
     au bufwritepost .vimrc source $MYVIMRC
+    "au BufWriteCmd *.cpp :pyf ~/Downloads/cfe-3.3.src/tools/clang-format/clang-format.py
 
     " open buffer at pos. where you were last 
     au BufReadPost *
@@ -107,9 +109,9 @@ endif
 let g:ackprg = 'ag --nogroup --nocolor --column'
 
 " clang
-let g:clang_complete_auto = 0
-let g:clang_auto_select = 0
-let g:clang_use_library = 1
+"let g:clang_complete_auto = 0
+"let g:clang_auto_select = 0
+"let g:clang_use_library = 1
 
 " Disable AutoComplPop. Comment out this line if AutoComplPop is not installed.
 let g:acp_enableAtStartup = 0
@@ -143,15 +145,22 @@ endif
 
 " the below config for clang_complete I got from:
 " http://stackoverflow.com/questions/12975098/using-neocomplcache-and-clang-complete
-if !exists('g:neocomplcache_force_omni_patterns')
-    let g:neocomplcache_force_omni_patterns = {}
-endif
-
-let g:neocomplcache_force_overwrite_completefunc = 1
-let g:neocomplcache_force_omni_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
-let g:neocomplcache_force_omni_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+"if !exists('g:neocomplcache_force_omni_patterns')
+"    let g:neocomplcache_force_omni_patterns = {}
+"endif
+"
+"let g:neocomplcache_force_overwrite_completefunc = 1
+"let g:neocomplcache_force_omni_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
+"let g:neocomplcache_force_omni_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
 
 let g:neocomplcache_fuzzy_completion_start_length=1
 let g:neocomplcache_enable_fuzzy_completion=1
 
-colorscheme distinguished
+let g:jellybeans_overrides = {
+      \    'Todo': { 'guifg': '0E0E0E', 'guibg': 'f0f000',
+      \              'ctermfg': 'Black', 'ctermbg': 'Yellow',
+      \              'attr': 'bold' },
+      \}
+
+
+colorscheme jellybeans
