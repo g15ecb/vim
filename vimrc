@@ -17,14 +17,14 @@ Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-surround'
 Bundle 'Shougo/neocomplcache'
 Bundle 'Shougo/neosnippet'
-"Bundle 'Rip-Rip/clang_complete'
+Bundle 'Rip-Rip/clang_complete'
 Bundle 'kien/ctrlp.vim'
 Bundle 'wting/rust.vim'
 Bundle 'JesseKPhillips/d.vim'
-Bundle 'nanotech/jellybeans.vim'
 Bundle 'plasticboy/vim-markdown'
 Bundle 'derekwyatt/vim-scala'
 Bundle 'guns/xterm-color-table.vim'
+Bundle 'zeis/vim-kolor'
 
 " vanilla settings
 set t_Co=256
@@ -108,10 +108,6 @@ endif
 " make ack use ag
 let g:ackprg = 'ag --nogroup --nocolor --column'
 
-" clang
-"let g:clang_complete_auto = 0
-"let g:clang_auto_select = 0
-"let g:clang_use_library = 1
 
 " Disable AutoComplPop. Comment out this line if AutoComplPop is not installed.
 let g:acp_enableAtStartup = 0
@@ -143,25 +139,23 @@ if has('conceal')
     set conceallevel=2 concealcursor=i
 endif
 
+" clang
+let g:clang_complete_auto = 0
+let g:clang_auto_select = 0
+let g:clang_use_library = 1
+let g:clang_library_path="/usr/lib/llvm-3.4/lib"
+
 " the below config for clang_complete I got from:
 " http://stackoverflow.com/questions/12975098/using-neocomplcache-and-clang-complete
-"if !exists('g:neocomplcache_force_omni_patterns')
-"    let g:neocomplcache_force_omni_patterns = {}
-"endif
-"
-"let g:neocomplcache_force_overwrite_completefunc = 1
-"let g:neocomplcache_force_omni_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
-"let g:neocomplcache_force_omni_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
-"
-"let g:neocomplcache_fuzzy_completion_start_length=1
-"let g:neocomplcache_enable_fuzzy_completion=1
+if !exists('g:neocomplcache_force_omni_patterns')
+    let g:neocomplcache_force_omni_patterns = {}
+endif
 
-let g:jellybeans_overrides = {
-      \    'Todo': { 'guifg': '000000', 'guibg': 'f0f000',
-      \              'ctermfg': 'Black', 'ctermbg': 'Yellow',
-      \              'attr': 'bold' },
-      \}
+let g:neocomplcache_force_overwrite_completefunc = 1
+let g:neocomplcache_force_omni_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
+let g:neocomplcache_force_omni_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
 
-let g:vim_markdown_folding_disabled=1
+let g:neocomplcache_fuzzy_completion_start_length=1
+let g:neocomplcache_enable_fuzzy_completion=1
 
-colorscheme jellybeans
+colorscheme kolor
