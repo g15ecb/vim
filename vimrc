@@ -23,6 +23,7 @@ Bundle 'JesseKPhillips/d.vim'
 Bundle 'plasticboy/vim-markdown'
 Bundle 'derekwyatt/vim-scala'
 Bundle 'zeis/vim-kolor'
+Bundle 'morhetz/gruvbox'
 
 " vanilla settings
 set t_Co=256
@@ -153,8 +154,10 @@ let g:clang_auto_select = 0
 let g:clang_use_library = 1
 " following is only for ubuntu-based distros...
 "let g:clang_library_path="/usr/lib/llvm-3.4/lib"
+let g:clang_library_path="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib"
 
 " markdown
 let g:vim_markdown_folding_disabled=1
 
-colorscheme kolor
+colorscheme gruvbox
+"colorscheme kolor
