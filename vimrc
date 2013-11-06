@@ -11,20 +11,18 @@ Bundle 'gmarik/vundle'
 
 " Bundles
 Bundle 'vim-scripts/cscope.vim'
-Bundle 'mileszs/ack.vim'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-surround'
 Bundle 'Shougo/neocomplcache'
 Bundle 'Shougo/neosnippet'
-"Bundle 'Rip-Rip/clang_complete'
+Bundle 'Rip-Rip/clang_complete'
 Bundle 'kien/ctrlp.vim'
 Bundle 'wting/rust.vim'
 Bundle 'JesseKPhillips/d.vim'
-Bundle 'nanotech/jellybeans.vim'
 Bundle 'plasticboy/vim-markdown'
 Bundle 'derekwyatt/vim-scala'
-Bundle 'guns/xterm-color-table.vim'
+Bundle 'zeis/vim-kolor'
 
 " vanilla settings
 set t_Co=256
@@ -76,10 +74,6 @@ nmap <leader>w :w<CR>
 nmap <leader>q :q<CR>
 nmap <leader>f :CtrlP<CR>
 nmap <leader>b :CtrlPBuffer<CR>
-nmap <leader>r :!rust run %<CR>
-nmap <leader>t :!rust test %<CR>
-"nmap <leader>m :call VimuxRunCommand("clang+++ -std=c++11 " + %)<CR>
-nmap <leader>c :VimuxCloseRunner<CR>
 nmap <silent> <c-k> :wincmd k<CR>
 nmap <silent> <c-j> :wincmd j<CR>
 
@@ -105,16 +99,10 @@ if has("autocmd")
     au FileType tex setlocal conceallevel=0
 endif
 
-" make ack use ag
-let g:ackprg = 'ag --nogroup --nocolor --column'
-
-" clang
-"let g:clang_complete_auto = 0
-"let g:clang_auto_select = 0
-"let g:clang_use_library = 1
-
 " Disable AutoComplPop. Comment out this line if AutoComplPop is not installed.
 let g:acp_enableAtStartup = 0
+
+" neocomplcache bits...
 " Launches neocomplcache automatically on vim startup.
 let g:neocomplcache_enable_at_startup = 1
 " Use smartcase.
@@ -129,6 +117,18 @@ let g:neocomplcache_min_syntax_length = 3
 " fuzzyfinder 
 let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
 let g:neocomplcache_enable_fuzzy_completion=1
+let g:neocomplcache_enable_fuzzy_completion=1
+
+" the below config for clang_complete I got from:
+" http://stackoverflow.com/questions/12975098/using-neocomplcache-and-clang-complete
+if !exists('g:neocomplcache_force_omni_patterns')
+    let g:neocomplcache_force_omni_patterns = {}
+endif
+
+let g:neocomplcache_force_overwrite_completefunc = 1
+let g:neocomplcache_force_omni_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
+let g:neocomplcache_force_omni_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+let g:neocomplcache_force_omni_patterns.ocaml = '[^. *\t]\.\w*\|\h\w*|#'
 
 " neosnippet
 " Plugin key-mappings.
@@ -143,25 +143,18 @@ if has('conceal')
     set conceallevel=2 concealcursor=i
 endif
 
-" the below config for clang_complete I got from:
-" http://stackoverflow.com/questions/12975098/using-neocomplcache-and-clang-complete
-"if !exists('g:neocomplcache_force_omni_patterns')
-"    let g:neocomplcache_force_omni_patterns = {}
-"endif
-"
-"let g:neocomplcache_force_overwrite_completefunc = 1
-"let g:neocomplcache_force_omni_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
-"let g:neocomplcache_force_omni_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
-"
-"let g:neocomplcache_fuzzy_completion_start_length=1
-"let g:neocomplcache_enable_fuzzy_completion=1
+" merlin
+set rtp+=$HOME/.opam/4.00.1/share/ocamlmerlin/vim
+set rtp+=$HOME/.opam/4.00.1/share/ocamlmerlin/vimbufsync
 
-let g:jellybeans_overrides = {
-      \    'Todo': { 'guifg': '000000', 'guibg': '000000',
-      \              'ctermfg': 'Black', 'ctermbg': 'Yellow',
-      \              'attr': 'bold' },
-      \}
+" clang
+let g:clang_complete_auto = 0
+let g:clang_auto_select = 0
+let g:clang_use_library = 1
+" following is only for ubuntu-based distros...
+"let g:clang_library_path="/usr/lib/llvm-3.4/lib"
 
+" markdown
 let g:vim_markdown_folding_disabled=1
 
-colorscheme jellybeans
+colorscheme kolor
