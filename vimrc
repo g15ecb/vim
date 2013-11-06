@@ -157,7 +157,7 @@ endif
 "let g:neocomplcache_enable_fuzzy_completion=1
 
 let g:jellybeans_overrides = {
-      \    'Todo': { 'guifg': '000000', 'guibg': 'f0f000',
+      \    'Todo': { 'guifg': '000000', 'guibg': '000000',
       \              'ctermfg': 'Black', 'ctermbg': 'Yellow',
       \              'attr': 'bold' },
       \}
