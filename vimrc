@@ -93,7 +93,7 @@ if has("autocmd")
     au FileType scala setlocal sw=2 sts=2 et
 
     au FileType ocaml setlocal sw=2 sts=2 et
-    au FileType ocaml source /Users/gb/.opam/4.00.1/share/typerex/ocp-indent/ocp-indent.vim
+    au FileType ocaml source $HOME/.opam/4.00.1/share/typerex/ocp-indent/ocp-indent.vim
     au BufWrite *.ml call OcpIndentBuffer()
 
     " the following due to annoying LaTeX unicode symbols
