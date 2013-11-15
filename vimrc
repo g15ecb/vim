@@ -24,6 +24,7 @@ Bundle 'plasticboy/vim-markdown'
 Bundle 'derekwyatt/vim-scala'
 Bundle 'zeis/vim-kolor'
 Bundle 'morhetz/gruvbox'
+Bundle 'altercation/vim-colors-solarized'
 
 " vanilla settings
 set t_Co=256
@@ -159,5 +160,6 @@ let g:clang_library_path="/Applications/Xcode.app/Contents/Developer/Toolchains/
 " markdown
 let g:vim_markdown_folding_disabled=1
 
-colorscheme gruvbox
+colorscheme solarized
+"colorscheme gruvbox
 "colorscheme kolor
