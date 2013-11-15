@@ -25,6 +25,7 @@ Bundle 'derekwyatt/vim-scala'
 Bundle 'zeis/vim-kolor'
 Bundle 'morhetz/gruvbox'
 Bundle 'altercation/vim-colors-solarized'
+Bundle 'jimenezrick/vimerl'
 
 " vanilla settings
 set t_Co=256
@@ -131,6 +132,7 @@ let g:neocomplcache_force_overwrite_completefunc = 1
 let g:neocomplcache_force_omni_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
 let g:neocomplcache_force_omni_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
 let g:neocomplcache_force_omni_patterns.ocaml = '[^. *\t]\.\w*\|\h\w*|#'
+let g:neocomplcache_force_omni_patterns.erlang = '[a-zA-Z]\|:'
 
 " neosnippet
 " Plugin key-mappings.
@@ -154,8 +156,8 @@ let g:clang_complete_auto = 0
 let g:clang_auto_select = 0
 let g:clang_use_library = 1
 " following is only for ubuntu-based distros...
-"let g:clang_library_path="/usr/lib/llvm-3.4/lib"
-let g:clang_library_path="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib"
+let g:clang_library_path="/usr/lib/llvm-3.4/lib"
+"let g:clang_library_path="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib"
 
 " markdown
 let g:vim_markdown_folding_disabled=1
