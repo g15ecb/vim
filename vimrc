@@ -26,6 +26,7 @@ Bundle 'zeis/vim-kolor'
 Bundle 'morhetz/gruvbox'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'jimenezrick/vimerl'
+Bundle 'benmills/vimux'
 
 " vanilla settings
 set t_Co=256
@@ -77,6 +78,7 @@ nmap <leader>w :w<CR>
 nmap <leader>q :q<CR>
 nmap <leader>f :CtrlP<CR>
 nmap <leader>b :CtrlPBuffer<CR>
+nmap <leader>m :!make<CR>
 nmap <silent> <c-k> :wincmd k<CR>
 nmap <silent> <c-j> :wincmd j<CR>
 
@@ -96,7 +98,7 @@ if has("autocmd")
 
     au FileType ocaml setlocal sw=2 sts=2 et
     au FileType ocaml source $HOME/.opam/4.00.1/share/typerex/ocp-indent/ocp-indent.vim
-    au BufWrite *.ml call OcpIndentBuffer()
+    au BufWrite *.ml* call OcpIndentBuffer()
 
     " the following due to annoying LaTeX unicode symbols
     au FileType tex setlocal conceallevel=0
