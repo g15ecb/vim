@@ -96,7 +96,8 @@ if has("autocmd")
 
     au FileType ocaml setlocal sw=2 sts=2 et
     au FileType ocaml source $HOME/.opam/4.00.1/share/typerex/ocp-indent/ocp-indent.vim
-    au BufWrite *.ml* call OcpIndentBuffer()
+    au BufWrite *.ml call OcpIndentBuffer()
+    au BufWrite *.mli call OcpIndentBuffer()
 
     " the following due to annoying LaTeX unicode symbols
     au FileType tex setlocal conceallevel=0
