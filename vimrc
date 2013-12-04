@@ -95,7 +95,7 @@ if has("autocmd")
     au FileType scala setlocal sw=2 sts=2 et
 
     au FileType ocaml setlocal sw=2 sts=2 et
-    au FileType ocaml source $HOME/.opam/4.00.1/share/typerex/ocp-indent/ocp-indent.vim
+    au FileType ocaml source $HOME/.opam/4.01.0/share/vim/syntax/ocp-indent.vim
     au BufWrite *.ml call OcpIndentBuffer()
     au BufWrite *.mli call OcpIndentBuffer()
 
@@ -149,8 +149,8 @@ if has('conceal')
 endif
 
 " merlin
-set rtp+=$HOME/.opam/4.00.1/share/ocamlmerlin/vim
-set rtp+=$HOME/.opam/4.00.1/share/ocamlmerlin/vimbufsync
+set rtp+=$HOME/.opam/4.01.0/share/ocamlmerlin/vim
+set rtp+=$HOME/.opam/4.01.0/share/ocamlmerlin/vimbufsync
 
 " clang
 let g:clang_complete_auto = 0
