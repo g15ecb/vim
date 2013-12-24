@@ -22,6 +22,8 @@ Bundle 'eagletmt/neco-ghc'
 Bundle 'Rip-Rip/clang_complete'
 Bundle 'kien/ctrlp.vim'
 Bundle 'derekwyatt/vim-scala'
+Bundle 'bling/vim-airline'
+Bundle 'scrooloose/syntastic'
 Bundle 'altercation/vim-colors-solarized'
 
 " vanilla settings
