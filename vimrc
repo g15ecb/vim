@@ -16,14 +16,11 @@ Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-surround'
 Bundle 'Shougo/neocomplcache'
 Bundle 'Shougo/neosnippet'
-Bundle 'Shougo/vimproc.vim'
-Bundle 'eagletmt/ghcmod-vim'
-Bundle 'eagletmt/neco-ghc'
 Bundle 'Rip-Rip/clang_complete'
 Bundle 'kien/ctrlp.vim'
-Bundle 'derekwyatt/vim-scala'
 Bundle 'bling/vim-airline'
 Bundle 'scrooloose/syntastic'
+Bundle 'derekwyatt/vim-scala'
 Bundle 'altercation/vim-colors-solarized'
 
 " vanilla settings
@@ -57,6 +54,8 @@ set ls=2
 set showcmd
 "set spell
 set spelllang=en_gb
+set cursorline
+set cursorcolumn
 syntax on 
 filetype plugin on 
 filetype indent on
@@ -156,7 +155,7 @@ let g:clang_complete_auto = 0
 let g:clang_auto_select = 0
 let g:clang_use_library = 1
 " following is only for ubuntu-based distros...
-let g:clang_library_path="/usr/lib/llvm-3.4/lib"
-"let g:clang_library_path="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib"
+"let g:clang_library_path="/usr/lib/llvm-3.4/lib"
+let g:clang_library_path="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib"
 
 colorscheme solarized
