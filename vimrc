@@ -22,6 +22,8 @@ Bundle 'bling/vim-airline'
 Bundle 'scrooloose/syntastic'
 Bundle 'derekwyatt/vim-scala'
 Bundle 'altercation/vim-colors-solarized'
+Bundle 'rhysd/vim-clang-format'
+Bundle 'kongo2002/fsharp-vim'
 
 " vanilla settings
 set t_Co=256
@@ -55,7 +57,7 @@ set showcmd
 "set spell
 set spelllang=en_gb
 set cursorline
-set cursorcolumn
+"set cursorcolumn
 syntax on 
 filetype plugin on 
 filetype indent on
