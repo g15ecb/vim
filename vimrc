@@ -79,7 +79,7 @@ nmap <leader>f :CtrlP<CR>
 nmap <leader>b :CtrlPBuffer<CR>
 nmap <leader>m :!make<CR>
 nmap <Leader>t :TypeOf<CR>
-nmap <Leader>o :Locate<CR>
+nmap <Leader>l :Locate<CR>
 nmap <silent> <c-k> :wincmd k<CR>
 nmap <silent> <c-j> :wincmd j<CR>
 
