@@ -1,4 +1,3 @@
-
 " the basics
 set nocompatible
 filetype off " vundle requires this
@@ -161,3 +160,9 @@ let g:clang_use_library = 1
 let g:clang_library_path="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib"
 
 colorscheme solarized
+
+if has('gui_running')
+  set guioptions=Ace  
+  set guifont=Monaco:h20
+endif
+
