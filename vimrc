@@ -21,6 +21,7 @@ Bundle 'eagletmt/ghcmod-vim'
 Bundle 'eagletmt/neco-ghc'
 Bundle 'Rip-Rip/clang_complete'
 Bundle 'kien/ctrlp.vim'
+Bundle 'Blackrush/vim-gocode'
 Bundle 'derekwyatt/vim-scala'
 Bundle 'altercation/vim-colors-solarized'
 
