@@ -16,14 +16,15 @@ Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-surround'
 Bundle 'Shougo/neocomplcache'
 Bundle 'Shougo/neosnippet'
-Bundle 'Shougo/vimproc.vim'
-Bundle 'eagletmt/ghcmod-vim'
-Bundle 'eagletmt/neco-ghc'
 Bundle 'Rip-Rip/clang_complete'
 Bundle 'kien/ctrlp.vim'
 Bundle 'Blackrush/vim-gocode'
+Bundle 'bling/vim-airline'
+Bundle 'scrooloose/syntastic'
 Bundle 'derekwyatt/vim-scala'
 Bundle 'altercation/vim-colors-solarized'
+Bundle 'rhysd/vim-clang-format'
+Bundle 'kongo2002/fsharp-vim'
 
 " vanilla settings
 set t_Co=256
@@ -56,6 +57,8 @@ set ls=2
 set showcmd
 "set spell
 set spelllang=en_gb
+set cursorline
+"set cursorcolumn
 syntax on 
 filetype plugin on 
 filetype indent on
@@ -76,6 +79,8 @@ nmap <leader>q :q<CR>
 nmap <leader>f :CtrlP<CR>
 nmap <leader>b :CtrlPBuffer<CR>
 nmap <leader>m :!make<CR>
+nmap <Leader>t :TypeOf<CR>
+nmap <Leader>l :Locate<CR>
 nmap <silent> <c-k> :wincmd k<CR>
 nmap <silent> <c-j> :wincmd j<CR>
 
@@ -155,7 +160,9 @@ let g:clang_complete_auto = 0
 let g:clang_auto_select = 0
 let g:clang_use_library = 1
 " following is only for ubuntu-based distros...
-let g:clang_library_path="/usr/lib/llvm-3.4/lib"
+"let g:clang_library_path="/usr/lib/llvm-3.4/lib"
 "let g:clang_library_path="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib"
+
+let g:syntastic_ocaml_checkers = ['merlin']
 
 colorscheme solarized
