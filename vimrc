@@ -99,9 +99,13 @@ if has("autocmd")
     au FileType scala setlocal sw=2 sts=2 et
 
     au FileType ocaml setlocal sw=2 sts=2 et
-    au FileType ocaml source $HOME/.opam/4.01.0/share/vim/syntax/ocp-indent.vim
-    au BufWrite *.ml call OcpIndentBuffer()
-    au BufWrite *.mli call OcpIndentBuffer()
+    let g:ocp_indent_vimfile = system("opam config var share")
+    let g:ocp_indent_vimfile = substitute(g:ocp_indent_vimfile, '[\r\n]*$', '', '')
+    let g:ocp_indent_vimfile = g:ocp_indent_vimfile . "/vim/syntax/ocp-indent.vim"
+    autocmd FileType ocaml exec ":source " . g:ocp_indent_vimfile
+    "au FileType ocaml source $HOME/.opam/4.01.0/share/vim/syntax/ocp-indent.vim
+    "au BufWrite *.ml call OcpIndentBuffer()
+    "au BufWrite *.mli call OcpIndentBuffer()
 
     " the following due to annoying LaTeX unicode symbols
     au FileType tex setlocal conceallevel=0
