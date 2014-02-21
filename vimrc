@@ -20,13 +20,13 @@ Bundle 'Rip-Rip/clang_complete'
 Bundle 'kien/ctrlp.vim'
 Bundle 'Blackrush/vim-gocode'
 Bundle 'bling/vim-airline'
-Bundle 'scrooloose/syntastic'
+"Bundle 'scrooloose/syntastic'
 Bundle 'derekwyatt/vim-scala'
 Bundle 'altercation/vim-colors-solarized'
-Bundle 'rhysd/vim-clang-format'
-Bundle 'kongo2002/fsharp-vim'
+Bundle 'wting/rust.vim'
+Bundle 'kien/rainbow_parentheses.vim'
 
-" vanilla settings
+;;" vanilla settings
 set t_Co=256
 set ruler "always show current positions along the bottom
 set hlsearch
@@ -109,6 +109,11 @@ if has("autocmd")
 
     " the following due to annoying LaTeX unicode symbols
     au FileType tex setlocal conceallevel=0
+
+    au VimEnter * RainbowParenthesesToggle
+    au Syntax * RainbowParenthesesLoadRound
+    au Syntax * RainbowParenthesesLoadSquare
+    au Syntax * RainbowParenthesesLoadBraces
 endif
 
 " Disable AutoComplPop. Comment out this line if AutoComplPop is not installed.
@@ -141,6 +146,7 @@ let g:neocomplcache_force_overwrite_completefunc = 1
 let g:neocomplcache_force_omni_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
 let g:neocomplcache_force_omni_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
 let g:neocomplcache_force_omni_patterns.ocaml = '[^. *\t]\.\w*\|\h\w*|#'
+let g:neocomplcache_force_omni_patterns.go = '\h\w*\%.'
 
 " neosnippet
 " Plugin key-mappings.
@@ -164,9 +170,29 @@ let g:clang_complete_auto = 0
 let g:clang_auto_select = 0
 let g:clang_use_library = 1
 " following is only for ubuntu-based distros...
-"let g:clang_library_path="/usr/lib/llvm-3.4/lib"
+let g:clang_library_path="/usr/lib/llvm-3.4/lib"
 "let g:clang_library_path="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib"
 
 let g:syntastic_ocaml_checkers = ['merlin']
+
+" rainbow parens
+let g:rbpt_colorpairs = [
+    \ ['brown',       'RoyalBlue3'],
+    \ ['Darkblue',    'SeaGreen3'],
+    \ ['darkgray',    'DarkOrchid3'],
+    \ ['darkgreen',   'firebrick3'],
+    \ ['darkcyan',    'RoyalBlue3'],
+    \ ['darkred',     'SeaGreen3'],
+    \ ['darkmagenta', 'DarkOrchid3'],
+    \ ['brown',       'firebrick3'],
+    \ ['gray',        'RoyalBlue3'],
+    \ ['black',       'SeaGreen3'],
+    \ ['darkmagenta', 'DarkOrchid3'],
+    \ ['Darkblue',    'firebrick3'],
+    \ ['darkgreen',   'RoyalBlue3'],
+    \ ['darkcyan',    'SeaGreen3'],
+    \ ['darkred',     'DarkOrchid3'],
+    \ ['red',         'firebrick3'],
+    \ ]
 
 colorscheme solarized
