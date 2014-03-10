@@ -1,0 +1,347 @@
+///////////////////////////////////////////////////////////////////////////////
+// Objects
+///////////////////////////////////////////////////////////////////////////////
+
+type ID 
+
+type Env def=
+  [|
+  env |> 
+    env_dataset: ID -> Dataset
+    env_region: ID -> Region
+    env_node: ID -> Node
+  |]
+
+type Node def=
+  [|
+  node |> 
+    node_nvram_region_capacity: Nat // implies > 1
+    node_dram_region_capacity: Nat
+    node_nvram_rgn: ID -> Region INV #(dom(node_nvram_rgn)) <= node_nvram_region_capacity
+    node_dram_rgn: ID -> Region INV #(dom(node_dram_rgn)) <= node_dram_region_capacity
+  |]
+
+type Dataset def=
+  [|
+  dataset |>
+    // homogenous regions only
+    dataset_region: ID -> Region INV
+      !EXIST d1,d2 IN dom(dataset_region).
+        d1 != d2
+        AND
+        region_type(dataset_region(d1)) != region_type(dataset_region(d2))
+  |]
+
+type Region def=
+  [|
+  region |>
+    region_type: RegionType
+  |]
+
+RegionType def= NVRAM | DRAM
+
+///////////////////////////////////////////////////////////////////////////////
+// Object Equality
+///////////////////////////////////////////////////////////////////////////////
+
+(==) def= Node -> Node -> Bool
+(==) n1 n2 = 
+  INV_BEGIN
+  INV_END
+  BODY_BEGIN
+    node_id(n1) == node_id(n2)
+  BODY_END
+END
+
+(==) def= Dataset -> Dataset -> Bool
+(==) d1 d2 = 
+  INV_BEGIN
+  INV_END
+  BODY_BEGIN
+    dataset_id(d1) == dataset_id(d2)
+  BODY_END
+END
+
+(==) def= Region -> Region -> Bool
+(==) r1 r2 = 
+  INV_BEGIN
+  INV_END
+  BODY_BEGIN
+    region_id(r1) == region_id(r2)
+  BODY_END
+END
+
+// Inequality is negation of the above for each of the respective objects.
+
+///////////////////////////////////////////////////////////////////////////////
+// Environment
+///////////////////////////////////////////////////////////////////////////////
+
+// Give me an environemt with N nodes, each with the specified NVRAM and
+// respective DRAM capacity.
+// Nat => > 0
+env_boot def= Nat -> Nat -> Nat -> Env
+env_boot nodes nvram_capacity dram_capacity env' =
+  INV_BEGIN
+  POST: #(dom(env_dataset(env'))) == 0
+        AND
+        #(dom(env_region(env'))) == 0
+        AND
+        FORALL n IN dom(env_node(env')).
+          node_nvram_region_capacity(env_node(env')(n)) == nvram_capacity
+          AND
+          node_dram_region_capacity(env_node(env')(n)) == dram_capacity
+          AND
+          #(node_nvram_rgns(env_node(env')(n))) == 0
+          AND
+          #(node_dram_rgns(env_node(env')(n))) == 0
+        AND
+        #(dom(env_node(env'))) == nodes
+  INV_END
+  BODY_BEGIN
+    RETURN env'
+  BODY_END
+END
+
+///////////////////////////////////////////////////////////////////////////////
+// Datasets
+///////////////////////////////////////////////////////////////////////////////
+
+// Creates a dataset with a given size (# of required region slots for the
+// dataset.)
+dataset_nvram_create def= Env -> Int -> Env
+dataset_nvram_create env size env' =
+  INV_BEGIN
+  PRE:  size > 0 AND size <= nodes_free_nvram_regions(env_nodes(env))
+  POST: nodes_free_nvram_regions(env_nodes(env')) < 
+          nodes_free_nvram_regions(env_nodes(env))
+        AND
+        env_dataset_id(env) < env_dataset_id(env')
+        AND
+        env_region_id(env) < env_region_id(env')
+        AND
+        FORALL r1 != r2 IN 
+          { region_type(r) == NVRAM | r IN env_regions(env') } \
+            { region_type(r) == NVRAM | r IN env_region(env) }.
+              region_id(r1) != region_id(r2)
+        AND
+        EXISTS n' IN env_nodes(env').
+          (EXISTS n IN env_nodes(env). 
+            node_id(n') == node_id(n) 
+            AND
+            node_nvram_region_capacity(n') < node_nvram_region_capacity(n))
+        AND
+        #(dataset_regions(dataset_find(env', env_dataset_id(env)))) == size
+  INV_END
+  BODY_BEGIN
+    ds_id' = succ(env_dataset_id(env))
+    env'' = nodes_select_and_alloc_nvram_regions(env, size) 
+    rgns' = env_regions(env'')
+    ns' = env_nodes(env'')
+    rgn_id = env_region_id(env'')
+    allocd_rgns = rgns' \ env_regions(env)
+    env' = Env(ns',
+               env_datasets(env) CUP {Dataset(ds_id', allocd_rgns)},
+               rgns',
+               rgn_id',
+               ds_id')
+    RETURN env'
+  BODY_END
+END
+
+// Frees a dataset which entails freeing its constituent regions and updating
+// the NVRAM free stores of the nodes that housed those regions. Note that the
+// id of the freed dataset is not recycled.  
+// Nothing on multiple users having a handle on the dataset
+dataset_nvram_free def= Env -> ID -> Env
+dataset_nvram_free env id env' =
+  INV_BEGIN
+  PRE:  EXISTS d IN env_datasets(env). dataset_id(d) == id 
+  POST: nodes_free_nvram_regions(env_nodes(env)) <
+          nodes_free_nvram_regions(env_nodes(env'))
+        AND
+        EXISTS n' IN env_nodes(env').
+          (EXISTS n IN env_nodes(env).
+            node_id(n') == node_id(n) AND 
+              node_free_nvram_regions(n') > node_free_nvram_regions(n))
+        AND
+        NOT EXISTS d IN env_datasets(env').
+          dataset_id(d) == id
+        AND
+        NOT EXISTS r IN env_regions(env').
+          r IN dataset_regions(d)
+  INV_END
+  BODY_BEGIN
+    RETURN env'
+  BODY_END
+END
+
+// Find me the dataset in *env* with the given *id*
+dataset_find def= Env -> Int -> Dataset
+dataset_find env id d' =
+  INV_BEGIN
+  PRE:  EXISTS d IN env_datasets(env). id(d) = id
+  POST: dataset_id(d') = id
+  INV_END
+END
+
+///////////////////////////////////////////////////////////////////////////////
+// Nodes
+///////////////////////////////////////////////////////////////////////////////
+
+// tell me how many free NVRAM region slots a node has 
+node_free_nvram_regions def= Node -> Int
+node_free_nvram_regions n free' =
+  INV_BEGIN
+  POST: 
+    free' >= 0
+  INV_END
+  BODY_BEGIN
+    free' = node_nvram_region_capacity(n) - #(node_nvram_rgns(n))
+    RETURN free'
+  BODY_END
+END
+
+// Add a node with the given nvram and dram capacities to an environment
+node_add def= Env -> Int -> Int -> Int -> Env
+node_add env baseNodeID nvram_capacity dram_capacity env' =
+  INV_BEGIN
+    PRE:  baseNodeID >= 0
+          AND
+          nvram_capacity > 0
+          AND
+          dram_capacity > 0
+    POST: #env_nodes(env') > #env_nodes(env)
+          AND
+          env_node_id(env') > env_node_id(env)
+          AND
+          EXISTS n IN env_nodes(env').
+            node_id(n) = baseNodeID 
+            AND
+            node_nvram_region_capacity(n) = nvram_capacity
+            AND
+            node_dram_region_capacity(n) = dram_capacity
+            AND
+            #(node_nvram_rgns(n)) = 0
+            AND
+            #(node_dram_rgns(n)) = 0
+  INV_END
+  BODY_BEGIN
+    RETURN env'
+  BODY_END
+END
+
+// what to do with a node's data when it dies, particularly if not enough space
+// exists on other nodes to maintain its data
+node_remove def= Env -> Env
+...
+
+// Over nodes...
+
+// tell me now many nvram regions are available in the environment
+nodes_free_nvram_regions def= Env -> Int
+nodes_free_nvram_regions env free' =
+  INV_BEGIN
+  POST: 
+    free' >= 0
+  INV_END
+END
+
+// Allocates the relevant number of regions for *size* of memory requested.
+nodes_select_and_alloc_nvram_regions def= Env -> Int -> Env
+nodes_select_and_alloc_nvram_regions env size env' =
+  INV_BEGIN
+  PRE:  nodes_free_nvram_regions(env_nodes(ns)) <= size
+  POST: #(env_regions(env')) = #(env_regions(env)) + size
+        AND
+        EXISTS n' IN env_nodes(env'). 
+          (EXISTS n IN env_nodes(env). 
+            node_id(n') == node_id(n) 
+            AND
+            #(node_nvram_rgns(n')) > #(node_nvram_rgns(n))
+            AND 
+            node_nvram_region_capacity(n') < node_nvram_region_capacity(n))
+        AND
+        env_region_id(env') = env_region_id(env) + size
+  INV_END
+  BODY_BEGIN
+    RETURN env'
+  BODY_END
+END
+
+///////////////////////////////////////////////////////////////////////////////
+// Regions
+///////////////////////////////////////////////////////////////////////////////
+
+// Allocate a region on a given *node_id*. This function would ideally be called
+// by nodes_select_and_alloc_nvram_regions.
+region_create_nvram def= Env -> Int -> Env
+region_create_nvram env node_id env' =
+  INV_BEGIN
+    PRE:  EXISTS n IN env_nodes(env). node_id(n) == node_id
+            AND node_free_nvram_regions(n) > 0 // at least one slot free on n
+    POST: env_regions(env') INCLUDES env_regions(env)
+          AND
+          #(env_regions(env')) > #(env_regions(env))
+          AND
+          EXISTS n' IN env_nodes(env').
+            (EXISTS n IN env_nodes(env).
+              node_id(n') == node_id(n) == node_id
+              AND
+              node_free_nvram_regions(n') < node_free_nvram_regions(n))
+          AND
+          env_region_id(env') > env_region_id(env)
+          // Note: missing nvram check on region alloc'd on n
+  INV_END
+  BODY_BEGIN
+    RETURN env'
+  BODY_END
+END
+
+// Delete n's region with the given id, elimintating it from the environment, as
+// well.
+region_nvram_delete def= Env -> Int -> Int -> Env
+region_nvram_delete env node_id region_id env' =
+  INV_BEGIN
+  PRE:  EXISTS n IN env_nodes(env). 
+          node_id(n) == node_id
+          AND
+          (EXISTS r IN node_nvram_rgns(n).
+            region_id(r) == region_id)
+        AND
+        EXISTS r IN env_regions(env). region_id(r) == region_id
+  POST: EXISTS n' IN env_nodes(env'). 
+          (EXISTS n IN env_nodes(env). 
+            node_id(n') == node_id(n) == node_id
+            AND
+            (NOT EXISTS r IN node_rgns(n').
+              region_id(r) == region_id)
+            AND
+            node_nvram_region_capacity(n') > node_nvram_region_capacity(n)
+            AND
+            #(node_nvram_rgns(n')) < #(node_nvram_rgns(n)))
+        AND
+        NOT EXISTS r IN env_regions(env). region_id(r) == region_id
+        AND
+        #(env_regions(env')) < #(env_regions(env))
+  INV_END
+  BODY_BEGIN
+    RETURN env'
+  BODY_END
+END
+
+///////////////////////////////////////////////////////////////////////////////
+// Helpers
+///////////////////////////////////////////////////////////////////////////////
+
+// Used for generating unique IDs, which at this time are just strictly
+// increasing integers.
+succ def= Int -> Int
+succ i i' =
+  INV_BEGIN
+  POST: i' > i
+  INV_END
+  BODY_BEGIN
+    RETURN i + 1
+  BODY_END
+END
