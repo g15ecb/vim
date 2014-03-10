@@ -28,15 +28,14 @@ type Dataset def=
   [|
   dataset |>
   dataset_region_ids: Set[ID] 
-  |]
-
-    INV // only homogenous region datasets
-      VAL env :: Env IN 
-      !EXIST dataset_id IN dom(env_dataset(env)).
-        {region_id1,region_id2} INCLUDED_IN
-          dataset_region_ids(env_dataset(env)(dataset_id))
-        AND 
-        env_region(env)(region_id1) != env_region(env)(region_id2) 
+  |] 
+  INV
+    VAL env :: Env IN // this is dodgy ;-(
+    !EXIST dataset_id IN dom(env_dataset(env)).
+      {region_id1,region_id2} INCLUDED_IN
+        dataset_region_ids(env_dataset(env)(dataset_id))
+      AND 
+      env_region(env)(region_id1) != env_region(env)(region_id2) 
 
 type Region def= NVRAM | DRAM
 
@@ -124,6 +123,7 @@ dataset_nvram_free env dataset_id env' =
   INV_END
 END
 
+
 ///////////////////////////////////////////////////////////////////////////////
 // Nodes
 ///////////////////////////////////////////////////////////////////////////////
@@ -174,14 +174,13 @@ nodes_select_and_alloc_nvram_regions env size env' =
         AND
         env_region_id(env') = env_region_id(env) + size
   INV_END
-  BODY_BEGIN
-    RETURN env'
-  BODY_END
 END
+
 
 ///////////////////////////////////////////////////////////////////////////////
 // Regions
 ///////////////////////////////////////////////////////////////////////////////
+
 
 // Allocate a region on a given *node_id*. This function would ideally be called
 // by nodes_select_and_alloc_nvram_regions.
