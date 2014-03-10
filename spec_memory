@@ -2,7 +2,7 @@
 // Objects
 ///////////////////////////////////////////////////////////////////////////////
 
-// Todo: lock this down...
+
 type ID
 
 type Env def=
@@ -16,75 +16,81 @@ type Env def=
 type Node def= 
   [| 
   node |>
-  node_nvram_capacity: Nat0
-  node_dram_capacity: Nat0
-  node_nvram_allocated: Set[Region]
-  node_dram_allocate: Set[Region]
+  node_nvram_capacity: Nat
+  node_dram_capacity: Nat
+  node_nvram_allocated: Set[Region] 
+                        INV #(node_nvram_allocated(node)) <= node_nvram_capacity
+  node_dram_allocated: Set[Region]
+                        INV #(node_dram_allocated(node)) <= node_dram_capacity 
   |]
 
 type Dataset def= 
   [|
   dataset |>
-  dataset_regions: Set[ID]
+  dataset_region_ids: Set[ID] 
   |]
-    // this needs to be tidied up: where did you get env from???
+
     INV // only homogenous region datasets
       VAL env :: Env IN 
       !EXIST dataset_id IN dom(env_dataset(env)).
         {region_id1,region_id2} INCLUDED_IN
-          dataset_regions(env_dataset(env)(dataset_id))
+          dataset_region_ids(env_dataset(env)(dataset_id))
         AND 
         env_region(env)(region_id1) != env_region(env)(region_id2) 
 
 type Region def= NVRAM | DRAM
 
+
 ///////////////////////////////////////////////////////////////////////////////
 // Environment
 ///////////////////////////////////////////////////////////////////////////////
+
 
 // Bootup an environment comprising *n_nodes* each with *nvram_capacity* and
 // *dram_capacity*.
 env_boot def= Nat -> Nat -> Nat -> Env
 env_boot n_nodes nvram_capacity dram_capacity env' =
   INV_BEGIN
-  POST: #(dom(env_dataset(env'))) == 0
+  POST: dom(env_dataset(env')) == {}
         AND
-        #(dom(env_region(env'))) == 0
+        dom(env_region(env')) == {}
         AND
         FORALL n IN dom(env_node(env')).
           node_nvram_capacity(env_node(env')(n)) == nvram_capacity
           AND
           node_dram_capacity(env_node(env')(n)) == dram_capacity
           AND
-          #(node_nvram_allocated(env_node(env')(n))) == 0
+          node_nvram_allocated(env_node(env')(n)) == {}
           AND
-          #(node_dram_allocated(env_node(env')(n))) == 0
+          node_dram_allocated(env_node(env')(n)) == {} 
         AND
         #(dom(env_node(env'))) == n_nodes
   INV_END
-  BODY_BEGIN
-    RETURN env'
-  BODY_END
 END
+
+// Number of *free_nvram_regions* available on the nodes in *env*.
+env_available_nvram_regions def= Env -> Nat0
+env_available_nvram_regions env free_nvram_regions
+
 
 ///////////////////////////////////////////////////////////////////////////////
 // Datasets
 ///////////////////////////////////////////////////////////////////////////////
 
+
 // Create a dataset of *size* regions.
 dataset_nvram_create def= Env -> Nat -> Env
 dataset_nvram_create env size env' =
   INV_BEGIN
-  PRE:  size <= nodes_available_nvram_regions(env_nodes(env))
+  PRE:  size <= env_available_nvram_regions(env)
   POST: dom(env_region(env')) STRICTLY_INCLUDES dom(env_region(env))
         AND
         dom(env_dataset(env')) STRICTLY_INCLUDES dom(env_region(env))
         AND
-          // singleton set; dataset_id is the dataset id associated with that created
+          // singleton set; *dataset_id* is id of new dataset
           VAL {dataset_id} = dom(env_dataset(env')) \ dom(env_dataset(env)) IN 
-          // dataset entails the requested number of regions
-          #(dataset_regions(env_dataset(env')(dataset_id))) == size
-        AND // dom of env_nodes remains the same...
+          #(dataset_region_ids(env_dataset(env')(dataset_id))) == size
+        AND 
         dom(env_node(env')) == dom(env_node(env))
         AND // but at least one node's state has changed... 
         EXISTS node_id' IN dom(env_node(env')).
@@ -98,39 +104,23 @@ dataset_nvram_create env size env' =
   BODY_END
 END
 
-// Frees a dataset which entails freeing its constituent regions and updating
-// the NVRAM free stores of the nodes that housed those regions. Note that the
-// id of the freed dataset is not recycled.  
-// Nothing on multiple users having a handle on the dataset
+// Free *dataset_id* in *env*.
 dataset_nvram_free def= Env -> ID -> Env
-dataset_nvram_free env id env' =
+dataset_nvram_free env dataset_id env' =
   INV_BEGIN
-  PRE:  EXISTS d IN env_datasets(env). dataset_id(d) == id 
-  POST: nodes_available_nvram_regions(env_nodes(env)) <
-          nodes_available_nvram_regions(env_nodes(env'))
-        AND
-        EXISTS n' IN env_nodes(env').
-          (EXISTS n IN env_nodes(env).
-            node_id(n') == node_id(n) AND 
-              node_free_nvram_regions(n') > node_free_nvram_regions(n))
-        AND
-        NOT EXISTS d IN env_datasets(env').
-          dataset_id(d) == id
-        AND
-        NOT EXISTS r IN env_regions(env').
-          r IN dataset_regions(d)
-  INV_END
-  BODY_BEGIN
-    RETURN env'
-  BODY_END
-END
-
-// Find me the dataset in *env* with the given *id*
-dataset_find def= Env -> Int -> Dataset
-dataset_find env id d' =
-  INV_BEGIN
-  PRE:  EXISTS d IN env_datasets(env). id(d) = id
-  POST: dataset_id(d') = id
+  PRE:  EXISTS dataset_id' IN dom(env_dataset(env)). 
+          dataset_id' == id 
+  POST: env_available_nvram_regions(env') > env_available_nvram_regions(env)
+        AND // be more specific: at least one node has less allocated nvram
+        EXISTS node_id' IN dom(env_node(env')).
+          (EXISTS node_id IN dom(env_nodes(env)).
+            node_id' == node_id 
+            AND 
+            node_nvram_allocated(env_node(env)(node_id))
+              STRICTLY_INCLUDES node_nvram_allocated(env_node(env')(node_id')))
+        AND 
+        NOT EXISTS dataset_id' IN dom(env_dataset(env')).
+          dataset_id' == dataset_id
   INV_END
 END
 
@@ -138,61 +128,32 @@ END
 // Nodes
 ///////////////////////////////////////////////////////////////////////////////
 
-// tell me how many free NVRAM region slots a node has 
-node_free_nvram_regions def= Node -> Int
-node_free_nvram_regions n free' =
-  INV_BEGIN
-  POST: 
-    free' >= 0
-  INV_END
+
+// Number of *free_nvram_regions* that *node* has.
+// Nat0 implies 0..
+node_free_nvram_regions def= Node -> Nat0
+node_free_nvram_regions node free_nvram_regions =
   BODY_BEGIN
-    free' = node_nvram_region_capacity(n) - #(node_nvram_rgns(n))
-    RETURN free'
+    RETURN node_nvram_capacity(node) - #(node_nvram_allocated(node))
   BODY_END
 END
 
-// Add a node with the given nvram and dram capacities to an environment
-node_add def= Env -> Int -> Int -> Int -> Env
-node_add env baseNodeID nvram_capacity dram_capacity env' =
+// Add a node with *nvram_capacity* and *dram_capacity* to *env*.
+node_add def= Env -> Nat -> Nat -> Env
+node_add env nvram_capacity dram_capacity env' =
   INV_BEGIN
-    PRE:  baseNodeID >= 0
+    POST: dom(env_node(env')) STRICTLY_INCLUDES dom(env_node(env))
           AND
-          nvram_capacity > 0
-          AND
-          dram_capacity > 0
-    POST: #env_nodes(env') > #env_nodes(env)
-          AND
-          env_node_id(env') > env_node_id(env)
-          AND
-          EXISTS n IN env_nodes(env').
-            node_id(n) = baseNodeID 
+          EXISTS node_id' IN dom(env_node(env')).
+            node_id' !IN dom(env_node(env))
             AND
-            node_nvram_region_capacity(n) = nvram_capacity
+            node_nvram_capacity(env_node(env')(node_id')) == nvram_capacity
             AND
-            node_dram_region_capacity(n) = dram_capacity
+            node_dram_capacity(env_node(env')(node_id')) == dram_capacity
             AND
-            #(node_nvram_rgns(n)) = 0
+            node_nvram_allocated(env_node(env')(node_id')) == {}
             AND
-            #(node_dram_rgns(n)) = 0
-  INV_END
-  BODY_BEGIN
-    RETURN env'
-  BODY_END
-END
-
-// what to do with a node's data when it dies, particularly if not enough space
-// exists on other nodes to maintain its data
-node_remove def= Env -> Env
-...
-
-// Over nodes...
-
-// tell me now many nvram regions are available in the environment
-nodes_available_nvram_regions def= Env -> Int
-nodes_available_nvram_regions env free' =
-  INV_BEGIN
-  POST: 
-    free' >= 0
+            node_dram_allocated(env_node(env')(node_id')) == {}
   INV_END
 END
 
@@ -200,7 +161,7 @@ END
 nodes_select_and_alloc_nvram_regions def= Env -> Int -> Env
 nodes_select_and_alloc_nvram_regions env size env' =
   INV_BEGIN
-  PRE:  nodes_available_nvram_regions(env_nodes(ns)) <= size
+  PRE:  env_available_nvram_regions(env_nodes(ns)) <= size
   POST: #(env_regions(env')) = #(env_regions(env)) + size
         AND
         EXISTS n' IN env_nodes(env'). 
