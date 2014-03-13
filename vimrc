@@ -15,6 +15,7 @@ Bundle 'tpope/vim-fugitive'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'tpope/vim-surround'
 Bundle 'kien/ctrlp.vim'
+Bundle 'kien/rainbow_parentheses.vim'
 
 Bundle 'Rip-Rip/clang_complete'
 Bundle 'scrooloose/syntastic'
@@ -24,6 +25,7 @@ Bundle "Shougo/vimproc.vim"
 Bundle "Shougo/vimshell.vim"
 Bundle "eagletmt/ghcmod-vim"
 Bundle "eagletmt/neco-ghc"
+Bundle 'scrooloose/syntastic'
 
 " vanilla settings
 set t_Co=256
@@ -78,6 +80,8 @@ nmap <leader>q :q<CR>
 nmap <leader>f :CtrlP<CR>
 nmap <leader>b :CtrlPBuffer<CR>
 nmap <leader>m :!make<CR>
+nmap <Leader>t :TypeOf<CR>
+nmap <Leader>l :Locate<CR>
 nmap <silent> <c-k> :wincmd k<CR>
 nmap <silent> <c-j> :wincmd j<CR>
 
@@ -92,17 +96,31 @@ if has("autocmd")
     \ endif 
 
     au FileType haskell setlocal sw=2 sts=2 et
+    au BufWrite *.hs :%!stylish-haskell
+   
     "au FileType rust setlocal sw=2 sts=2 et
     "au FileType scala setlocal sw=2 sts=2 et
-
+    
     "au FileType ocaml setlocal sw=2 sts=2 et
     "au FileType ocaml source $HOME/.opam/system/share/vim/syntax/ocp-indent.vim
     "au BufWrite *.ml call OcpIndentBuffer()
     "au BufWrite *.mli call OcpIndentBuffer()
-    au BufWrite *.hs :%!stylish-haskell
+    "au FileType ocaml setlocal sw=2 sts=2 et
+    "let g:ocp_indent_vimfile = system("opam config var share")
+    "let g:ocp_indent_vimfile = substitute(g:ocp_indent_vimfile, '[\r\n]*$', '', '')
+    "let g:ocp_indent_vimfile = g:ocp_indent_vimfile . "/vim/syntax/ocp-indent.vim"
+    "autocmd FileType ocaml exec ":source " . g:ocp_indent_vimfile
+    "au FileType ocaml source $HOME/.opam/4.01.0/share/vim/syntax/ocp-indent.vim
+    "au BufWrite *.ml call OcpIndentBuffer()
+    "au BufWrite *.mli call OcpIndentBuffer()
 
     " the following due to annoying LaTeX unicode symbols
     au FileType tex setlocal conceallevel=0
+
+    au VimEnter * RainbowParenthesesToggle
+    au Syntax * RainbowParenthesesLoadRound
+    au Syntax * RainbowParenthesesLoadSquare
+    au Syntax * RainbowParenthesesLoadBraces
 endif
 
 "let g:ocp_indent_vimfile = system("opam config var share")
@@ -163,8 +181,30 @@ let g:clang_complete_auto = 0
 let g:clang_auto_select = 0
 let g:clang_use_library = 1
 " following is only for ubuntu-based distros...
-"let g:clang_library_path="/usr/lib/llvm-3.4/lib"
-let g:clang_library_path="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib"
+let g:clang_library_path="/usr/lib/llvm-3.4/lib"
+"let g:clang_library_path="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib"
+
+"let g:syntastic_ocaml_checkers = ['merlin']
+
+" rainbow parens
+let g:rbpt_colorpairs = [
+    \ ['brown',       'RoyalBlue3'],
+    \ ['Darkblue',    'SeaGreen3'],
+    \ ['darkgray',    'DarkOrchid3'],
+    \ ['darkgreen',   'firebrick3'],
+    \ ['darkcyan',    'RoyalBlue3'],
+    \ ['darkred',     'SeaGreen3'],
+    \ ['darkmagenta', 'DarkOrchid3'],
+    \ ['brown',       'firebrick3'],
+    \ ['gray',        'RoyalBlue3'],
+    \ ['black',       'SeaGreen3'],
+    \ ['darkmagenta', 'DarkOrchid3'],
+    \ ['Darkblue',    'firebrick3'],
+    \ ['darkgreen',   'RoyalBlue3'],
+    \ ['darkcyan',    'SeaGreen3'],
+    \ ['darkred',     'DarkOrchid3'],
+    \ ['red',         'firebrick3'],
+    \ ]
 
 colorscheme solarized
 
