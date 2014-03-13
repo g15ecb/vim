@@ -23,6 +23,7 @@ Bundle 'Shougo/neosnippet'
 Bundle "Shougo/vimproc.vim"
 Bundle "Shougo/vimshell.vim"
 Bundle "eagletmt/ghcmod-vim"
+Bundle "eagletmt/neco-ghc"
 
 " vanilla settings
 set t_Co=256
@@ -69,8 +70,8 @@ imap jk <Esc>
 
 let mapleader=";" 
 " some custom mappings
-nmap <leader>a :Ack<CR>
-nmap <leader>s :Ack<SPACE>
+nmap <leader>a :Ack<SPACE>
+nmap <leader>s :VimShell<CR>
 map <leader>d :bd<CR>
 nmap <leader>w :w<CR>
 nmap <leader>q :q<CR>
@@ -98,6 +99,7 @@ if has("autocmd")
     "au FileType ocaml source $HOME/.opam/system/share/vim/syntax/ocp-indent.vim
     "au BufWrite *.ml call OcpIndentBuffer()
     "au BufWrite *.mli call OcpIndentBuffer()
+    au BufWrite *.hs :%!stylish-haskell
 
     " the following due to annoying LaTeX unicode symbols
     au FileType tex setlocal conceallevel=0
