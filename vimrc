@@ -80,7 +80,8 @@ nmap <leader>q :q<CR>
 nmap <leader>f :CtrlP<CR>
 nmap <leader>b :CtrlPBuffer<CR>
 nmap <leader>m :!make<CR>
-nmap <Leader>t :TypeOf<CR>
+nmap <leader>t :TypeOf<CR>
+nmap <leader>o :only<CR>
 nmap <Leader>l :Locate<CR>
 nmap <silent> <c-k> :wincmd k<CR>
 nmap <silent> <c-j> :wincmd j<CR>
@@ -96,7 +97,7 @@ if has("autocmd")
     \ endif 
 
     au FileType haskell setlocal sw=2 sts=2 et
-    au BufWrite *.hs :%!stylish-haskell
+    "au BufWrite *.hs :%!stylish-haskell
    
     "au FileType rust setlocal sw=2 sts=2 et
     "au FileType scala setlocal sw=2 sts=2 et
@@ -121,6 +122,8 @@ if has("autocmd")
     au Syntax * RainbowParenthesesLoadRound
     au Syntax * RainbowParenthesesLoadSquare
     au Syntax * RainbowParenthesesLoadBraces
+
+    au Syntax * :only
 endif
 
 "let g:ocp_indent_vimfile = system("opam config var share")
