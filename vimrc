@@ -74,21 +74,21 @@ set background=dark
 imap jk <Esc>
 
 let mapleader=";" 
-" some custom mappings
+
+" custom mappings
 nmap <leader>a :Ack<SPACE>
 nmap <leader>s :VimShell<CR>
-map <leader>d :bd<CR>
+nmap <leader>d :bd<CR>
 nmap <leader>w :w<CR>
 nmap <leader>q :q<CR>
 nmap <leader>f :CtrlP<CR>
 nmap <leader>b :CtrlPBuffer<CR>
 nmap <leader>m :!make<CR>
-nmap <leader>t :TypeOf<CR>
 nmap <leader>o :only<CR>
-nmap <Leader>l :Locate<CR>
-nmap <Leader>t :!tup upd<CR>
 nmap <silent> <c-k> :wincmd k<CR>
 nmap <silent> <c-j> :wincmd j<CR>
+nmap <leader>p :%!stylish-haskell<CR>
+
 
 if has("autocmd")
     " reload vimrc when tweaked
@@ -220,6 +220,12 @@ colorscheme solarized
 
 if has('gui_running')
   set guioptions=Ace  
-  set guifont=Monaco:h20
+  if has("gui_running")
+    if has("gui_gtk2")
+      set guifont=Monospace\ 16
+    elseif has("gui_macvim")
+      set guifont=Monaco:h20
+    endif
+  endif
 endif
 
