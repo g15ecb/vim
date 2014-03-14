@@ -127,7 +127,8 @@ if has("autocmd")
     au Syntax * RainbowParenthesesLoadSquare
     au Syntax * RainbowParenthesesLoadBraces
 
-    au Syntax * :only
+    "au Syntax * :only
+    au BufEnter * :only
 endif
 
 "let g:ocp_indent_vimfile = system("opam config var share")
