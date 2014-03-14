@@ -25,6 +25,9 @@ Bundle 'derekwyatt/vim-scala'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'wting/rust.vim'
 Bundle 'kien/rainbow_parentheses.vim'
+Bundle 'dpwright/vim-tup'
+Bundle 'uarun/vim-protobuf'
+Bundle 'plasticboy/vim-markdown'
 
 ;;" vanilla settings
 set t_Co=256
@@ -81,6 +84,7 @@ nmap <leader>b :CtrlPBuffer<CR>
 nmap <leader>m :!make<CR>
 nmap <Leader>t :TypeOf<CR>
 nmap <Leader>l :Locate<CR>
+nmap <Leader>t :!tup upd<CR>
 nmap <silent> <c-k> :wincmd k<CR>
 nmap <silent> <c-j> :wincmd j<CR>
 
@@ -194,5 +198,7 @@ let g:rbpt_colorpairs = [
     \ ['darkred',     'DarkOrchid3'],
     \ ['red',         'firebrick3'],
     \ ]
+
+let g:vim_markdown_folding_disabled=1
 
 colorscheme solarized
