@@ -1,4 +1,3 @@
-
 " the basics
 set nocompatible
 filetype off " vundle requires this
@@ -10,26 +9,28 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 
 " Bundles
-Bundle 'vim-scripts/cscope.vim'
-Bundle 'scrooloose/nerdcommenter'
-Bundle 'tpope/vim-fugitive'
-Bundle 'tpope/vim-surround'
-Bundle 'Shougo/neocomplcache'
-Bundle 'Shougo/neosnippet'
-Bundle 'Rip-Rip/clang_complete'
-Bundle 'kien/ctrlp.vim'
-Bundle 'Blackrush/vim-gocode'
 Bundle 'bling/vim-airline'
-"Bundle 'scrooloose/syntastic'
-Bundle 'derekwyatt/vim-scala'
 Bundle 'altercation/vim-colors-solarized'
-Bundle 'wting/rust.vim'
+Bundle 'tpope/vim-fugitive'
+Bundle 'scrooloose/nerdcommenter'
+Bundle 'tpope/vim-surround'
+Bundle 'kien/ctrlp.vim'
 Bundle 'kien/rainbow_parentheses.vim'
 Bundle 'dpwright/vim-tup'
 Bundle 'uarun/vim-protobuf'
 Bundle 'plasticboy/vim-markdown'
 
-;;" vanilla settings
+Bundle 'Rip-Rip/clang_complete'
+Bundle 'scrooloose/syntastic'
+Bundle 'Shougo/neocomplcache'
+Bundle 'Shougo/neosnippet'
+Bundle "Shougo/vimproc.vim"
+Bundle "Shougo/vimshell.vim"
+Bundle "eagletmt/ghcmod-vim"
+Bundle "eagletmt/neco-ghc"
+Bundle 'scrooloose/syntastic'
+
+" vanilla settings
 set t_Co=256
 set ruler "always show current positions along the bottom
 set hlsearch
@@ -52,7 +53,7 @@ set wrap
 " use q to easily format text. I like this from Emacs using M-q
 map q gq}
 " set current working directory to that of the file being edited
-set autochdir
+"set autochdir
 " show path of file being edited.
 set modeline
 set ls=2
@@ -74,15 +75,16 @@ imap jk <Esc>
 
 let mapleader=";" 
 " some custom mappings
-nmap <leader>a :Ack<CR>
-nmap <leader>s :Ack<SPACE>
+nmap <leader>a :Ack<SPACE>
+nmap <leader>s :VimShell<CR>
 map <leader>d :bd<CR>
 nmap <leader>w :w<CR>
 nmap <leader>q :q<CR>
 nmap <leader>f :CtrlP<CR>
 nmap <leader>b :CtrlPBuffer<CR>
 nmap <leader>m :!make<CR>
-nmap <Leader>t :TypeOf<CR>
+nmap <leader>t :TypeOf<CR>
+nmap <leader>o :only<CR>
 nmap <Leader>l :Locate<CR>
 nmap <Leader>t :!tup upd<CR>
 nmap <silent> <c-k> :wincmd k<CR>
@@ -99,14 +101,20 @@ if has("autocmd")
     \ endif 
 
     au FileType haskell setlocal sw=2 sts=2 et
-    au FileType rust setlocal sw=2 sts=2 et
-    au FileType scala setlocal sw=2 sts=2 et
-
-    au FileType ocaml setlocal sw=2 sts=2 et
-    let g:ocp_indent_vimfile = system("opam config var share")
-    let g:ocp_indent_vimfile = substitute(g:ocp_indent_vimfile, '[\r\n]*$', '', '')
-    let g:ocp_indent_vimfile = g:ocp_indent_vimfile . "/vim/syntax/ocp-indent.vim"
-    autocmd FileType ocaml exec ":source " . g:ocp_indent_vimfile
+    "au BufWrite *.hs :%!stylish-haskell
+   
+    "au FileType rust setlocal sw=2 sts=2 et
+    "au FileType scala setlocal sw=2 sts=2 et
+    
+    "au FileType ocaml setlocal sw=2 sts=2 et
+    "au FileType ocaml source $HOME/.opam/system/share/vim/syntax/ocp-indent.vim
+    "au BufWrite *.ml call OcpIndentBuffer()
+    "au BufWrite *.mli call OcpIndentBuffer()
+    "au FileType ocaml setlocal sw=2 sts=2 et
+    "let g:ocp_indent_vimfile = system("opam config var share")
+    "let g:ocp_indent_vimfile = substitute(g:ocp_indent_vimfile, '[\r\n]*$', '', '')
+    "let g:ocp_indent_vimfile = g:ocp_indent_vimfile . "/vim/syntax/ocp-indent.vim"
+    "autocmd FileType ocaml exec ":source " . g:ocp_indent_vimfile
     "au FileType ocaml source $HOME/.opam/4.01.0/share/vim/syntax/ocp-indent.vim
     "au BufWrite *.ml call OcpIndentBuffer()
     "au BufWrite *.mli call OcpIndentBuffer()
@@ -118,10 +126,17 @@ if has("autocmd")
     au Syntax * RainbowParenthesesLoadRound
     au Syntax * RainbowParenthesesLoadSquare
     au Syntax * RainbowParenthesesLoadBraces
+
+    au Syntax * :only
 endif
 
+"let g:ocp_indent_vimfile = system("opam config var share")
+"let g:ocp_indent_vimfile = substitute(g:ocp_indent_vimfile, '[\r\n]*$', '', '')
+"let g:ocp_indent_vimfile = g:ocp_indent_vimfile . "/vim/syntax/ocp-indent.vim"
+"autocmd FileType ocaml exec ":source " . g:ocp_indent_vimfile
+
 " Disable AutoComplPop. Comment out this line if AutoComplPop is not installed.
-let g:acp_enableAtStartup = 0
+"let g:acp_enableAtStartup = 0
 
 " neocomplcache bits...
 " Launches neocomplcache automatically on vim startup.
@@ -149,8 +164,7 @@ endif
 let g:neocomplcache_force_overwrite_completefunc = 1
 let g:neocomplcache_force_omni_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
 let g:neocomplcache_force_omni_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
-let g:neocomplcache_force_omni_patterns.ocaml = '[^. *\t]\.\w*\|\h\w*|#'
-let g:neocomplcache_force_omni_patterns.go = '\h\w*\%.'
+"let g:neocomplcache_force_omni_patterns.ocaml = '[^. *\t]\.\w*\|\h\w*|#'
 
 " neosnippet
 " Plugin key-mappings.
@@ -166,8 +180,8 @@ if has('conceal')
 endif
 
 " merlin
-set rtp+=$HOME/.opam/4.01.0/share/ocamlmerlin/vim
-set rtp+=$HOME/.opam/4.01.0/share/ocamlmerlin/vimbufsync
+"set rtp+=$HOME/.opam/system/share/vim
+"set rtp+=$HOME/.opam/4.01.0/share/ocamlmerlin/vimbufsync
 
 " clang
 let g:clang_complete_auto = 0
@@ -177,7 +191,7 @@ let g:clang_use_library = 1
 let g:clang_library_path="/usr/lib/llvm-3.4/lib"
 "let g:clang_library_path="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib"
 
-let g:syntastic_ocaml_checkers = ['merlin']
+"let g:syntastic_ocaml_checkers = ['merlin']
 
 " rainbow parens
 let g:rbpt_colorpairs = [
@@ -202,3 +216,9 @@ let g:rbpt_colorpairs = [
 let g:vim_markdown_folding_disabled=1
 
 colorscheme solarized
+
+if has('gui_running')
+  set guioptions=Ace  
+  set guifont=Monaco:h20
+endif
+
