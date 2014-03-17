@@ -24,11 +24,13 @@ Bundle 'Rip-Rip/clang_complete'
 Bundle 'scrooloose/syntastic'
 Bundle 'Shougo/neocomplcache'
 Bundle 'Shougo/neosnippet'
-Bundle "Shougo/vimproc.vim"
-Bundle "Shougo/vimshell.vim"
-Bundle "eagletmt/ghcmod-vim"
+Bundle 'Shougo/vimproc.vim'
+Bundle 'Shougo/vimshell.vim'
+Bundle 'eagletmt/ghcmod-vim'
 Bundle "eagletmt/neco-ghc"
 Bundle 'scrooloose/syntastic'
+Bundle 'idris-hackers/idris-vim'
+Bundle 'dag/vim2hs'
 
 " vanilla settings
 set t_Co=256
@@ -216,6 +218,10 @@ let g:rbpt_colorpairs = [
 
 let g:vim_markdown_folding_disabled=1
 
+" haskell stuff
+let g:haskell_conceal = 0
+let g:haskell_conceal_enumerations = 0
+
 colorscheme solarized
 
 if has('gui_running')
@@ -228,4 +234,6 @@ if has('gui_running')
     endif
   endif
 endif
+
+au GUIEnter * set t_vb= 
 
