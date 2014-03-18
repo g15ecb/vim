@@ -26,6 +26,8 @@ Bundle 'Shougo/neocomplcache'
 Bundle 'Shougo/neosnippet'
 Bundle 'Shougo/vimproc.vim'
 Bundle 'Shougo/vimshell.vim'
+Bundle 'Shougo/unite.vim'
+Bundle 'hewes/unite-gtags'
 Bundle 'eagletmt/ghcmod-vim'
 Bundle "eagletmt/neco-ghc"
 Bundle 'scrooloose/syntastic'
