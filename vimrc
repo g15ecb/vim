@@ -106,24 +106,10 @@ if has("autocmd")
     \ endif 
 
     au FileType haskell setlocal sw=2 sts=2 et
-    "au BufWrite *.hs :%!stylish-haskell
    
     "au FileType rust setlocal sw=2 sts=2 et
     "au FileType scala setlocal sw=2 sts=2 et
     
-    "au FileType ocaml setlocal sw=2 sts=2 et
-    "au FileType ocaml source $HOME/.opam/system/share/vim/syntax/ocp-indent.vim
-    "au BufWrite *.ml call OcpIndentBuffer()
-    "au BufWrite *.mli call OcpIndentBuffer()
-    "au FileType ocaml setlocal sw=2 sts=2 et
-    "let g:ocp_indent_vimfile = system("opam config var share")
-    "let g:ocp_indent_vimfile = substitute(g:ocp_indent_vimfile, '[\r\n]*$', '', '')
-    "let g:ocp_indent_vimfile = g:ocp_indent_vimfile . "/vim/syntax/ocp-indent.vim"
-    "autocmd FileType ocaml exec ":source " . g:ocp_indent_vimfile
-    "au FileType ocaml source $HOME/.opam/4.01.0/share/vim/syntax/ocp-indent.vim
-    "au BufWrite *.ml call OcpIndentBuffer()
-    "au BufWrite *.mli call OcpIndentBuffer()
-
     " the following due to annoying LaTeX unicode symbols
     au FileType tex setlocal conceallevel=0
 
@@ -132,17 +118,8 @@ if has("autocmd")
     au Syntax * RainbowParenthesesLoadSquare
     au Syntax * RainbowParenthesesLoadBraces
 
-    "au Syntax * :only
     au BufEnter * :only
 endif
-
-"let g:ocp_indent_vimfile = system("opam config var share")
-"let g:ocp_indent_vimfile = substitute(g:ocp_indent_vimfile, '[\r\n]*$', '', '')
-"let g:ocp_indent_vimfile = g:ocp_indent_vimfile . "/vim/syntax/ocp-indent.vim"
-"autocmd FileType ocaml exec ":source " . g:ocp_indent_vimfile
-
-" Disable AutoComplPop. Comment out this line if AutoComplPop is not installed.
-"let g:acp_enableAtStartup = 0
 
 " neocomplcache bits...
 " Launches neocomplcache automatically on vim startup.
@@ -161,8 +138,6 @@ let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
 let g:neocomplcache_enable_fuzzy_completion=1
 let g:neocomplcache_enable_fuzzy_completion=1
 
-" the below config for clang_complete I got from:
-" http://stackoverflow.com/questions/12975098/using-neocomplcache-and-clang-complete
 if !exists('g:neocomplcache_force_omni_patterns')
     let g:neocomplcache_force_omni_patterns = {}
 endif
@@ -185,19 +160,12 @@ if has('conceal')
     set conceallevel=2 concealcursor=i
 endif
 
-" merlin
-"set rtp+=$HOME/.opam/system/share/vim
-"set rtp+=$HOME/.opam/4.01.0/share/ocamlmerlin/vimbufsync
-
 " clang
 let g:clang_complete_auto = 0
 let g:clang_auto_select = 0
 let g:clang_use_library = 1
-" following is only for ubuntu-based distros...
 let g:clang_library_path="/usr/lib/llvm-3.4/lib"
 "let g:clang_library_path="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib"
-
-"let g:syntastic_ocaml_checkers = ['merlin']
 
 " rainbow parens
 let g:rbpt_colorpairs = [
