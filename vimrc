@@ -33,6 +33,7 @@ Bundle "eagletmt/neco-ghc"
 Bundle 'scrooloose/syntastic'
 Bundle 'idris-hackers/idris-vim'
 Bundle 'dag/vim2hs'
+Bundle 'Valloric/YouCompleteMe'
 
 " vanilla settings
 set t_Co=256
