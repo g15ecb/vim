@@ -16,8 +16,6 @@ Bundle 'scrooloose/nerdcommenter'
 Bundle 'tpope/vim-surround'
 Bundle 'kien/ctrlp.vim'
 Bundle 'kien/rainbow_parentheses.vim'
-Bundle 'dpwright/vim-tup'
-Bundle 'uarun/vim-protobuf'
 Bundle 'plasticboy/vim-markdown'
 
 Bundle 'Rip-Rip/clang_complete'
@@ -26,14 +24,10 @@ Bundle 'Shougo/neocomplcache'
 Bundle 'Shougo/neosnippet'
 Bundle 'Shougo/vimproc.vim'
 Bundle 'Shougo/vimshell.vim'
-Bundle 'Shougo/unite.vim'
-Bundle 'hewes/unite-gtags'
 Bundle 'eagletmt/ghcmod-vim'
 Bundle "eagletmt/neco-ghc"
-Bundle 'scrooloose/syntastic'
-Bundle 'idris-hackers/idris-vim'
+"Bundle 'scrooloose/syntastic'
 Bundle 'dag/vim2hs'
-Bundle 'Valloric/YouCompleteMe'
 
 " vanilla settings
 set t_Co=256
