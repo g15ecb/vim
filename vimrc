@@ -6,9 +6,12 @@ filetype off " vundle requires this
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
-Bundle 'gmarik/vundle'
 
-" Bundles
+" *****************************************************************************
+" Bundles /////////////////////////////////////////////////////////////////////
+" https://github.com/gmarik/Vundle.vim ////////////////////////////////////////
+" *****************************************************************************
+Bundle 'gmarik/Vundle'
 Bundle 'bling/vim-airline'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'tpope/vim-fugitive'
@@ -17,7 +20,6 @@ Bundle 'tpope/vim-surround'
 Bundle 'kien/ctrlp.vim'
 Bundle 'kien/rainbow_parentheses.vim'
 Bundle 'plasticboy/vim-markdown'
-
 Bundle 'Rip-Rip/clang_complete'
 Bundle 'scrooloose/syntastic'
 Bundle 'Shougo/neocomplcache'
@@ -26,10 +28,14 @@ Bundle 'Shougo/vimproc.vim'
 Bundle 'Shougo/vimshell.vim'
 Bundle 'eagletmt/ghcmod-vim'
 Bundle "eagletmt/neco-ghc"
-"Bundle 'scrooloose/syntastic'
 Bundle 'dag/vim2hs'
+" *****************************************************************************
+" /////////////////////////////////////////////////////////////////////////////
+" *****************************************************************************
 
-" vanilla settings
+" *****************************************************************************
+" Vanilla config //////////////////////////////////////////////////////////////
+" *****************************************************************************
 set t_Co=256
 set ruler "always show current positions along the bottom
 set hlsearch
@@ -71,7 +77,6 @@ set completeopt-=preview " don't like it
 set background=dark
 
 imap jk <Esc>
-
 let mapleader=";" 
 
 " custom mappings
@@ -88,34 +93,46 @@ nmap <silent> <c-k> :wincmd k<CR>
 nmap <silent> <c-j> :wincmd j<CR>
 nmap <leader>p :%!stylish-haskell<CR>
 
+" reload vimrc when tweaked
+au bufwritepost .vimrc source $MYVIMRC
 
-if has("autocmd")
-    " reload vimrc when tweaked
-    au bufwritepost .vimrc source $MYVIMRC
+" open buffer at pos. where you were last 
+au BufReadPost *
+\ if line("'\"") > 1 && line("'\"") <= line("$") |
+\   exe "normal! g`\"" |
+\ endif 
 
-    " open buffer at pos. where you were last 
-    au BufReadPost *
-    \ if line("'\"") > 1 && line("'\"") <= line("$") |
-    \   exe "normal! g`\"" |
-    \ endif 
+au FileType ocaml setlocal sw=2 sts=2 et
+au FileType haskell setlocal sw=2 sts=2 et
+au FileType rust setlocal sw=2 sts=2 et
+au FileType scala setlocal sw=2 sts=2 et
 
-    au FileType haskell setlocal sw=2 sts=2 et
-   
-    "au FileType rust setlocal sw=2 sts=2 et
-    "au FileType scala setlocal sw=2 sts=2 et
-    
-    " the following due to annoying LaTeX unicode symbols
-    au FileType tex setlocal conceallevel=0
+" the following due to annoying LaTeX unicode symbols
+au FileType tex setlocal conceallevel=0
+au VimEnter * RainbowParenthesesToggle
+au Syntax * RainbowParenthesesLoadRound
+au Syntax * RainbowParenthesesLoadSquare
+au Syntax * RainbowParenthesesLoadBraces
 
-    au VimEnter * RainbowParenthesesToggle
-    au Syntax * RainbowParenthesesLoadRound
-    au Syntax * RainbowParenthesesLoadSquare
-    au Syntax * RainbowParenthesesLoadBraces
+au BufEnter * :only
+" *****************************************************************************
+" /////////////////////////////////////////////////////////////////////////////
+" *****************************************************************************
 
-    au BufEnter * :only
-endif
+" *****************************************************************************
+" Ocp-indent //////////////////////////////////////////////////////////////////
+" NB. installed via opam //////////////////////////////////////////////////////
+" https://github.com/OCamlPro/ocp-indent //////////////////////////////////////
+" *****************************************************************************
+let g:ocp_indent_vimfile = system("opam config var share")
+let g:ocp_indent_vimfile = substitute(g:ocp_indent_vimfile, '[\r\n]*$', '', '')
+let g:ocp_indent_vimfile = g:ocp_indent_vimfile .  "/vim/syntax/ocp-indent.vim"
+au FileType ocaml exec ":source " . g:ocp_indent_vimfile
 
-" neocomplcache bits...
+" *****************************************************************************
+" Neocomplache ////////////////////////////////////////////////////////////////
+" https://github.com/Shougo/neocomplcache.vim /////////////////////////////////
+" *****************************************************************************
 " Launches neocomplcache automatically on vim startup.
 let g:neocomplcache_enable_at_startup = 1
 " Use smartcase.
@@ -132,36 +149,32 @@ let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
 let g:neocomplcache_enable_fuzzy_completion=1
 let g:neocomplcache_enable_fuzzy_completion=1
 
+" Need to force completion engine upon certain char seqs
 if !exists('g:neocomplcache_force_omni_patterns')
     let g:neocomplcache_force_omni_patterns = {}
 endif
-
 let g:neocomplcache_force_overwrite_completefunc = 1
 let g:neocomplcache_force_omni_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
 let g:neocomplcache_force_omni_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
 "let g:neocomplcache_force_omni_patterns.ocaml = '[^. *\t]\.\w*\|\h\w*|#'
+" *****************************************************************************
+" /////////////////////////////////////////////////////////////////////////////
+" *****************************************************************************
 
-" neosnippet
-" Plugin key-mappings.
-imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-" SuperTab like snippets behavior.
-imap <expr><TAB> neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
-smap <expr><TAB> neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-
-" For snippet_complete marker.
-if has('conceal')
-    set conceallevel=2 concealcursor=i
-endif
-
-" clang
+" *****************************************************************************
+" Clang complete //////////////////////////////////////////////////////////////
+" https://github.com/Rip-Rip/clang_complete ///////////////////////////////////
+" *****************************************************************************
 let g:clang_complete_auto = 0
 let g:clang_auto_select = 0
 let g:clang_use_library = 1
 let g:clang_library_path="/usr/lib/llvm-3.4/lib"
 "let g:clang_library_path="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib"
 
-" rainbow parens
+" *****************************************************************************
+" Rainbow parens //////////////////////////////////////////////////////////////
+" https://github.com/kien/rainbow_parentheses.vim /////////////////////////////
+" *****************************************************************************
 let g:rbpt_colorpairs = [
     \ ['brown',       'RoyalBlue3'],
     \ ['Darkblue',    'SeaGreen3'],
@@ -181,14 +194,29 @@ let g:rbpt_colorpairs = [
     \ ['red',         'firebrick3'],
     \ ]
 
+
+" *****************************************************************************
+" Markdown ////////////////////////////////////////////////////////////////////
+" https://github.com/plasticboy/vim-markdown //////////////////////////////////
+" *****************************************************************************
 let g:vim_markdown_folding_disabled=1
 
-" haskell stuff
+" *****************************************************************************
+" Haskell /////////////////////////////////////////////////////////////////////
+" https://github.com/dag/vim2hs ///////////////////////////////////////////////
+" *****************************************************************************
 let g:haskell_conceal = 0
 let g:haskell_conceal_enumerations = 0
 
+" *****************************************************************************
+" Solarized ///////////////////////////////////////////////////////////////////
+" https://github.com/altercation/vim-colors-solarized /////////////////////////
+" *****************************************************************************
 colorscheme solarized
 
+" *****************************************************************************
+" Gui stuff ///////////////////////////////////////////////////////////////////
+" *****************************************************************************
 if has('gui_running')
   set guioptions=Ace  
   if has("gui_running")
