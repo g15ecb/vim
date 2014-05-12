@@ -20,10 +20,7 @@ Bundle 'tpope/vim-surround'
 Bundle 'kien/ctrlp.vim'
 Bundle 'kien/rainbow_parentheses.vim'
 Bundle 'plasticboy/vim-markdown'
-"Bundle 'Rip-Rip/clang_complete'
 Bundle 'scrooloose/syntastic'
-"Bundle 'Shougo/neocomplcache'
-"Bundle 'Shougo/neosnippet'
 Bundle 'Shougo/vimproc.vim'
 Bundle 'Shougo/vimshell.vim'
 Bundle 'eagletmt/ghcmod-vim'
@@ -138,48 +135,6 @@ au FileType ocaml exec ":source " . g:ocp_indent_vimfile
 let s:ocamlmerlin=substitute(system('opam config var share'),'\n$','','''') .  "/ocamlmerlin"
 execute "set rtp+=".s:ocamlmerlin."/vim"
 execute "set rtp+=".s:ocamlmerlin."/vimbufsync"
-
-" *****************************************************************************
-" Neocomplache ////////////////////////////////////////////////////////////////
-" https://github.com/Shougo/neocomplcache.vim /////////////////////////////////
-" *****************************************************************************
-" Launches neocomplcache automatically on vim startup.
-"let g:neocomplcache_enable_at_startup = 1
-"" Use smartcase.
-"let g:neocomplcache_enable_smart_case = 1
-"" Use camel case completion.
-"let g:neocomplcache_enable_camel_case_completion = 1
-"" Use underscore completion.
-"let g:neocomplcache_enable_underbar_completion = 1
-"" Sets minimum char length of syntax keyword.
-"let g:neocomplcache_min_syntax_length = 3
-"" buffer file name pattern that locks neocomplcache. e.g. ku.vim or
-"" fuzzyfinder 
-"let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
-"let g:neocomplcache_enable_fuzzy_completion=1
-"let g:neocomplcache_enable_fuzzy_completion=1
-"
-"" Need to force completion engine upon certain char seqs
-"if !exists('g:neocomplcache_force_omni_patterns')
-"    let g:neocomplcache_force_omni_patterns = {}
-"endif
-"let g:neocomplcache_force_overwrite_completefunc = 1
-"let g:neocomplcache_force_omni_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
-"let g:neocomplcache_force_omni_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
-"let g:neocomplcache_force_omni_patterns.ocaml = '[^. *\t]\.\w*\|\h\w*|#'
-" *****************************************************************************
-" /////////////////////////////////////////////////////////////////////////////
-" *****************************************************************************
-
-" *****************************************************************************
-" Clang complete //////////////////////////////////////////////////////////////
-" https://github.com/Rip-Rip/clang_complete ///////////////////////////////////
-" *****************************************************************************
-"let g:clang_complete_auto = 0
-"let g:clang_auto_select = 0
-"let g:clang_use_library = 1
-"let g:clang_library_path="/usr/lib/llvm-3.4/lib"
-"let g:clang_library_path="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib"
 
 " *****************************************************************************
 " Rainbow parens //////////////////////////////////////////////////////////////
