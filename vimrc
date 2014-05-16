@@ -21,12 +21,13 @@ Bundle 'kien/ctrlp.vim'
 Bundle 'kien/rainbow_parentheses.vim'
 Bundle 'plasticboy/vim-markdown'
 Bundle 'scrooloose/syntastic'
+Bundle 'Shougo/neocomplete.vim'
 Bundle 'Shougo/vimproc.vim'
 Bundle 'Shougo/vimshell.vim'
 Bundle 'eagletmt/ghcmod-vim'
 Bundle "eagletmt/neco-ghc"
 Bundle 'dag/vim2hs'
-Bundle 'Valloric/YouCompleteMe'
+Bundle 'wting/rust.vim'
 " *****************************************************************************
 " /////////////////////////////////////////////////////////////////////////////
 " *****************************************************************************
@@ -100,12 +101,12 @@ au BufReadPost *
 \   exe "normal! g`\"" |
 \ endif 
 
+" Personal preference for tabs in OCaml, Haskell and Rust
 au FileType ocaml setlocal sw=2 sts=2 et
 au FileType haskell setlocal sw=2 sts=2 et
 au FileType rust setlocal sw=2 sts=2 et
-au FileType scala setlocal sw=2 sts=2 et
 
-" the following due to annoying LaTeX unicode symbols
+" Prohibit annoying LaTeX unicode symbols
 au FileType tex setlocal conceallevel=0
 au VimEnter * RainbowParenthesesToggle
 au Syntax * RainbowParenthesesLoadRound
@@ -114,8 +115,44 @@ au Syntax * RainbowParenthesesLoadBraces
 
 au BufEnter * :only
 " *****************************************************************************
-" /////////////////////////////////////////////////////////////////////////////
+" Vanilla config //////////////////////////////////////////////////////////////
 " *****************************************************************************
+"
+" *****************************************************************************
+" Neocomplete /////////////////////////////////////////////////////////////////
+" https://github.com/Shougo/neocomplete.vim ///////////////////////////////////
+" *****************************************************************************
+let g:acp_enableAtStartup = 0
+let g:neocomplete#enable_at_startup = 1
+let g:neocomplete#enable_smart_case = 1
+let g:neocomplete#sources#syntax#min_keyword_length = 3
+let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+let g:neocomplete#sources#dictionary#dictionaries = {
+      \ 'default' : '',
+      \ 'vimshell' : $HOME.'/.vimshell_hist',
+      \ 'scheme' : $HOME.'/.gosh_completions'
+      \ }
+if !exists('g:neocomplete#keyword_patterns')
+  let g:neocomplete#keyword_patterns = {}
+endif
+let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+inoremap <expr><C-g>     neocomplete#undo_completion()
+inoremap <expr><C-l>     neocomplete#complete_common_string()
+" Recommended key-mappings.
+" " <CR>: close popup and save indent.
+inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+function! s:my_cr_function()
+  return neocomplete#close_popup() . "\<CR>"
+  " For no inserting <CR> key.
+  "return pumvisible() ? neocomplete#close_popup() : "\<CR>"
+endfunction
+" <TAB>: completion.
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+" <C-h>, <BS>: close popup and delete backword char.
+inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr><C-y>  neocomplete#close_popup()
+inoremap <expr><C-e>  neocomplete#cancel_popup()
 
 " *****************************************************************************
 " Ocp-indent //////////////////////////////////////////////////////////////////
