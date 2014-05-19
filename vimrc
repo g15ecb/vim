@@ -21,14 +21,11 @@ Bundle 'kien/ctrlp.vim'
 Bundle 'kien/rainbow_parentheses.vim'
 Bundle 'plasticboy/vim-markdown'
 Bundle 'scrooloose/syntastic'
-"Bundle 'Shougo/neocomplete.vim'
-"Bundle 'Shougo/vimproc.vim'
 Bundle 'Shougo/vimshell.vim'
 "Bundle 'eagletmt/ghcmod-vim'
 "Bundle 'eagletmt/neco-ghc'
-"Bundle 'dag/vim2hs'
+Bundle 'dag/vim2hs'
 Bundle 'wting/rust.vim'
-"Bundle 'Rip-Rip/clang_complete'
 Bundle 'Valloric/YouCompleteMe'
 Bundle 'SirVer/ultisnips'
 Bundle 'honza/vim-snippets'
@@ -79,7 +76,6 @@ set pumheight=15
 set completeopt-=preview " don't like it
 set background=dark
 
-imap jk <Esc>
 let mapleader=";" 
 
 " custom mappings
@@ -116,6 +112,7 @@ au VimEnter * RainbowParenthesesToggle
 au Syntax * RainbowParenthesesLoadRound
 au Syntax * RainbowParenthesesLoadSquare
 au Syntax * RainbowParenthesesLoadBraces
+au BufWrite *.ml* :call OcpIndentBuffer()
 
 au BufEnter * :only
 " *****************************************************************************
