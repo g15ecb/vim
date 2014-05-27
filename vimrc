@@ -1,3 +1,10 @@
+"  __________________________________
+" /\                                 \
+" \_| Granville Barnett's Vim Config |
+"   | granvillebarnett@gmail.com     |
+"   |   _____________________________|_
+"    \_/_______________________________/
+ 
 " the basics
 set nocompatible
 filetype off " vundle requires this
@@ -13,6 +20,7 @@ call vundle#rc()
 " *****************************************************************************
 Bundle 'gmarik/Vundle'
 Bundle 'bling/vim-airline'
+Bundle 'bling/vim-bufferline'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'tpope/vim-fugitive'
 Bundle 'scrooloose/nerdcommenter'
@@ -21,14 +29,12 @@ Bundle 'kien/ctrlp.vim'
 Bundle 'kien/rainbow_parentheses.vim'
 Bundle 'plasticboy/vim-markdown'
 Bundle 'scrooloose/syntastic'
-Bundle 'Shougo/vimshell.vim'
-"Bundle 'eagletmt/ghcmod-vim'
-"Bundle 'eagletmt/neco-ghc'
+"Bundle 'Shougo/vimshell.vim'
+Bundle 'eagletmt/ghcmod-vim'
 Bundle 'dag/vim2hs'
 Bundle 'wting/rust.vim'
 Bundle 'Valloric/YouCompleteMe'
-Bundle 'SirVer/ultisnips'
-Bundle 'honza/vim-snippets'
+Bundle 'Blackrush/vim-gocode'
 " *****************************************************************************
 " /////////////////////////////////////////////////////////////////////////////
 " *****************************************************************************
@@ -80,7 +86,7 @@ let mapleader=";"
 
 " custom mappings
 nmap <leader>a :Ack<SPACE>
-nmap <leader>s :VimShell<CR>
+"nmap <leader>s :VimShell<CR>
 nmap <leader>d :bd<CR>
 nmap <leader>w :w<CR>
 nmap <leader>q :q<CR>
@@ -181,9 +187,6 @@ let g:haskell_conceal_enumerations = 0
 " *****************************************************************************
 colorscheme solarized
 
-let g:UltiSnipsExpandTrigger="<c-e>"
-let g:UltiSnipsJumpForwardTrigger="<c-]>"
-let g:UltiSnipsJumpBackwardTrigger="<c-[>"
 " *****************************************************************************
 " Gui stuff ///////////////////////////////////////////////////////////////////
 " *****************************************************************************
@@ -199,4 +202,3 @@ if has('gui_running')
 endif
 
 au GUIEnter * set t_vb= 
-
