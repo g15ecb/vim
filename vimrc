@@ -22,13 +22,14 @@ Bundle 'kien/rainbow_parentheses.vim'
 Bundle 'plasticboy/vim-markdown'
 Bundle 'scrooloose/syntastic'
 Bundle 'Shougo/vimshell.vim'
-"Bundle 'eagletmt/ghcmod-vim'
-"Bundle 'eagletmt/neco-ghc'
+Bundle 'Shougo/vimproc.vim'
+Bundle 'eagletmt/ghcmod-vim'
 Bundle 'dag/vim2hs'
 Bundle 'wting/rust.vim'
 Bundle 'Valloric/YouCompleteMe'
-Bundle 'SirVer/ultisnips'
-Bundle 'honza/vim-snippets'
+Bundle 'elixir-lang/vim-elixir'
+Bundle 'mattonrails/vim-mix.git'
+"Bundle 'fatih/vim-go'
 " *****************************************************************************
 " /////////////////////////////////////////////////////////////////////////////
 " *****************************************************************************
@@ -86,11 +87,10 @@ nmap <leader>w :w<CR>
 nmap <leader>q :q<CR>
 nmap <leader>f :CtrlP<CR>
 nmap <leader>b :CtrlPBuffer<CR>
-nmap <leader>m :!make<CR>
+nmap <leader>m :Mix test<CR>
 nmap <leader>o :only<CR>
 nmap <silent> <c-k> :wincmd k<CR>
 nmap <silent> <c-j> :wincmd j<CR>
-nmap <leader>p :%!stylish-haskell<CR>
 
 " reload vimrc when tweaked
 au bufwritepost .vimrc source $MYVIMRC
@@ -181,9 +181,6 @@ let g:haskell_conceal_enumerations = 0
 " *****************************************************************************
 colorscheme solarized
 
-let g:UltiSnipsExpandTrigger="<c-e>"
-let g:UltiSnipsJumpForwardTrigger="<c-]>"
-let g:UltiSnipsJumpBackwardTrigger="<c-[>"
 " *****************************************************************************
 " Gui stuff ///////////////////////////////////////////////////////////////////
 " *****************************************************************************
