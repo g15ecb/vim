@@ -19,6 +19,7 @@ call vundle#rc()
 " https://github.com/gmarik/Vundle.vim ////////////////////////////////////////
 " *****************************************************************************
 Bundle 'gmarik/Vundle'
+Bundle 'mileszs/ack.vim'
 Bundle 'bling/vim-airline'
 Bundle 'bling/vim-bufferline'
 Bundle 'altercation/vim-colors-solarized'
