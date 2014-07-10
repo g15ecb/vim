@@ -1,3 +1,10 @@
+"  __________________________________
+" /\                                 \
+" \_| Granville Barnett's Vim Config |
+"   | granvillebarnett@gmail.com     |
+"   |   _____________________________|_
+"    \_/_______________________________/
+ 
 " the basics
 set nocompatible
 filetype off " vundle requires this
@@ -13,6 +20,7 @@ call vundle#rc()
 " *****************************************************************************
 Bundle 'gmarik/Vundle'
 Bundle 'bling/vim-airline'
+Bundle 'bling/vim-bufferline'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'tpope/vim-fugitive'
 Bundle 'scrooloose/nerdcommenter'
@@ -21,15 +29,10 @@ Bundle 'kien/ctrlp.vim'
 Bundle 'kien/rainbow_parentheses.vim'
 Bundle 'plasticboy/vim-markdown'
 Bundle 'scrooloose/syntastic'
-Bundle 'Shougo/vimshell.vim'
-Bundle 'Shougo/vimproc.vim'
-Bundle 'eagletmt/ghcmod-vim'
-Bundle 'dag/vim2hs'
 Bundle 'wting/rust.vim'
 Bundle 'Valloric/YouCompleteMe'
 Bundle 'elixir-lang/vim-elixir'
 Bundle 'mattonrails/vim-mix.git'
-"Bundle 'fatih/vim-go'
 " *****************************************************************************
 " /////////////////////////////////////////////////////////////////////////////
 " *****************************************************************************
@@ -81,7 +84,7 @@ let mapleader=";"
 
 " custom mappings
 nmap <leader>a :Ack<SPACE>
-nmap <leader>s :VimShell<CR>
+"nmap <leader>s :VimShell<CR>
 nmap <leader>d :bd<CR>
 nmap <leader>w :w<CR>
 nmap <leader>q :q<CR>
@@ -196,4 +199,3 @@ if has('gui_running')
 endif
 
 au GUIEnter * set t_vb= 
-
