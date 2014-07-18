@@ -19,6 +19,7 @@ call vundle#rc()
 " https://github.com/gmarik/Vundle.vim ////////////////////////////////////////
 " *****************************************************************************
 Bundle 'gmarik/Vundle'
+Bundle 'mileszs/ack.vim'
 Bundle 'bling/vim-airline'
 Bundle 'bling/vim-bufferline'
 Bundle 'altercation/vim-colors-solarized'
@@ -27,9 +28,9 @@ Bundle 'scrooloose/nerdcommenter'
 Bundle 'tpope/vim-surround'
 Bundle 'kien/ctrlp.vim'
 Bundle 'kien/rainbow_parentheses.vim'
-Bundle 'plasticboy/vim-markdown'
 Bundle 'scrooloose/syntastic'
 Bundle 'elixir-lang/vim-elixir'
+Bundle 'mattonrails/vim-mix.git'
 Bundle 'jimenezrick/vimerl'
 Bundle 'wting/rust.vim'
 Bundle 'Valloric/YouCompleteMe'
@@ -90,11 +91,10 @@ nmap <leader>w :w<CR>
 nmap <leader>q :q<CR>
 nmap <leader>f :CtrlP<CR>
 nmap <leader>b :CtrlPBuffer<CR>
-nmap <leader>m :!make<CR>
+nmap <leader>m :Mix test<CR>
 nmap <leader>o :only<CR>
 nmap <silent> <c-k> :wincmd k<CR>
 nmap <silent> <c-j> :wincmd j<CR>
-nmap <leader>p :%!stylish-haskell<CR>
 
 " reload vimrc when tweaked
 au bufwritepost .vimrc source $MYVIMRC
