@@ -29,12 +29,10 @@ Bundle 'kien/ctrlp.vim'
 Bundle 'kien/rainbow_parentheses.vim'
 Bundle 'plasticboy/vim-markdown'
 Bundle 'scrooloose/syntastic'
-"Bundle 'Shougo/vimshell.vim'
-Bundle 'eagletmt/ghcmod-vim'
-Bundle 'dag/vim2hs'
+Bundle 'elixir-lang/vim-elixir'
+Bundle 'jimenezrick/vimerl'
 Bundle 'wting/rust.vim'
 Bundle 'Valloric/YouCompleteMe'
-Bundle 'Blackrush/vim-gocode'
 " *****************************************************************************
 " /////////////////////////////////////////////////////////////////////////////
 " *****************************************************************************
@@ -175,13 +173,6 @@ let g:rbpt_colorpairs = [
 let g:vim_markdown_folding_disabled=1
 
 " *****************************************************************************
-" Haskell /////////////////////////////////////////////////////////////////////
-" https://github.com/dag/vim2hs ///////////////////////////////////////////////
-" *****************************************************************************
-let g:haskell_conceal = 0
-let g:haskell_conceal_enumerations = 0
-
-" *****************************************************************************
 " Solarized ///////////////////////////////////////////////////////////////////
 " https://github.com/altercation/vim-colors-solarized /////////////////////////
 " *****************************************************************************
@@ -202,3 +193,7 @@ if has('gui_running')
 endif
 
 au GUIEnter * set t_vb= 
+
+" this is required to make vimerl completion work ;-(
+" https://github.com/Valloric/YouCompleteMe/issues/862
+let g:ycm_cache_omnifunc = 0
