@@ -22,7 +22,8 @@ Bundle 'gmarik/Vundle'
 Bundle 'mileszs/ack.vim'
 Bundle 'bling/vim-airline'
 Bundle 'bling/vim-bufferline'
-Bundle 'altercation/vim-colors-solarized'
+Bundle 'junegunn/seoul256.vim'
+"Bundle 'altercation/vim-colors-solarized'
 Bundle 'tpope/vim-fugitive'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'tpope/vim-surround'
@@ -176,7 +177,7 @@ let g:vim_markdown_folding_disabled=1
 " Solarized ///////////////////////////////////////////////////////////////////
 " https://github.com/altercation/vim-colors-solarized /////////////////////////
 " *****************************************************************************
-colorscheme solarized
+"colorscheme solarized
 
 " *****************************************************************************
 " Gui stuff ///////////////////////////////////////////////////////////////////
@@ -197,3 +198,6 @@ au GUIEnter * set t_vb=
 " this is required to make vimerl completion work ;-(
 " https://github.com/Valloric/YouCompleteMe/issues/862
 let g:ycm_cache_omnifunc = 0
+
+" The following is so that it matches Konsole's dark pastels bg
+let g:seoul256_background = 44
