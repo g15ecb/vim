@@ -22,7 +22,7 @@ Bundle 'gmarik/Vundle'
 Bundle 'mileszs/ack.vim'
 Bundle 'bling/vim-airline'
 Bundle 'bling/vim-bufferline'
-Bundle 'junegunn/seoul256.vim'
+"Bundle 'junegunn/seoul256.vim'
 "Bundle 'altercation/vim-colors-solarized'
 Bundle 'tpope/vim-fugitive'
 Bundle 'scrooloose/nerdcommenter'
@@ -35,6 +35,9 @@ Bundle 'mattonrails/vim-mix.git'
 Bundle 'jimenezrick/vimerl'
 Bundle 'wting/rust.vim'
 Bundle 'Valloric/YouCompleteMe'
+Bundle 'SirVer/ultisnips'
+Bundle 'honza/vim-snippets'
+Bundle 'nanotech/jellybeans.vim'
 " *****************************************************************************
 " /////////////////////////////////////////////////////////////////////////////
 " *****************************************************************************
@@ -72,7 +75,7 @@ set ls=2
 set showcmd
 "set spell
 set spelllang=en_gb
-set cursorline
+"set cursorline
 "set cursorcolumn
 syntax on 
 filetype plugin on 
@@ -92,7 +95,7 @@ nmap <leader>w :w<CR>
 nmap <leader>q :q<CR>
 nmap <leader>f :CtrlP<CR>
 nmap <leader>b :CtrlPBuffer<CR>
-nmap <leader>m :Mix test<CR>
+nmap <leader>m :make<CR>
 nmap <leader>o :only<CR>
 nmap <silent> <c-k> :wincmd k<CR>
 nmap <silent> <c-j> :wincmd j<CR>
@@ -200,4 +203,10 @@ au GUIEnter * set t_vb=
 let g:ycm_cache_omnifunc = 0
 
 " The following is so that it matches Konsole's dark pastels bg
-let g:seoul256_background = 44
+"let g:seoul256_background = 0
+
+let g:UltiSnipsExpandTrigger="<c-k>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+colorscheme jellybeans
