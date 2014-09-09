@@ -22,29 +22,23 @@ Bundle 'gmarik/Vundle'
 Bundle 'mileszs/ack.vim'
 Bundle 'bling/vim-airline'
 Bundle 'bling/vim-bufferline'
-"Bundle 'junegunn/seoul256.vim'
-"Bundle 'altercation/vim-colors-solarized'
 Bundle 'tpope/vim-fugitive'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'tpope/vim-surround'
 Bundle 'kien/ctrlp.vim'
 Bundle 'kien/rainbow_parentheses.vim'
 Bundle 'scrooloose/syntastic'
-Bundle 'elixir-lang/vim-elixir'
-Bundle 'mattonrails/vim-mix.git'
-Bundle 'jimenezrick/vimerl'
-Bundle 'wting/rust.vim'
 Bundle 'Valloric/YouCompleteMe'
-Bundle 'SirVer/ultisnips'
-Bundle 'honza/vim-snippets'
+Bundle 'jimenezrick/vimerl'
 Bundle 'nanotech/jellybeans.vim'
 " *****************************************************************************
 " /////////////////////////////////////////////////////////////////////////////
 " *****************************************************************************
 
 " *****************************************************************************
-" Vanilla config //////////////////////////////////////////////////////////////
+" /////////////////////////////// BASIC STUFFF ////////////////////////////////
 " *****************************************************************************
+
 set t_Co=256
 set ruler "always show current positions along the bottom
 set hlsearch
@@ -67,7 +61,7 @@ set wrap
 " use q to easily format text. I like this from Emacs using M-q
 map q gq}
 " set current working directory to that of the file being edited
-"set autochdir
+set autochdir
 " show path of file being edited.
 set modeline
 set ls=2
@@ -109,42 +103,33 @@ au BufReadPost *
 \   exe "normal! g`\"" |
 \ endif 
 
-" Personal preference for tabs in OCaml, Haskell and Rust
-au FileType ocaml setlocal sw=2 sts=2 et
-au FileType haskell setlocal sw=2 sts=2 et
-au FileType rust setlocal sw=2 sts=2 et
-
-" Prohibit annoying LaTeX unicode symbols
 au FileType tex setlocal conceallevel=0
 au VimEnter * RainbowParenthesesToggle
 au Syntax * RainbowParenthesesLoadRound
 au Syntax * RainbowParenthesesLoadSquare
 au Syntax * RainbowParenthesesLoadBraces
-au BufWrite *.ml* :call OcpIndentBuffer()
-
 au BufEnter * :only
+
 " *****************************************************************************
-" Vanilla config //////////////////////////////////////////////////////////////
+" ////////////////////////////////// OCAML ////////////////////////////////////
 " *****************************************************************************
+au FileType ocaml setlocal sw=2 sts=2 et
 
 " *****************************************************************************
 " Ocp-indent //////////////////////////////////////////////////////////////////
 " NB. installed via opam //////////////////////////////////////////////////////
 " https://github.com/OCamlPro/ocp-indent //////////////////////////////////////
 " *****************************************************************************
-let g:ocp_indent_vimfile = system("opam config var share")
-let g:ocp_indent_vimfile = substitute(g:ocp_indent_vimfile, '[\r\n]*$', '', '')
-let g:ocp_indent_vimfile = g:ocp_indent_vimfile .  "/vim/syntax/ocp-indent.vim"
-au FileType ocaml exec ":source " . g:ocp_indent_vimfile
+"execute ":source ".g:oi 
+source $HOME/.opam/4.02.0/share/vim/syntax/ocp-indent.vim
+au BufWrite *.ml* :call OcpIndentBuffer()
 
 " *****************************************************************************
 " Merlin //////////////////////////////////////////////////////////////////////
 " NB. installed via opam //////////////////////////////////////////////////////
 " https://github.com/the-lambda-church/merlin /////////////////////////////////
 " *****************************************************************************
-let s:ocamlmerlin=substitute(system('opam config var share'),'\n$','','''') .  "/ocamlmerlin"
-execute "set rtp+=".s:ocamlmerlin."/vim"
-execute "set rtp+=".s:ocamlmerlin."/vimbufsync"
+set rtp+=$HOME/.opam/4.02.0/share/merlin/vim
 
 " *****************************************************************************
 " Rainbow parens //////////////////////////////////////////////////////////////
@@ -201,12 +186,5 @@ au GUIEnter * set t_vb=
 " this is required to make vimerl completion work ;-(
 " https://github.com/Valloric/YouCompleteMe/issues/862
 let g:ycm_cache_omnifunc = 0
-
-" The following is so that it matches Konsole's dark pastels bg
-"let g:seoul256_background = 0
-
-let g:UltiSnipsExpandTrigger="<c-k>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
 colorscheme jellybeans
