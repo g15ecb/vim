@@ -5,27 +5,26 @@
 set nocompatible
 filetype off " vundle requires this
 
-" Vundle
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
-
-
 " *****************************************************************************
-" Bundles /////////////////////////////////////////////////////////////////////
-" https://github.com/gmarik/Vundle.vim ////////////////////////////////////////
+" Plugins /////////////////////////////////////////////////////////////////////
+" https://github.com/junegunn/vim-plug ////////////////////////////////////////
 " *****************************************************************************
-Bundle 'gmarik/Vundle'
-Bundle 'mileszs/ack.vim'
-Bundle 'bling/vim-airline'
-Bundle 'bling/vim-bufferline'
-Bundle 'tpope/vim-fugitive'
-Bundle 'scrooloose/nerdcommenter'
-Bundle 'tpope/vim-surround'
-Bundle 'kien/ctrlp.vim'
-Bundle 'kien/rainbow_parentheses.vim'
-Bundle 'scrooloose/syntastic'
-Bundle 'Shougo/neocomplete.vim'
-Bundle 'Rip-Rip/clang_complete'
+call plug#begin('~/.vim/plugged')
+
+Plug 'gmarik/Vundle'
+Plug 'mileszs/ack.vim'
+Plug 'bling/vim-airline'
+Plug 'bling/vim-bufferline'
+Plug 'tpope/vim-fugitive'
+Plug 'scrooloose/nerdcommenter'
+Plug 'tpope/vim-surround'
+Plug 'kien/ctrlp.vim'
+Plug 'kien/rainbow_parentheses.vim'
+Plug 'scrooloose/syntastic'
+Plug 'Shougo/neocomplete.vim'
+Plug 'Rip-Rip/clang_complete'
+
+call plug#end()
 " *****************************************************************************
 " /////////////////////////////////////////////////////////////////////////////
 " *****************************************************************************
