@@ -1,9 +1,5 @@
-"  __________________________________
-" /\                                 \
-" \_| Granville Barnett's Vim Config |
-"   | granvillebarnett@gmail.com     |
-"   |   _____________________________|_
-"    \_/_______________________________/
+" Vim config
+" granvillebarnett@gmail.com
  
 " the basics
 set nocompatible
@@ -28,9 +24,8 @@ Bundle 'tpope/vim-surround'
 Bundle 'kien/ctrlp.vim'
 Bundle 'kien/rainbow_parentheses.vim'
 Bundle 'scrooloose/syntastic'
-Bundle 'Valloric/YouCompleteMe'
-Bundle 'jimenezrick/vimerl'
-Bundle 'nanotech/jellybeans.vim'
+Bundle 'Shougo/neocomplete.vim'
+Bundle 'Rip-Rip/clang_complete'
 " *****************************************************************************
 " /////////////////////////////////////////////////////////////////////////////
 " *****************************************************************************
@@ -121,15 +116,15 @@ au FileType ocaml setlocal sw=2 sts=2 et
 " https://github.com/OCamlPro/ocp-indent //////////////////////////////////////
 " *****************************************************************************
 "execute ":source ".g:oi 
-source $HOME/.opam/4.02.0/share/vim/syntax/ocp-indent.vim
-au BufWrite *.ml* :call OcpIndentBuffer()
+"source $HOME/.opam/4.02.0/share/vim/syntax/ocp-indent.vim
+"au BufWrite *.ml* :call OcpIndentBuffer()
 
 " *****************************************************************************
 " Merlin //////////////////////////////////////////////////////////////////////
 " NB. installed via opam //////////////////////////////////////////////////////
 " https://github.com/the-lambda-church/merlin /////////////////////////////////
 " *****************************************************************************
-set rtp+=$HOME/.opam/4.02.0/share/merlin/vim
+"set rtp+=$HOME/.opam/4.02.0/share/merlin/vim
 
 " *****************************************************************************
 " Rainbow parens //////////////////////////////////////////////////////////////
@@ -162,29 +157,26 @@ let g:rbpt_colorpairs = [
 let g:vim_markdown_folding_disabled=1
 
 " *****************************************************************************
-" Solarized ///////////////////////////////////////////////////////////////////
-" https://github.com/altercation/vim-colors-solarized /////////////////////////
+" neocomplete /////////////////////////////////////////////////////////////////
+" https://github.com/Shougo/neocomplete.vim ///////////////////////////////////
 " *****************************************************************************
-"colorscheme solarized
+let g:acp_enableAtStartup = 0
+let g:neocomplete#enable_at_startup = 1
+let g:neocomplete#enable_smart_case = 1
+let g:neocomplete#sources#syntax#min_keyword_length = 3
+let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+" tab completion
+inoremap <expr><Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 
-" *****************************************************************************
-" Gui stuff ///////////////////////////////////////////////////////////////////
-" *****************************************************************************
-if has('gui_running')
-  set guioptions=Ace  
-  if has("gui_running")
-    if has("gui_gtk2")
-      set guifont=Monospace\ 16
-    elseif has("gui_macvim")
-      set guifont=Monaco:h20
-    endif
-  endif
+if !exists('g:neocomplete#force_omni_input_patterns')
+  let g:neocomplete#force_omni_input_patterns = {}
 endif
 
-au GUIEnter * set t_vb= 
-
-" this is required to make vimerl completion work ;-(
-" https://github.com/Valloric/YouCompleteMe/issues/862
-let g:ycm_cache_omnifunc = 0
-
-colorscheme jellybeans
+let g:neocomplete#force_overwrite_completefunc = 1
+let g:neocomplete#force_omni_input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)\w*'
+let g:neocomplete#force_omni_input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'
+let g:neocomplete#force_omni_input_patterns.objc = '\[\h\w*\s\h\?\|\h\w*\%(\.\|->\)'
+let g:neocomplete#force_omni_input_patterns.objcpp = '\[\h\w*\s\h\?\|\h\w*\%(\.\|->\)\|\h\w*::\w*'
+let g:clang_complete_auto = 0
+let g:clang_auto_select = 0
+let g:clang_use_library = 1
