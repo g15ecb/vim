@@ -1,4 +1,0 @@
-cd ~
-git clone git@github.com:gbarnett/vim-vundle.git .vim
-cd ~/.vim
-rake
