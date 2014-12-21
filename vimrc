@@ -11,18 +11,18 @@ filetype off " vundle requires this
 " *****************************************************************************
 call plug#begin('~/.vim/plugged')
 
-Plug 'gmarik/Vundle'
-Plug 'mileszs/ack.vim'
 Plug 'bling/vim-airline'
 Plug 'bling/vim-bufferline'
 Plug 'tpope/vim-fugitive'
 Plug 'scrooloose/nerdcommenter'
 Plug 'tpope/vim-surround'
-Plug 'kien/ctrlp.vim'
 Plug 'kien/rainbow_parentheses.vim'
 Plug 'scrooloose/syntastic'
 Plug 'Shougo/neocomplete.vim'
+Plug 'Shougo/unite.vim'
+Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 Plug 'Rip-Rip/clang_complete'
+Plug 'junegunn/seoul256.vim'
 
 call plug#end()
 " *****************************************************************************
@@ -55,7 +55,7 @@ set wrap
 " use q to easily format text. I like this from Emacs using M-q
 map q gq}
 " set current working directory to that of the file being edited
-set autochdir
+" set autochdir
 " show path of file being edited.
 set modeline
 set ls=2
@@ -63,7 +63,7 @@ set ls=2
 set showcmd
 "set spell
 set spelllang=en_gb
-"set cursorline
+set cursorline
 "set cursorcolumn
 syntax on 
 filetype plugin on 
@@ -76,13 +76,12 @@ set background=dark
 let mapleader=";" 
 
 " custom mappings
-nmap <leader>a :Ack<SPACE>
-"nmap <leader>s :VimShell<CR>
 nmap <leader>d :bd<CR>
 nmap <leader>w :w<CR>
 nmap <leader>q :q<CR>
-nmap <leader>f :CtrlP<CR>
-nmap <leader>b :CtrlPBuffer<CR>
+nmap <leader>f :Unite file_rec/async<CR>
+nmap <leader>b :Unite -quick-match buffer<CR>
+nmap <leader>s :Unite grep:.<CR>
 nmap <leader>m :make<CR>
 nmap <leader>o :only<CR>
 nmap <silent> <c-k> :wincmd k<CR>
@@ -164,8 +163,36 @@ let g:neocomplete#enable_at_startup = 1
 let g:neocomplete#enable_smart_case = 1
 let g:neocomplete#sources#syntax#min_keyword_length = 3
 let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
-" tab completion
-inoremap <expr><Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+
+" dictionary
+let g:neocomplete#sources#dictionary#dictionaries = {
+    \ 'default' : '',
+    \ 'vimshell' : $HOME.'/.vimshell_hist',
+    \ 'scheme' : $HOME.'/.gosh_completions'
+        \ }
+" Define keyword.
+if !exists('g:neocomplete#keyword_patterns')
+  let g:neocomplete#keyword_patterns = {}
+endif
+let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+" Plugin key-mappings.
+inoremap <expr><C-g>     neocomplete#undo_completion()
+inoremap <expr><C-l>     neocomplete#complete_common_string()
+" Recommended key-mappings.
+" " <CR>: close popup and save indent.
+inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+function! s:my_cr_function()
+  return neocomplete#close_popup() . "\<CR>"
+  " For no inserting <CR> key.
+  "return pumvisible() ? neocomplete#close_popup() : "\<CR>"
+endfunction
+" <TAB>: completion.
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+" <C-h>, <BS>: close popup and delete backword char.
+inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr><C-y>  neocomplete#close_popup()
+inoremap <expr><C-e>  neocomplete#cancel_popup()
 
 if !exists('g:neocomplete#force_omni_input_patterns')
   let g:neocomplete#force_omni_input_patterns = {}
@@ -179,3 +206,6 @@ let g:neocomplete#force_omni_input_patterns.objcpp = '\[\h\w*\s\h\?\|\h\w*\%(\.\
 let g:clang_complete_auto = 0
 let g:clang_auto_select = 0
 let g:clang_use_library = 1
+
+let g:seoul256_background = 233
+colorscheme seoul256
