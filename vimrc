@@ -23,6 +23,7 @@ Plug 'Shougo/unite.vim'
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 Plug 'Rip-Rip/clang_complete'
 Plug 'junegunn/seoul256.vim'
+Plug 'fatih/vim-go'
 
 call plug#end()
 " *****************************************************************************
