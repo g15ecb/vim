@@ -19,9 +19,9 @@ Plug 'tpope/vim-surround'
 Plug 'kien/rainbow_parentheses.vim'
 Plug 'scrooloose/syntastic'
 Plug 'Shougo/neocomplete.vim'
-Plug 'Shougo/unite.vim'
-Plug 'Shougo/vimproc.vim', { 'do': 'make' }
-Plug 'Rip-Rip/clang_complete'
+Plug 'Shougo/neosnippet.vim'
+Plug 'Shougo/neosnippet-snippets'
+Plug 'kien/ctrlp.vim'
 Plug 'junegunn/seoul256.vim'
 Plug 'fatih/vim-go'
 
@@ -56,7 +56,7 @@ set wrap
 " use q to easily format text. I like this from Emacs using M-q
 map q gq}
 " set current working directory to that of the file being edited
-" set autochdir
+set autochdir
 " show path of file being edited.
 set modeline
 set ls=2
@@ -80,8 +80,8 @@ let mapleader=";"
 nmap <leader>d :bd<CR>
 nmap <leader>w :w<CR>
 nmap <leader>q :q<CR>
-nmap <leader>f :Unite file_rec/async<CR>
-nmap <leader>b :Unite -quick-match buffer<CR>
+nmap <leader>f :CtrlP<CR>
+nmap <leader>b :CtrlPMRUFiles<CR>
 nmap <leader>s :Unite grep:.<CR>
 nmap <leader>m :make<CR>
 nmap <leader>o :only<CR>
@@ -195,18 +195,26 @@ inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
 inoremap <expr><C-y>  neocomplete#close_popup()
 inoremap <expr><C-e>  neocomplete#cancel_popup()
 
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)
+
+imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+      \ "\<Plug>(neosnippet_expand_or_jump)"
+      \: pumvisible() ? "\<C-n>" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+      \ "\<Plug>(neosnippet_expand_or_jump)"
+      \: "\<TAB>"
+
+if has('conceal')
+  set conceallevel=2 concealcursor=i
+endif
+
 if !exists('g:neocomplete#force_omni_input_patterns')
   let g:neocomplete#force_omni_input_patterns = {}
 endif
 
 let g:neocomplete#force_overwrite_completefunc = 1
-let g:neocomplete#force_omni_input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)\w*'
-let g:neocomplete#force_omni_input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'
-let g:neocomplete#force_omni_input_patterns.objc = '\[\h\w*\s\h\?\|\h\w*\%(\.\|->\)'
-let g:neocomplete#force_omni_input_patterns.objcpp = '\[\h\w*\s\h\?\|\h\w*\%(\.\|->\)\|\h\w*::\w*'
-let g:clang_complete_auto = 0
-let g:clang_auto_select = 0
-let g:clang_use_library = 1
 
 let g:seoul256_background = 233
 colorscheme seoul256
