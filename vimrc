@@ -24,6 +24,7 @@ Plug 'Shougo/neosnippet-snippets'
 Plug 'kien/ctrlp.vim'
 Plug 'junegunn/seoul256.vim'
 Plug 'fatih/vim-go'
+Plug 'wting/rust.vim'
 
 call plug#end()
 " *****************************************************************************
@@ -114,16 +115,15 @@ au FileType ocaml setlocal sw=2 sts=2 et
 " NB. installed via opam //////////////////////////////////////////////////////
 " https://github.com/OCamlPro/ocp-indent //////////////////////////////////////
 " *****************************************************************************
-"execute ":source ".g:oi 
-"source $HOME/.opam/4.02.0/share/vim/syntax/ocp-indent.vim
-"au BufWrite *.ml* :call OcpIndentBuffer()
+source $HOME/.opam/4.02.1/share/vim/syntax/ocp-indent.vim
+au BufWrite *.ml* :call OcpIndentBuffer()
 
 " *****************************************************************************
 " Merlin //////////////////////////////////////////////////////////////////////
 " NB. installed via opam //////////////////////////////////////////////////////
 " https://github.com/the-lambda-church/merlin /////////////////////////////////
 " *****************************************************************************
-"set rtp+=$HOME/.opam/4.02.0/share/merlin/vim
+set rtp+=$HOME/.opam/4.02.1/share/merlin/vim
 
 " *****************************************************************************
 " Rainbow parens //////////////////////////////////////////////////////////////
