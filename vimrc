@@ -1,5 +1,13 @@
 " Vim config
 " granvillebarnett@gmail.com
+"
+" Prerequisites: 
+"
+" - libclang 
+" - clang-format 
+"
+" You will need to adjust the respective variables for the clang_complete and
+" clang-format sections to point to the necessary library/binary.
  
 " the basics
 set nocompatible
@@ -23,8 +31,9 @@ Plug 'Shougo/neosnippet.vim'
 Plug 'Shougo/neosnippet-snippets'
 Plug 'kien/ctrlp.vim'
 Plug 'junegunn/seoul256.vim'
-Plug 'fatih/vim-go'
-Plug 'wting/rust.vim'
+Plug 'Rip-Rip/clang_complete'
+Plug 'rhysd/vim-clang-format'
+"Plug 'vim-scripts/doxygen-support.vim', { 'dir': '~/.vim/doxygen-support' }
 
 call plug#end()
 " *****************************************************************************
@@ -82,8 +91,7 @@ nmap <leader>d :bd<CR>
 nmap <leader>w :w<CR>
 nmap <leader>q :q<CR>
 nmap <leader>f :CtrlP<CR>
-nmap <leader>b :CtrlPMRUFiles<CR>
-nmap <leader>s :Unite grep:.<CR>
+nmap <leader>b :CtrlPBuffer<CR>
 nmap <leader>m :make<CR>
 nmap <leader>o :only<CR>
 nmap <silent> <c-k> :wincmd k<CR>
@@ -105,6 +113,8 @@ au Syntax * RainbowParenthesesLoadSquare
 au Syntax * RainbowParenthesesLoadBraces
 au BufEnter * :only
 
+let g:load_doxygen_syntax=1
+
 " *****************************************************************************
 " ////////////////////////////////// OCAML ////////////////////////////////////
 " *****************************************************************************
@@ -115,15 +125,15 @@ au FileType ocaml setlocal sw=2 sts=2 et
 " NB. installed via opam //////////////////////////////////////////////////////
 " https://github.com/OCamlPro/ocp-indent //////////////////////////////////////
 " *****************************************************************************
-source $HOME/.opam/4.02.1/share/vim/syntax/ocp-indent.vim
-au BufWrite *.ml* :call OcpIndentBuffer()
+"source $HOME/.opam/4.02.1/share/vim/syntax/ocp-indent.vim
+"au BufWrite *.ml* :call OcpIndentBuffer()
 
 " *****************************************************************************
 " Merlin //////////////////////////////////////////////////////////////////////
 " NB. installed via opam //////////////////////////////////////////////////////
 " https://github.com/the-lambda-church/merlin /////////////////////////////////
 " *****************************************************************************
-set rtp+=$HOME/.opam/4.02.1/share/merlin/vim
+"set rtp+=$HOME/.opam/4.02.1/share/merlin/vim
 
 " *****************************************************************************
 " Rainbow parens //////////////////////////////////////////////////////////////
@@ -214,7 +224,34 @@ if !exists('g:neocomplete#force_omni_input_patterns')
   let g:neocomplete#force_omni_input_patterns = {}
 endif
 
+" Regex to trigger completion for C/C++
 let g:neocomplete#force_overwrite_completefunc = 1
+let g:neocomplete#force_omni_input_patterns.c =
+      \ '[^.[:digit:] *\t]\%(\.\|->\)\w*'
+let g:neocomplete#force_omni_input_patterns.cpp =
+      \ '[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'
 
+" *****************************************************************************
+" clang_complete //////////////////////////////////////////////////////////////
+" https://github.com/Rip-Rip/clang_complete ///////////////////////////////////
+" *****************************************************************************
+let g:clang_complete_auto = 0
+let g:clang_auto_select = 0
+let g:clang_use_library = 1
+let g:clang_library_path="/usr/lib/llvm-3.5/lib/libclang.so.1"
+
+" *****************************************************************************
+" vim-clang-format ////////////////////////////////////////////////////////////
+" https://github.com/rhysd/vim-clang-format ///////////////////////////////////
+" *****************************************************************************
+let g:clang_format#command="clang-format-3.5"
+let g:clang_format#auto_format=1
+let g:clang_format#auto_format_on_insert_leave=1
+let g:clang_format#code_style="google" " this the is the default...
+
+" *****************************************************************************
+" seoul256 ////////////////////////////////////////////////////////////////////
+" https://github.com/junegunn/seoul256.vim ////////////////////////////////////
+" *****************************************************************************
 let g:seoul256_background = 233
 colorscheme seoul256
