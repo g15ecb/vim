@@ -245,7 +245,7 @@ let g:clang_library_path="/usr/lib/llvm-3.5/lib/libclang.so.1"
 " https://github.com/rhysd/vim-clang-format ///////////////////////////////////
 " *****************************************************************************
 let g:clang_format#command="clang-format-3.5"
-let g:clang_format#auto_format=1
+"let g:clang_format#auto_format=1
 let g:clang_format#auto_format_on_insert_leave=1
 let g:clang_format#code_style="google" " this the is the default...
 
