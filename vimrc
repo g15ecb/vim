@@ -34,6 +34,8 @@ Plug 'junegunn/seoul256.vim'
 Plug 'Rip-Rip/clang_complete'
 Plug 'rhysd/vim-clang-format'
 Plug 'Lokaltog/vim-easymotion'
+Plug 'fatih/vim-go'
+Plug 'Yggdroot/indentLine'
 
 call plug#end()
 " *****************************************************************************
@@ -255,3 +257,5 @@ let g:clang_format#code_style="google" " this the is the default...
 " *****************************************************************************
 let g:seoul256_background = 233
 colorscheme seoul256
+
+let g:indentLine_char='|'
