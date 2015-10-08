@@ -29,6 +29,7 @@ Plug 'kien/ctrlp.vim'
 Plug 'junegunn/seoul256.vim'
 Plug 'rhysd/vim-clang-format'
 Plug 'asciidoc/vim-asciidoc'
+Plug 'Lokaltog/vim-easymotion'
 
 call plug#end()
 " *****************************************************************************
@@ -122,7 +123,7 @@ let g:vim_markdown_folding_disabled=1
 " *****************************************************************************
 let g:clang_format#command="clang-format"
 let g:clang_format#auto_format=1
-let g:clang_format#code_style="google" " this the is the default...
+let g:clang_format#code_style="google" " 
 
 " *****************************************************************************
 " syntastic ///////////////////////////////////////////////////////////////////
