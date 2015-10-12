@@ -167,3 +167,21 @@ inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
 " *****************************************************************************
 let g:seoul256_background = 233
 colorscheme seoul256
+
+" *****************************************************************************
+" " Gui stuff
+" ///////////////////////////////////////////////////////////////////
+" "
+" *****************************************************************************
+if has('gui_running')
+  set guioptions=Ace  
+  if has("gui_running")
+    if has("gui_gtk2")
+      set guifont=Monospace\ 18
+    elseif has("gui_macvim")
+      set guifont=Monaco:h20
+    endif
+  endif
+endif
+
+au GUIEnter * set t_vb= 
