@@ -31,6 +31,8 @@ Plug 'junegunn/seoul256.vim'
 Plug 'rhysd/vim-clang-format'
 Plug 'asciidoc/vim-asciidoc'
 Plug 'Lokaltog/vim-easymotion'
+Plug 'Shougo/vimproc.vim', { 'do': 'make' }
+Plug 'Shougo/vimshell.vim'
 
 call plug#end()
 " *****************************************************************************
@@ -63,7 +65,7 @@ set wrap
 " use q to easily format text. I like this from Emacs using M-q
 map q gq}
 " set current working directory to that of the file being edited
-set autochdir
+" set autochdir 
 " show path of file being edited.
 set modeline
 set ls=2
@@ -87,6 +89,7 @@ let mapleader=";"
 nmap <leader>d :bd<CR>
 nmap <leader>w :w<CR>
 nmap <leader>q :q<CR>
+nmap <leader>s :VimShell<CR>
 nmap <leader>f :CtrlP<CR>
 nmap <leader>b :CtrlPBuffer<CR>
 nmap <leader>m :make<CR>
