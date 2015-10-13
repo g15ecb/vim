@@ -33,6 +33,8 @@ Plug 'asciidoc/vim-asciidoc'
 Plug 'Lokaltog/vim-easymotion'
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 Plug 'Shougo/vimshell.vim'
+Plug 'Shougo/unite-outline'
+Plug 'Shougo/unite.vim'
 
 call plug#end()
 " *****************************************************************************
