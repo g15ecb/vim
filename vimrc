@@ -35,6 +35,7 @@ Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 Plug 'Shougo/vimshell.vim'
 Plug 'Shougo/unite-outline'
 Plug 'Shougo/unite.vim'
+Plug 'aklt/plantuml-syntax'
 
 call plug#end()
 " *****************************************************************************
@@ -172,6 +173,9 @@ inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
 " *****************************************************************************
 let g:seoul256_background = 233
 colorscheme seoul256
+
+" Asciidoc
+au BufRead,BufNewFile *.adoc set filetype=asciidoc
 
 " *****************************************************************************
 " " Gui stuff
