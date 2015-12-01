@@ -1,0 +1,9 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =7
+let g:netrw_dirhist_1='/home/gb/.vim'
+let g:netrw_dirhist_2='/home/gb/Desktop/stamped_ptr'
+let g:netrw_dirhist_3='/home/gb/dma/dma/dma-server'
+let g:netrw_dirhist_4='/home/gb/dma/dma/dma-server/src/main/resources'
+let g:netrw_dirhist_5='/home/gb/dma/dma'
+let g:netrw_dirhist_6='/home/gb/dma/dma/dma-server'
+let g:netrw_dirhist_7='/home/gb/dma/dma/dma-server/src/main/java/com/hp/hpl/dma/actionimpl'

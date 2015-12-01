@@ -182,7 +182,7 @@ if has('gui_running')
   set guioptions=Ace  
   if has("gui_running")
     if has("gui_gtk2")
-      set guifont=Monospace\ 18
+      set guifont=Monospace\ 20
     elseif has("gui_macvim")
       set guifont=Monaco:h24
     endif
